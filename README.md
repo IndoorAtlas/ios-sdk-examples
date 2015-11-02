@@ -8,6 +8,9 @@ http://docs.indooratlas.com/ios/
 
 https://indooratlas-ltd.bintray.com/indooratlas-ios-sdk/
 
+Unzip the SDK zip and drag and drop IndoorAtlas.framework to the project.
+When "Choose options for adding these files:" dialog pops ups, tick "Copy items if needed" box.
+
 ### What is new in SDK 2.x
 
 New API modeled after iOS Core Location.
