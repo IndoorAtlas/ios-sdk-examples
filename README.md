@@ -6,7 +6,7 @@ http://docs.indooratlas.com/ios/
 
 ### IndoorAtlas Framework download
 
-https://indooratlas-ltd.bintray.com/indooratlas-ios-sdk/
+https://bintray.com/indooratlas-ltd/indooratlas-ios-sdk/indooratlas-ios-sdk/view
 
 Unzip the SDK zip and drag and drop IndoorAtlas.framework to the project.
 When "Choose options for adding these files:" dialog pops ups, tick "Copy items if needed" box.
@@ -30,12 +30,6 @@ Positioning sessions may now span multiple floors, building sections, or even ve
 * iOS automatic floor plan recognition is not always reliable. If recommended to set floor plan id directly when possible.
 * Google maps overlay example and Image view example might be unable to fetch the floor plan image if only available image is marked as private.
 * Floor level information is currently not set in IALocation.
-
-### End of life notices
-
-In April of this year at version 1.4 release, we announced end of support for SDK version 0.7 and will be shutting down 0.7 servers during October.
-
-Versions 1.3 and 1.4 will continue to be supported until further notice, although we strongly encourage updating apps to use the new 2.0 SDK version due to improved performance. Our commitment to support previous major version extends for a minimum of six months from each end of life notice, and we will be contacting developers using versions 1.x separately to discuss upgrade timelines.
 
 ## Changelog
 
