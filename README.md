@@ -6,7 +6,7 @@ http://docs.indooratlas.com/ios/
 
 ### IndoorAtlas Framework download
 
-https://indooratlas-ltd.bintray.com/iOS/
+https://indooratlas-ltd.bintray.com/indooratlas-ios-sdk/
 
 ### What is new in SDK 2.x
 
