@@ -31,14 +31,11 @@
 /**
  * Authenticate to IndoorAtlas services and request location updates
  */
-- (void)authenticateAndRequestLocation
+- (void)requestLocation
 {
     // Create IALocationManager and point delegate to receiver
-    self.manager = [IALocationManager new];
+    self.manager = [IALocationManager sharedInstance];
     self.manager.delegate = self;
-
-    // Set IndoorAtlas API key and secret
-    [self.manager setApiKey:kAPIKey andSecret:kAPISecret];
 
     // Optionally initial location
     IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
@@ -49,9 +46,16 @@
 }
 
 #pragma mark boilerplate
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self authenticateAndRequestLocation];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self requestLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.manager stopUpdatingLocation];
+    self.manager.delegate = nil;
+    self.manager = nil;
 }
 
 @end

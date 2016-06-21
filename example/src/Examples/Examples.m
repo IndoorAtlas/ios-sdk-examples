@@ -8,36 +8,40 @@
 #import "AppleMapsOverlayViewController.h"
 #import "ImageViewController.h"
 #import "ConsoleViewController.h"
+#import "BeaconsViewController.h"
 
 @implementation Examples
 
 + (NSArray *)loadSections {
-  return @[ @"Positioning"];
+    return @[ @"Positioning"];
 }
 
 + (NSArray *)loadDemos {
-  NSArray *mapDemos =
-  @[[self newDemo:[AppleMapsViewController class]
-        withTitle:@"Apple Maps"
-   andDescription:nil],
-    [self newDemo:[AppleMapsOverlayViewController class]
-        withTitle:@"Apple Maps Overlay"
-   andDescription:nil],
-    [self newDemo:[ImageViewController class]
-        withTitle:@"Image View"
-   andDescription:nil],
-    [self newDemo:[ConsoleViewController class]
-        withTitle:@"Console Prints"
-   andDescription:nil],
-  ];
-
-  return @[mapDemos];
+    NSArray *mapDemos =
+    @[[self newDemo:[AppleMapsViewController class]
+          withTitle:@"Apple Maps"
+     andDescription:nil],
+      [self newDemo:[AppleMapsOverlayViewController class]
+          withTitle:@"Apple Maps Overlay"
+     andDescription:nil],
+      [self newDemo:[ImageViewController class]
+          withTitle:@"Image View"
+     andDescription:nil],
+      [self newDemo:[ConsoleViewController class]
+          withTitle:@"Console Prints"
+     andDescription:nil],
+      [self newDemo:[BeaconsViewController class]
+          withTitle:@"iBeacons"
+     andDescription:nil],
+      ];
+    
+    return @[mapDemos];
 }
 
 + (NSDictionary *)newDemo:(Class) class
                 withTitle:(NSString *)title
            andDescription:(NSString *)description {
-  return [[NSDictionary alloc] initWithObjectsAndKeys:class, @"controller",
-          title, @"title", description, @"description", nil];
+    return [[NSDictionary alloc] initWithObjectsAndKeys:class, @"controller",
+            title, @"title", description, @"description", nil];
 }
 @end

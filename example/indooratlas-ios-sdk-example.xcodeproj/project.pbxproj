@@ -17,6 +17,7 @@
 		49A11F231B2965BB0040D562 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F221B2965BB0040D562 /* Security.framework */; };
 		49A11F251B2965C20040D562 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F241B2965C20040D562 /* CFNetwork.framework */; };
 		49B1A9F21B9F2E8C003D957D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */; };
+		BC75A0511D1921290032634C /* BeaconsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75A0501D1921290032634C /* BeaconsViewController.m */; };
 		C30C65501BD8B23700EE8340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654B1BD8B23700EE8340 /* main.m */; };
 		C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654D1BD8B23700EE8340 /* SDKDemoAppDelegate.m */; };
 		C30C65521BD8B23700EE8340 /* SDKDemoMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654F1BD8B23700EE8340 /* SDKDemoMasterViewController.m */; };
@@ -41,6 +42,8 @@
 		49A11F221B2965BB0040D562 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		49A11F241B2965C20040D562 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BC75A04F1D1921290032634C /* BeaconsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BeaconsViewController.h; path = Examples/BeaconsViewController.h; sourceTree = "<group>"; };
+		BC75A0501D1921290032634C /* BeaconsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BeaconsViewController.m; path = Examples/BeaconsViewController.m; sourceTree = "<group>"; };
 		C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sdk-examples-Info.plist"; sourceTree = "<group>"; };
 		C30C654B1BD8B23700EE8340 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C30C654C1BD8B23700EE8340 /* SDKDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKDemoAppDelegate.h; sourceTree = "<group>"; };
@@ -145,6 +148,8 @@
 				C30C65551BD8B26900EE8340 /* AppleMapsOverlayViewController.m */,
 				C30C65561BD8B26900EE8340 /* AppleMapsViewController.h */,
 				C30C65571BD8B26900EE8340 /* AppleMapsViewController.m */,
+				BC75A04F1D1921290032634C /* BeaconsViewController.h */,
+				BC75A0501D1921290032634C /* BeaconsViewController.m */,
 				C30C65581BD8B26900EE8340 /* ConsoleViewController.h */,
 				C30C65591BD8B26900EE8340 /* ConsoleViewController.m */,
 				C30C655A1BD8B26900EE8340 /* Examples.h */,
@@ -225,6 +230,7 @@
 				C30C65501BD8B23700EE8340 /* main.m in Sources */,
 				C30C65611BD8B26900EE8340 /* Examples.m in Sources */,
 				C30C655F1BD8B26900EE8340 /* AppleMapsViewController.m in Sources */,
+				BC75A0511D1921290032634C /* BeaconsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

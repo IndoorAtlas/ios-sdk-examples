@@ -4,6 +4,7 @@
 
 #import "SDKDemoAppDelegate.h"
 #import "SDKDemoMasterViewController.h"
+#import "IndoorAtlas/IALocationManager.h"
 #import "ApiKeys.h"
 
 @implementation SDKDemoAppDelegate {
@@ -11,6 +12,15 @@
 }
 
 @synthesize window = _window;
+
+- (void)authenticateIALocationManager
+{
+    // Get IALocationManager shared instance
+    IALocationManager *manager = [IALocationManager sharedInstance];
+
+    // Set IndoorAtlas API key and secret
+    [manager setApiKey:kAPIKey andSecret:kAPISecret];
+}
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -25,7 +35,15 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                                        reason:[NSString stringWithFormat:format, bundleId]
                                      userInfo:nil];
     }
-
+    if ([kFloorplanId length] == 0 ) {
+        // Blow up if floor plan id has not yet been set.
+        // Setting floor plan id in iOS platform is recommended.
+        // Due to platform restrictions, it is not always possible to automatically detect floor plan.
+        // Remove this check if you want to test the automatic detection.
+        @throw [NSException exceptionWithName:@"SDKDemoAppDelegate"
+                                       reason:@"Configure floor plan id inside ApiKeys.h"
+                                     userInfo:nil];
+    }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     SDKDemoMasterViewController *master = [[SDKDemoMasterViewController alloc] init];
     master.appDelegate = self;
@@ -37,6 +55,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.navigationController.navigationBar.translucent = NO;
 
     self.window.rootViewController = self.navigationController;
+
+    [self authenticateIALocationManager];
 
     [self.window makeKeyAndVisible];
     return YES;

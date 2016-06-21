@@ -18,10 +18,10 @@
 
 @implementation AppleMapsViewController
 
--(MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
-    MKCircleView *circleView = [[MKCircleView alloc] initWithCircle:(MKCircle *)overlay];
-    circleView.fillColor =  [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
-    return circleView;
+-(MKOverlayRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
+    MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
+    circleRenderer.fillColor =  [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
+    return circleRenderer;
 }
 
 - (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
@@ -50,11 +50,9 @@
 /**
  * Authenticate to IndoorAtlas services and request location updates
  */
-- (void)authenticateAndRequestLocation
+- (void)requestLocation
 {
-    locationManager = [IALocationManager new];
-    // Set IndoorAtlas API key and secret
-    [locationManager setApiKey:kAPIKey andSecret:kAPISecret];
+    locationManager = [IALocationManager sharedInstance];
 
     // Optionally set initial location
     IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
@@ -69,14 +67,24 @@
 
 #pragma mark MapsView boilerplate
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     map = [MKMapView new];
     [self.view addSubview:map];
     map.frame = self.view.bounds;
     map.delegate = self;
     
-    [self authenticateAndRequestLocation];
+    [self requestLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [locationManager stopUpdatingLocation];
+    locationManager.delegate = nil;
+    locationManager = nil;
+    map.delegate = nil;
+    [map removeFromSuperview];
+    map = nil;
 }
 
 @end

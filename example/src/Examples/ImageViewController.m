@@ -3,7 +3,10 @@
 #import "ImageViewController.h"
 #import "../ApiKeys.h"
 
-@interface ImageViewController () <IALocationManagerDelegate>
+@interface ImageViewController () <IALocationManagerDelegate> {
+    id<IAFetchTask> floorPlanFetch;
+    id<IAFetchTask> imageFetch;
+}
 @property (nonatomic, strong) IAFloorPlan *floorPlan;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIView *circle;
@@ -38,6 +41,9 @@
 
 - (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
 {
+    if (region.type != kIARegionTypeFloorPlan)
+        return;
+
     [self fetchFloorplanWithId:region.identifier];
 }
 
@@ -51,18 +57,26 @@
 - (void)fetchFloorplanWithId:(NSString*)floorplanId
 {
     __weak typeof(self) weakSelf = self;
-    [self.resourceManager fetchFloorPlanWithId:floorplanId andCompletion:^(IAFloorPlan *floorplan, NSError *error) {
+    if (floorPlanFetch != nil) {
+        [floorPlanFetch cancel];
+        floorPlanFetch = nil;
+    }
+    if (imageFetch != nil) {
+        [imageFetch cancel];
+        imageFetch = nil;
+    }
+
+    floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:floorplanId andCompletion:^(IAFloorPlan *floorplan, NSError *error) {
        if (error) {
-           NSLog(@"opps, there was error during floorplan fetch: %@", error);
-           [weakSelf performSelector:@selector(fetchFloorplanWithId:) withObject:floorplanId afterDelay:2.0f];
+           NSLog(@"Error during floorplan fetch: %@", error);
            return;
        }
 
        NSLog(@"fetched floorplan with id: %@", floorplanId);
 
-       [self.resourceManager fetchFloorPlanImageWithId:floorplanId andCompletion:^(NSData *data, NSError *error) {
+       imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
            if (error) {
-               NSLog(@"opps, there was error during floorplan image fetch: %@", error);
+               NSLog(@"Error during floorplan image fetch: %@", error);
                return;
            }
 
@@ -78,6 +92,7 @@
            weakSelf.imageView.frame = CGRectMake(0, 0, floorplan.width, floorplan.height);
            weakSelf.imageView.transform = t;
            weakSelf.imageView.center = weakSelf.view.center;
+           weakSelf.imageView.backgroundColor = [UIColor whiteColor];
 
            // 1 meters in pixels
            float size = floorplan.meterToPixelConversion;
@@ -91,14 +106,11 @@
 /**
  * Authenticate to IndoorAtlas services
  */
-- (void)authenticateAndFetchFloorplan
+- (void)requestLocation
 {
     // Create IALocationManager and point delegate to receiver
     self.manager = [IALocationManager new];
     self.manager.delegate = self;
-
-    // Set IndoorAtlas API key and secret
-    [self.manager setApiKey:kAPIKey andSecret:kAPISecret];
 
     // Optionally set initial location
     IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
@@ -113,17 +125,29 @@
 
 #pragma mark ImageViewContoller boilerplate
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.imageView = [UIImageView new];
     [self.view addSubview:self.imageView];
 
+    self.imageView.frame = self.view.frame;
     self.circle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
     self.circle.backgroundColor = [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
     self.circle.hidden = YES;
     [self.imageView addSubview:self.circle];
 
-    [self authenticateAndFetchFloorplan];
+    [self requestLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    [self.manager stopUpdatingLocation];
+    self.manager.delegate = nil;
+    self.manager = nil;
+    self.resourceManager = nil;
+    self.imageView.image = nil;
+    self.imageView = nil;
 }
 
 @end

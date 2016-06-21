@@ -2,8 +2,7 @@
  * IndoorAtlas SDK Apple Maps Overlay example
  */
 
-#import <IndoorAtlas/IALocationManager.h>
-#import <IndoorAtlas/IAResourceManager.h>
+#import "IndoorAtlas/IndoorAtlas.h"
 #import <MapKit/MapKit.h>
 #import "AppleMapsOverlayViewController.h"
 #import "../ApiKeys.h"
@@ -25,9 +24,9 @@
 {
     self = [super init];
     if (self != nil) {
-
+        
         _center = floorPlan.center;
-
+        
         double mapPointsPerMeter = MKMapPointsPerMeterAtLatitude(self.center.latitude);
         double widthMapPoints = floorPlan.widthMeters * mapPointsPerMeter;
         double heightMapPoints = floorPlan.heightMeters * mapPointsPerMeter;
@@ -49,12 +48,12 @@
 
 @end
 
-@interface MapOverlayView : MKOverlayView
+@interface MapOverlayRenderer : MKOverlayRenderer
 @property (strong, readwrite) IAFloorPlan *floorPlan;
 @property (strong, readwrite) UIImage *image;
 @end
 
-@implementation MapOverlayView
+@implementation MapOverlayRenderer
 
 - (void)drawMapRect:(MKMapRect)mapRect
           zoomScale:(MKZoomScale)zoomScale
@@ -62,7 +61,7 @@
 {
     MKMapRect theMapRect = [self.overlay boundingMapRect];
     CGRect theRect = [self rectForMapRect:theMapRect];
-
+    
     // Rotate around top left corner
     CGContextRotateCTM(ctx, degreesToRadians(self.floorPlan.bearing));
     
@@ -74,52 +73,54 @@
 @end
 
 @interface AppleMapsOverlayViewController () <MKMapViewDelegate, IALocationManagerDelegate> {
-    IALocationManager *locationManager;
-    IAResourceManager *resourceManager;
-
+    MapOverlay *mapOverlay;
+    MapOverlayRenderer *mapOverlayRenderer;
+    id<IAFetchTask> floorPlanFetch;
+    id<IAFetchTask> imageFetch;
+    
     UIImage *fpImage;
     NSData *image;
-    MKMapView *map;
     MKMapCamera *camera;
     Boolean updateCamera;
 }
 @property (strong) MKCircle *circle;
-@property (strong) MapOverlay *mapOverlay;
 @property (strong) IAFloorPlan *floorPlan;
+@property (nonatomic, strong) IAResourceManager *resourceManager;
 @end
 
 @implementation AppleMapsOverlayViewController
+@synthesize map;
 
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
-{
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if (overlay == self.circle) {
-        MKCircleView *circleView = [[MKCircleView alloc] initWithCircle:(MKCircle *)overlay];
-        circleView.fillColor =  [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
-        return circleView;
-    } else if (overlay == self.mapOverlay) {
-        MapOverlay *mapOverlay = overlay;
-        MapOverlayView *mapOverlayView = [[MapOverlayView alloc] initWithOverlay:mapOverlay];
-        mapOverlayView.floorPlan = self.floorPlan;
-        mapOverlayView.image = fpImage;
-        return mapOverlayView;
+        MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
+        circleRenderer.fillColor = [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
+        circleRenderer.alpha = 1.f;
+        return circleRenderer;
+    } else if (overlay == mapOverlay) {
+        mapOverlay = overlay;
+        mapOverlayRenderer = [[MapOverlayRenderer alloc] initWithOverlay:mapOverlay];
+        mapOverlayRenderer.floorPlan = self.floorPlan;
+        mapOverlayRenderer.image = fpImage;
+        return mapOverlayRenderer;
     } else {
-        MKCircleView *circleView = [[MKCircleView alloc] initWithCircle:(MKCircle *)overlay];
-        circleView.fillColor =  [UIColor colorWithRed:1 green:0 blue:0 alpha:1.0];
-        return circleView;
+        MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
+        circleRenderer.fillColor =  [UIColor colorWithRed:1 green:0 blue:0 alpha:1.0];
+        return circleRenderer;
     }
 }
 
 - (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
 {
     (void)manager;
-
+    
     CLLocation *l = [(IALocation*)locations.lastObject location];
     NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
-
+    
     if (self.circle != nil) {
         [map removeOverlay:self.circle];
     }
-
+    
     self.circle = [MKCircle circleWithCenterCoordinate:l.coordinate radius:1];
     [map addOverlay:self.circle];
     if (updateCamera) {
@@ -127,7 +128,7 @@
         if (camera == nil) {
             // Ask Map Kit for a camera that looks at the location from an altitude of 300 meters above the eye coordinates.
             camera = [MKMapCamera cameraLookingAtCenterCoordinate:l.coordinate fromEyeCoordinate:l.coordinate eyeAltitude:300];
-
+            
             // Assign the camera to your map view.
             map.camera = camera;
         } else {
@@ -138,69 +139,151 @@
 
 - (void)changeMapOverlay
 {
-    if (self.mapOverlay != nil)
-        [map removeOverlay:self.mapOverlay];
+    if (mapOverlay != nil)
+        [map removeOverlay:mapOverlay];
+    
+    mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan];
+    [map addOverlay:mapOverlay];
+}
 
-    self.mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan];
-    [map addOverlay:self.mapOverlay];
+- (NSString*)cacheFile {
+    //get the caches directory path
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachesDirectory = [paths objectAtIndex:0];
+    BOOL isDir = NO;
+    NSError *error;
+    // create caches directory if it does not exist
+    if (! [[NSFileManager defaultManager] fileExistsAtPath:cachesDirectory isDirectory:&isDir] && isDir == NO) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:cachesDirectory withIntermediateDirectories:NO attributes:nil error:&error];
+    }
+    NSString *plistName = [cachesDirectory stringByAppendingPathComponent:@"fpcache.plist"];
+    return plistName;
+}
+
+// Stores floor plan meta data to NSCachesDirectory
+- (void)saveFloorPlan:(IAFloorPlan *)object key:(NSString *)key {
+    NSString *cFile = [self cacheFile];
+    NSMutableDictionary *cache;
+    if ([[NSFileManager defaultManager] fileExistsAtPath:cFile]) {
+        cache = [NSMutableDictionary dictionaryWithContentsOfFile:cFile];
+    } else {
+        cache = [NSMutableDictionary new];
+    }
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
+    [cache setObject:data forKey:key];
+    [cache writeToFile:cFile atomically:YES];
+}
+
+// Loads floor plan meta data from NSCachesDirectory
+// Remember that if you edit the floor plan position
+// from www.indooratlas.com then you must fetch the IAFloorPlan again from server
+- (IAFloorPlan *)loadFloorPlanWithId:(NSString *)key {
+    NSDictionary *cache = [NSMutableDictionary dictionaryWithContentsOfFile:[self cacheFile]];
+    NSData *data = [cache objectForKey:key];
+    IAFloorPlan *object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    return object;
+}
+
+// Image is fetched again each time. It can be cached on device.
+- (void)fetchImage:(IAFloorPlan*)floorPlan
+{
+    if (imageFetch != nil) {
+        [imageFetch cancel];
+        imageFetch = nil;
+    }
+    __weak typeof(self) weakSelf = self;
+    imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorPlan.imageUrl andCompletion:^(NSData *imageData, NSError *error){
+        if (!error) {
+            fpImage = [[UIImage alloc] initWithData:imageData];
+            [weakSelf changeMapOverlay];
+        }
+    }];
 }
 
 - (void)indoorLocationManager:(IALocationManager*)manager didEnterRegion:(IARegion*)region
 {
     (void) manager;
+    if (region.type != kIARegionTypeFloorPlan)
+        return;
+    
     NSLog(@"Floor plan changed to %@", region.identifier);
     updateCamera = true;
-
-    [resourceManager fetchFloorPlanWithId:region.identifier andCompletion:^(IAFloorPlan *floorPlan, NSError *error) {
-        if (!error) {
-            self.floorPlan =floorPlan;
-            [resourceManager fetchFloorPlanImageWithId:region.identifier andCompletion:^(NSData *imageData, NSError *error){
-                 __weak typeof(self) weakSelf = self;
-                fpImage = [[UIImage alloc] initWithData:imageData];
-                [weakSelf changeMapOverlay];
-            }];
-        } else {
-            NSLog(@"Error fetching floorplan");
-        }
-    }];
+    if (floorPlanFetch != nil) {
+        [floorPlanFetch cancel];
+        floorPlanFetch = nil;
+    }
+    
+    IAFloorPlan *fp = [self loadFloorPlanWithId:region.identifier];
+    if (fp != nil) {
+        // use stored floor plan meta data
+        self.floorPlan = fp;
+        [self fetchImage:fp];
+    } else {
+        __weak typeof(self) weakSelf = self;
+        floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:region.identifier andCompletion:^(IAFloorPlan *floorPlan, NSError *error) {
+            if (!error) {
+                self.floorPlan = floorPlan;
+                [weakSelf saveFloorPlan:floorPlan key:region.identifier];
+                [weakSelf fetchImage:floorPlan];
+            } else {
+                NSLog(@"There was error during floorplan fetch: %@", error);
+            }
+        }];
+    }
 }
 
 /**
- * Authenticate to IndoorAtlas services and request location updates
+ * Request location updates
  */
-- (void)authenticateAndRequestLocation
+- (void)requestLocation
 {
-    locationManager = [IALocationManager new];
-    // Set IndoorAtlas API key and secret
-    [locationManager setApiKey:kAPIKey andSecret:kAPISecret];
-
+    self.locationManager = [IALocationManager sharedInstance];
+    
     // Optionally set initial location
     IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    locationManager.location = location;
-
+    self.locationManager.location = location;
+    
     // set delegate to receive location updates
-    locationManager.delegate = self;
-
+    self.locationManager.delegate = self;
+    
     // Create floor plan manager
-    resourceManager = [IAResourceManager resourceManagerWithLocationManager:locationManager];
-
+    self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.locationManager];
+    
     // Request location updates
-    [locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingLocation];
 }
 
 
 #pragma mark MapsOverlayView boilerplate
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     updateCamera = true;
-
+    
     map = [MKMapView new];
     [self.view addSubview:map];
     map.frame = self.view.bounds;
     map.delegate = self;
     
-    [self authenticateAndRequestLocation];
+    [self requestLocation];
 }
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
+    self.resourceManager = nil;
+    mapOverlayRenderer.image = nil;
+    fpImage = nil;
+    mapOverlayRenderer = nil;
+    
+    map.delegate = nil;
+    [map removeFromSuperview];
+    map = nil;
+}
+
 @end
 
