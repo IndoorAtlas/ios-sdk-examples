@@ -26,13 +26,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Start all the necessary tasks to monitor and range beacons
-    self.beaconFound = NO;
-    self.mapLocationManager = [[CLLocationManager alloc] init];
-    self.mapLocationManager.delegate = self;
-    
-    NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:BeaconUUID];
-    [self registerBeaconRegionWithUUID:UUID andIdentifier:BeaconIdentifier];
+    if (BeaconUUID.length == 0 || BeaconIdentifier.length == 0 || majorId.length == 0 || minorId.length == 0 || latitudeOfBeacon.length == 0 || longitudeOfBeacon.length == 0) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"iBeacon information not set"
+                                                        message:@"Set iBeacon information in ApiKeys.h"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+        UINavigationController *navigationController = self.navigationController;
+        [navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        // Start all the necessary tasks to monitor and range beacons
+        self.beaconFound = NO;
+        self.mapLocationManager = [[CLLocationManager alloc] init];
+        self.mapLocationManager.delegate = self;
+        
+        NSUUID *UUID = [[NSUUID alloc] initWithUUIDString:BeaconUUID];
+        [self registerBeaconRegionWithUUID:UUID andIdentifier:BeaconIdentifier];
+    }
 }
 
 // Register beacon region
