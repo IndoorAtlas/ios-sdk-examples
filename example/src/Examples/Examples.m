@@ -10,6 +10,7 @@
 #import "ConsoleViewController.h"
 #import "BeaconsViewController.h"
 #import "ShareLocationViewController.h"
+#import "../ApiKeys.h"
 
 @implementation Examples
 
@@ -18,8 +19,8 @@
 }
 
 + (NSArray *)loadDemos {
-    NSArray *mapDemos =
-    @[[self newDemo:[AppleMapsViewController class]
+    NSMutableArray *mapDemos =
+    [@[[self newDemo:[AppleMapsViewController class]
           withTitle:@"Apple Maps"
      andDescription:nil],
       [self newDemo:[AppleMapsOverlayViewController class]
@@ -33,11 +34,14 @@
      andDescription:nil],
       [self newDemo:[BeaconsViewController class]
           withTitle:@"iBeacons"
-     andDescription:nil],
-      [self newDemo:[ShareLocationViewController class]
-          withTitle:@"Share Location"
-     andDescription:nil],
-      ];
+     andDescription:nil]
+      ] mutableCopy];
+    
+    if ([kPubNubPublishKey length] > 0 && [kPubNubSubscribeKey length] > 0) {
+        [mapDemos addObject:[self newDemo:[ShareLocationViewController class]
+                                withTitle:@"Share Location"
+                           andDescription:nil]];
+    }
     
     return @[mapDemos];
 }

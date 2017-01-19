@@ -285,7 +285,7 @@ NSString* const kUserColorKey   = @"color";
  * Empty implementation since we're not interested about precence events
  */
 - (void)client:(PubNub *)client didReceivePresenceEvent:(PNPresenceEventResult *)event {
-    NSLog(@"%s: %ld", __PRETTY_FUNCTION__, event.statusCode);
+    NSLog(@"%s: %ld", __PRETTY_FUNCTION__, (long)event.statusCode);
 }
 
 /*
@@ -379,17 +379,7 @@ NSString* const kUserColorKey   = @"color";
  */
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
-    if ([pubNubPublishKey length] == 0 || [pubNubSubscribeKey length] == 0) {
-        // Blow up if pubNubPublishKey & pubNubSubscribeKey has not yet been set.
-        NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
-        NSString *format = @"Configure pubNubPublishKey and pubNubSubscribeKey inside ApiKeys.h for your "
-        @"bundle `%@`";
-        @throw [NSException exceptionWithName:@"SDKDemoAppDelegate"
-                                       reason:[NSString stringWithFormat:format, bundleId]
-                                     userInfo:nil];
-    }
-    
+        
     self.imageView = [UIImageView new];
     self.imageView.frame = self.view.frame;
     self.imageView.backgroundColor = [UIColor whiteColor];
@@ -407,8 +397,8 @@ NSString* const kUserColorKey   = @"color";
     self.scrollView.maximumZoomScale = 4.0;
     self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewInset, kScrollViewInset, kScrollViewInset, kScrollViewInset);
     
-    PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:pubNubPublishKey
-                                                                     subscribeKey:pubNubSubscribeKey];
+    PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:kPubNubPublishKey
+                                                                     subscribeKey:kPubNubSubscribeKey];
     configuration.uuid = [[NSUserDefaults standardUserDefaults] stringForKey:kUUIDkey];
     BOOL updateUUID = (configuration.uuid.length == 0);
     self.client = [PubNub clientWithConfiguration:configuration];
@@ -472,71 +462,46 @@ NSString* const kUserColorKey   = @"color";
     
     labelFrame.origin = CGPointZero;
     
-    UILabel* nameTitleLabel = [[UILabel alloc] init];
-    nameTitleLabel.frame = labelFrame;
-    nameTitleLabel.textColor = [UIColor blackColor];
-    nameTitleLabel.textAlignment = NSTextAlignmentCenter;
-    nameTitleLabel.backgroundColor = [UIColor whiteColor];
-    nameTitleLabel.userInteractionEnabled = NO;
-    nameTitleLabel.text = @"Username";
-    nameTitleLabel.adjustsFontSizeToFitWidth = YES;
-    nameTitleLabel.layer.borderColor = [UIColor blackColor].CGColor;
-    nameTitleLabel.layer.borderWidth = kLabelBorderSize;
-    [self.view addSubview:nameTitleLabel];
+    [self.view addSubview:[self defaultLabelWithText:@"Username" andFrame:labelFrame]];
     
     labelFrame.origin.y += labelFrame.size.height;
     
-    self.nameLabel = [[UILabel alloc] init];
-    self.nameLabel.frame = labelFrame;
-    self.nameLabel.textColor = [UIColor blackColor];
-    self.nameLabel.textAlignment = NSTextAlignmentCenter;
-    self.nameLabel.backgroundColor = [UIColor whiteColor];
-    self.nameLabel.userInteractionEnabled = NO;
-    self.nameLabel.text = self.user.username;
-    self.nameLabel.adjustsFontSizeToFitWidth = YES;
-    self.nameLabel.layer.borderColor = [UIColor blackColor].CGColor;
-    self.nameLabel.layer.borderWidth = kLabelBorderSize;
+    self.nameLabel = [self defaultLabelWithText:self.user.username andFrame:labelFrame];
     [self.view addSubview:self.nameLabel];
     
     labelFrame.origin.x += screenRect.size.width / 2;
     labelFrame.origin.y = CGPointZero.y;
     
-    UILabel* channelTitleLabel = [[UILabel alloc] init];
-    channelTitleLabel.frame = labelFrame;
-    channelTitleLabel.textColor = [UIColor blackColor];
-    channelTitleLabel.textAlignment = NSTextAlignmentCenter;
-    channelTitleLabel.backgroundColor = [UIColor whiteColor];
-    channelTitleLabel.userInteractionEnabled = NO;
-    channelTitleLabel.text = @"Channel name";
-    channelTitleLabel.adjustsFontSizeToFitWidth = YES;
-    channelTitleLabel.layer.borderColor = [UIColor blackColor].CGColor;
-    channelTitleLabel.layer.borderWidth = kLabelBorderSize;
-    [self.view addSubview:channelTitleLabel];
+    [self.view addSubview:[self defaultLabelWithText:@"Channel name" andFrame:labelFrame]];
     
     labelFrame.origin.y += labelFrame.size.height;
     
-    self.channelLabel = [[UILabel alloc] init];
-    self.channelLabel.frame = labelFrame;
-    self.channelLabel.textColor = [UIColor blackColor];
-    self.channelLabel.textAlignment = NSTextAlignmentCenter;
-    self.channelLabel.backgroundColor = [UIColor whiteColor];
-    self.channelLabel.adjustsFontSizeToFitWidth = YES;
-    self.channelLabel.userInteractionEnabled = NO;
-    self.channelLabel.layer.borderColor = [UIColor blackColor].CGColor;
-    self.channelLabel.layer.borderWidth = kLabelBorderSize;
-    
     NSString *storedChannel = [[NSUserDefaults standardUserDefaults] stringForKey:kChannelNameKey];
-    if (storedChannel.length > 0) {
-        self.channelLabel.text = storedChannel;
-    } else {
-        self.channelLabel.text = @"LocTestChannel";
+    if (storedChannel.length == 0) {
+        storedChannel = @"LocTestChannel";
     }
-    self.channelLabel.adjustsFontSizeToFitWidth = YES;
+    self.channelLabel = [self defaultLabelWithText:storedChannel andFrame:labelFrame];
     [self.view addSubview:self.channelLabel];
     
     [self requestLocation];
     
     self.timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeOut:) userInfo:nil repeats:YES];
+}
+
+/*
+ * Create default text label
+ */
+-(UILabel*) defaultLabelWithText:(NSString*) text andFrame:(CGRect) frame {
+    UILabel* label = [[UILabel alloc] initWithFrame:frame];
+    label.textColor = [UIColor blackColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor whiteColor];
+    label.adjustsFontSizeToFitWidth = YES;
+    label.userInteractionEnabled = NO;
+    label.layer.borderColor = [UIColor blackColor].CGColor;
+    label.layer.borderWidth = kLabelBorderSize;
+    label.text = text;
+    return label;
 }
 
 /*

@@ -2,6 +2,6 @@ target 'sdk-examples' do
 source 'https://github.com/IndoorAtlas/CocoaPods-Specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 pod 'IndoorAtlas'
-platform :ios, '7.0' # For PudNud
+platform :ios, '7.0' # For PubNub
 pod "PubNub", "~> 4"
 end

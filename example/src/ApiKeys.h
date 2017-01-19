@@ -23,7 +23,7 @@ static NSString *latitudeOfBeacon = @"";
 static NSString *longitudeOfBeacon = @"";
 
 // Edit your own PubNub credentials here, keys can be generated at <https://www.pubnub.com>
-static NSString *pubNubPublishKey   = @"";
-static NSString *pubNubSubscribeKey = @"";
+static NSString *kPubNubPublishKey   = @"";
+static NSString *kPubNubSubscribeKey = @"";
 
 #endif
