@@ -9,6 +9,7 @@
 #import "ImageViewController.h"
 #import "ConsoleViewController.h"
 #import "BeaconsViewController.h"
+#import "ShareLocationViewController.h"
 
 @implementation Examples
 
@@ -32,6 +33,9 @@
      andDescription:nil],
       [self newDemo:[BeaconsViewController class]
           withTitle:@"iBeacons"
+     andDescription:nil],
+      [self newDemo:[ShareLocationViewController class]
+          withTitle:@"Share Location"
      andDescription:nil],
       ];
     
