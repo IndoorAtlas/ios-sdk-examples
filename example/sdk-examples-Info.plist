@@ -48,5 +48,6 @@
 	<string>Platform location requested for better indoor positioning experience.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>For better indoor positioning</string>
+	<!--FABRIC-->
 </dict>
 </plist>
