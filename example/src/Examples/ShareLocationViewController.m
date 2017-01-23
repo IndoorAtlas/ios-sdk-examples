@@ -400,13 +400,12 @@ NSString* const kUserColorKey   = @"color";
     PNConfiguration *configuration = [PNConfiguration configurationWithPublishKey:kPubNubPublishKey
                                                                      subscribeKey:kPubNubSubscribeKey];
     configuration.uuid = [[NSUserDefaults standardUserDefaults] stringForKey:kUUIDkey];
-    BOOL updateUUID = (configuration.uuid.length == 0);
-    self.client = [PubNub clientWithConfiguration:configuration];
-    
-    if (updateUUID) {
-        [[NSUserDefaults standardUserDefaults] setObject:[self.client uuid] forKey:kUUIDkey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    // PubNub's iOS & Android SDK doesn't generate UUID, so we need to generate it ourself
+    if (configuration.uuid.length == 0) {
+        NSUUID *UUID = [NSUUID UUID];
+        configuration.uuid = [UUID UUIDString];
     }
+    self.client = [PubNub clientWithConfiguration:configuration];
     
     [self.client addListener:self];
     
