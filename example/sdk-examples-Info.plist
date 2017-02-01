@@ -44,7 +44,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Platform location requested for better indoor positioning experience.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>For better indoor positioning</string>
