@@ -35,15 +35,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                                        reason:[NSString stringWithFormat:format, bundleId]
                                      userInfo:nil];
     }
-    if ([kFloorplanId length] == 0 ) {
-        // Blow up if floor plan id has not yet been set.
-        // Setting floor plan id in iOS platform is recommended.
-        // Due to platform restrictions, it is not always possible to automatically detect floor plan.
-        // Remove this check if you want to test the automatic detection.
-        @throw [NSException exceptionWithName:@"SDKDemoAppDelegate"
-                                       reason:@"Configure floor plan id inside ApiKeys.h"
-                                     userInfo:nil];
-    }
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     SDKDemoMasterViewController *master = [[SDKDemoMasterViewController alloc] init];
     master.appDelegate = self;

@@ -8,7 +8,7 @@
 #import "AppleMapsOverlayViewController.h"
 #import "ImageViewController.h"
 #import "ConsoleViewController.h"
-#import "BeaconsViewController.h"
+#import "RegionViewController.h"
 #import "ShareLocationViewController.h"
 #import "../ApiKeys.h"
 
@@ -32,9 +32,9 @@
       [self newDemo:[ConsoleViewController class]
           withTitle:@"Console Prints"
      andDescription:nil],
-      [self newDemo:[BeaconsViewController class]
-          withTitle:@"iBeacons"
-     andDescription:nil]
+       [self newDemo:[RegionViewController class]
+           withTitle:@"Regions"
+      andDescription:nil],
       ] mutableCopy];
     
     if ([kPubNubPublishKey length] > 0 && [kPubNubSubscribeKey length] > 0) {

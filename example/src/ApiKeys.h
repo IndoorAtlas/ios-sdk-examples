@@ -13,15 +13,6 @@ static NSString *kAPISecret = @"";
 // Floor plan id is same as "FloorplanId" at the <https://app.indooratlas.com/locations>
 static NSString *kFloorplanId = @"";
 
-// Beacon ID, major and minor. Also the location of a beacon
-// These are for the iBeacon example and require a beacon to work
-static NSString *BeaconUUID = @"";
-static NSString *BeaconIdentifier = @"";
-static NSString *majorId = @"";
-static NSString *minorId = @"";
-static NSString *latitudeOfBeacon = @"";
-static NSString *longitudeOfBeacon = @"";
-
 // Edit your own PubNub credentials here, keys can be generated at <https://www.pubnub.com>
 static NSString *kPubNubPublishKey   = @"";
 static NSString *kPubNubSubscribeKey = @"";
