@@ -193,6 +193,11 @@
 			attributes = {
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = IndoorAtlas;
+				TargetAttributes = {
+					494D6CBD18DC8A44004AA8E1 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 494D6CB918DC8A44004AA8E1 /* Build configuration list for PBXProject "indooratlas-ios-sdk-example" */;
 			compatibilityVersion = "Xcode 3.2";
