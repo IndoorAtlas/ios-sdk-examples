@@ -68,6 +68,7 @@ NSString* const kUserColorKey   = @"color";
 @property (nonatomic, strong) ShareLocationUser *user;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSTimer* timer;
+@property (nonatomic, strong) UIActivityIndicatorView* activityIndicator;
 @end
 
 @implementation ShareLocationViewController
@@ -143,6 +144,7 @@ NSString* const kUserColorKey   = @"color";
  * You will need api key and secret to fetch resources.
  */
 - (void)fetchFloorplanWithId:(NSString*)floorplanId {
+    [self.activityIndicator startAnimating];
     __weak typeof(self) weakSelf = self;
     if (floorPlanFetch != nil) {
         [floorPlanFetch cancel];
@@ -166,7 +168,7 @@ NSString* const kUserColorKey   = @"color";
                 NSLog(@"Error during floorplan image fetch: %@", error);
                 return;
             }
-            
+            self.scrollView.zoomScale = 1.0;
             UIImage *image = [UIImage imageWithData:data];
             [self.imageView setImage:image];
             self.imageView.frame = CGRectMake(0, 0, [image size].width, [image size].height);
@@ -178,6 +180,7 @@ NSString* const kUserColorKey   = @"color";
             float zoomScale = MIN(zoomWidth, zoomHeight);
             self.scrollView.zoomScale = self.scrollView.minimumZoomScale = zoomScale;
             [self.scrollView setContentOffset:CGPointMake(0, -kScrollViewInset)];
+            [self.activityIndicator stopAnimating];
         }];
         
         weakSelf.floorPlan = floorplan;
@@ -364,7 +367,8 @@ NSString* const kUserColorKey   = @"color";
 /*
  * Cancel the timer and stop requesting location and PubNub messages
  */
--(void)dealloc {
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [self.timer invalidate];
     self.timer = nil;
     [self.manager stopUpdatingLocation];
@@ -484,7 +488,15 @@ NSString* const kUserColorKey   = @"color";
     
     [self requestLocation];
     
-    self.timer =  [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeOut:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeOut:) userInfo:nil repeats:YES];
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityIndicator.transform = CGAffineTransformMakeScale(1.5, 1.5);
+    CGRect frame = self.activityIndicator.frame;
+    frame.origin = CGPointMake(screenRect.size.width/2 - frame.size.width/2, screenRect.size.height/2 - frame.size.height/2);
+    self.activityIndicator.frame = frame;
+    [self.view addSubview:self.activityIndicator];
+    [self.activityIndicator startAnimating];
 }
 
 /*
