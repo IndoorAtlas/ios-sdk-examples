@@ -51,8 +51,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self authenticateIALocationManager];
 
     [self.window makeKeyAndVisible];
+
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]] ;
+    }
+
     return YES;
 }
-
 
 @end
