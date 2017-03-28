@@ -1,5 +1,6 @@
 /**
  * IndoorAtlas SDK Apple Maps Overlay example
+ * Copyright 2017 Seppo Tomperi <seppo.tomperi@indooratlas.com>
  */
 
 #import "IndoorAtlas/IndoorAtlas.h"
@@ -10,29 +11,25 @@
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
 @interface MapOverlay : NSObject <MKOverlay>
-- (id)initWithFloorPlan:(IAFloorPlan*)floorPlan;
+- (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated;
 - (MKMapRect)boundingMapRect;
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property CLLocationCoordinate2D center;
 @property MKMapRect rect;
-@property CGAffineTransform p2w;
+
 @end
 
 @implementation MapOverlay
 
-- (id)initWithFloorPlan:(IAFloorPlan *)floorPlan
+- (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated
 {
     self = [super init];
     if (self != nil) {
         
         _center = floorPlan.center;
-        
-        double mapPointsPerMeter = MKMapPointsPerMeterAtLatitude(self.center.latitude);
-        double widthMapPoints = floorPlan.widthMeters * mapPointsPerMeter;
-        double heightMapPoints = floorPlan.heightMeters * mapPointsPerMeter;
         MKMapPoint topLeft = MKMapPointForCoordinate(floorPlan.topLeft);
-        _rect = MKMapRectMake(topLeft.x, topLeft.y,
-                              widthMapPoints,heightMapPoints);
+        _rect = MKMapRectMake(topLeft.x + rotated.origin.x, topLeft.y + rotated.origin.y,
+                              rotated.size.width, rotated.size.height);
     }
     return self;
 }
@@ -43,14 +40,15 @@
 }
 
 - (MKMapRect)boundingMapRect {
-    return self.rect;
+    return _rect;
 }
 
 @end
 
 @interface MapOverlayRenderer : MKOverlayRenderer
-@property (strong, readwrite) IAFloorPlan *floorPlan;
+@property (nonatomic, strong, readwrite) IAFloorPlan *floorPlan;
 @property (strong, readwrite) UIImage *image;
+@property CGRect rotated;
 @end
 
 @implementation MapOverlayRenderer
@@ -59,14 +57,15 @@
           zoomScale:(MKZoomScale)zoomScale
           inContext:(CGContextRef)ctx
 {
-    MKMapRect theMapRect = [self.overlay boundingMapRect];
-    CGRect theRect = [self rectForMapRect:theMapRect];
-    
+    double mapPointsPerMeter = MKMapPointsPerMeterAtLatitude(self.floorPlan.center.latitude);
+    CGRect rect = CGRectMake(0, 0, self.floorPlan.widthMeters * mapPointsPerMeter, self.floorPlan.heightMeters * mapPointsPerMeter);
+
+    CGContextTranslateCTM(ctx, -_rotated.origin.x, -_rotated.origin.y);
     // Rotate around top left corner
     CGContextRotateCTM(ctx, degreesToRadians(self.floorPlan.bearing));
     
     UIGraphicsPushContext(ctx);
-    [_image drawInRect:theRect blendMode:kCGBlendModeNormal alpha:1.0];
+    [_image drawInRect:rect blendMode:kCGBlendModeNormal alpha:1.0];
     UIGraphicsPopContext();
 }
 
@@ -86,6 +85,7 @@
 @property (strong) MKCircle *circle;
 @property (strong) IAFloorPlan *floorPlan;
 @property (nonatomic, strong) IAResourceManager *resourceManager;
+@property CGRect rotated;
 @end
 
 @implementation AppleMapsOverlayViewController
@@ -100,6 +100,7 @@
     } else if (overlay == mapOverlay) {
         mapOverlay = overlay;
         mapOverlayRenderer = [[MapOverlayRenderer alloc] initWithOverlay:mapOverlay];
+        mapOverlayRenderer.rotated = self.rotated;
         mapOverlayRenderer.floorPlan = self.floorPlan;
         mapOverlayRenderer.image = fpImage;
         return mapOverlayRenderer;
@@ -141,9 +142,28 @@
 {
     if (mapOverlay != nil)
         [map removeOverlay:mapOverlay];
-    
-    mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan];
+
+    double mapPointsPerMeter = MKMapPointsPerMeterAtLatitude(self.floorPlan.center.latitude);
+    double widthMapPoints = self.floorPlan.widthMeters * mapPointsPerMeter;
+    double heightMapPoints = self.floorPlan.heightMeters * mapPointsPerMeter;
+    CGRect cgRect = CGRectMake(0, 0, widthMapPoints, heightMapPoints);
+    double a = degreesToRadians(self.floorPlan.bearing);
+    self.rotated = CGRectApplyAffineTransform(cgRect, CGAffineTransformMakeRotation(a));
+
+    mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan andRotatedRect:self.rotated];
     [map addOverlay:mapOverlay];
+
+    // Enable to show red circles on floorplan corners
+#if 0
+    MKCircle *topLeft = [MKCircle circleWithCenterCoordinate:_floorPlan.topLeft radius:5];
+    [map addOverlay:topLeft];
+
+    MKCircle *topRight = [MKCircle circleWithCenterCoordinate:_floorPlan.topRight radius:5];
+    [map addOverlay:topRight];
+
+    MKCircle *bottomLeft = [MKCircle circleWithCenterCoordinate:_floorPlan.bottomLeft radius:5];
+    [map addOverlay:bottomLeft];
+#endif
 }
 
 - (NSString*)cacheFile {
