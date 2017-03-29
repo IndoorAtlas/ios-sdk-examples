@@ -10,6 +10,7 @@
 #import "ConsoleViewController.h"
 #import "RegionViewController.h"
 #import "ShareLocationViewController.h"
+#import "BackgroundViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -34,6 +35,9 @@
      andDescription:nil],
        [self newDemo:[RegionViewController class]
            withTitle:@"Regions"
+      andDescription:nil],
+       [self newDemo:[BackgroundViewController class]
+           withTitle:@"Background"
       andDescription:nil],
       ] mutableCopy];
     

@@ -27,6 +27,7 @@
 		C30C65601BD8B26900EE8340 /* ConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C65591BD8B26900EE8340 /* ConsoleViewController.m */; };
 		C30C65611BD8B26900EE8340 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655B1BD8B26900EE8340 /* Examples.m */; };
 		C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655D1BD8B26900EE8340 /* ImageViewController.m */; };
+		C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */; };
 		C3AC85121BD8B8C500E17837 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AC85111BD8B8C500E17837 /* SystemConfiguration.framework */; };
 		C3AC85131BD8B8CC00E17837 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DB3CA61BA15A4C0048FD81 /* MapKit.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,8 @@
 		C30C655D1BD8B26900EE8340 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageViewController.m; path = Examples/ImageViewController.m; sourceTree = "<group>"; };
 		C3442F161BA1746A00BE1CF5 /* ApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
 		C38C89121BE1FCCB0008B4DE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		C39CEB331E855F5500BEEDC3 /* BackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackgroundViewController.h; path = Examples/BackgroundViewController.h; sourceTree = "<group>"; };
+		C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundViewController.m; path = Examples/BackgroundViewController.m; sourceTree = "<group>"; };
 		C3AC85111BD8B8C500E17837 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C3DB3CA61BA15A4C0048FD81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -147,6 +150,8 @@
 		C30C65531BD8B24400EE8340 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				C39CEB331E855F5500BEEDC3 /* BackgroundViewController.h */,
+				C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */,
 				C30320A11E42107F0075ACF1 /* RegionViewController.h */,
 				C30320A21E42107F0075ACF1 /* RegionViewController.m */,
 				933320E91E30AAE200804C34 /* ShareLocationViewController.h */,
@@ -235,6 +240,7 @@
 				C30C65521BD8B23700EE8340 /* SDKDemoMasterViewController.m in Sources */,
 				C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */,
 				C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */,
+				C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */,
 				C30C65601BD8B26900EE8340 /* ConsoleViewController.m in Sources */,
 				C30C655E1BD8B26900EE8340 /* AppleMapsOverlayViewController.m in Sources */,
 				933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */,

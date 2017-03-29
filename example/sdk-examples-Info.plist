@@ -28,6 +28,16 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Platform location requested for better indoor positioning experience.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>For better indoor positioning</string>
+<!--FABRIC-->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>location</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -44,10 +54,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Platform location requested for better indoor positioning experience.</string>
-	<key>NSMotionUsageDescription</key>
-	<string>For better indoor positioning</string>
-	<!--FABRIC-->
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>For better indoor positioning experience.</string>
 </dict>
 </plist>
