@@ -35,6 +35,19 @@ const double requiredAccuracy = 100.0; // meters
 
 @implementation BackgroundViewController
 
++ (NSString *)backgroundTimeRemaining
+{
+    UIApplication *app = [UIApplication sharedApplication];
+    NSString *backgroundTime;
+    if (app.backgroundTimeRemaining == DBL_MAX) {
+        backgroundTime = @"unlimited";
+    } else {
+        backgroundTime = [@(app.backgroundTimeRemaining) stringValue];
+    }
+
+    return backgroundTime;
+}
+
 #pragma mark IALocationManagerDelegate methods
 /**
  * Position packet handling from IndoorAtlasPositioner
@@ -50,17 +63,10 @@ const double requiredAccuracy = 100.0; // meters
     NSString * timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
     NSLog(@"IA location received %@: (lat,lon, accuracy): %f, %f  accuracy: %lf", timestamp, l.coordinate.latitude, l.coordinate.longitude, l.horizontalAccuracy);
 
-    UIApplication *app = [UIApplication sharedApplication];
-    NSString *backgroundTime;
-    if (app.backgroundTimeRemaining == DBL_MAX) {
-        backgroundTime = @"unlimited";
-    } else {
-        backgroundTime = [@(app.backgroundTimeRemaining) stringValue];
-    }
-    NSLog(@"background time remaining %@ seconds", backgroundTime);
+    NSLog(@"background time remaining %@ seconds", [BackgroundViewController backgroundTimeRemaining]);
 
     // Showing notification is only to see that application is still running and not required for background mode
-    [self showNotification:[NSString stringWithFormat:@"Coord: %lf, %lf acc: %lf bg time remaining %@", l.coordinate.latitude, l.coordinate.longitude, l.horizontalAccuracy, backgroundTime]];
+    [self showNotification:[NSString stringWithFormat:@"Coord: %lf, %lf acc: %lf bg time remaining %@", l.coordinate.latitude, l.coordinate.longitude, l.horizontalAccuracy, [BackgroundViewController backgroundTimeRemaining]]];
 
     // If location is accurate enough, stop location updates
     if (l.horizontalAccuracy < requiredAccuracy) {
@@ -90,15 +96,8 @@ const double requiredAccuracy = 100.0; // meters
 
 - (void)timeoutRequestingLocation
 {
-    UIApplication *app = [UIApplication sharedApplication];
-    NSString *backgroundTime;
-    if (app.backgroundTimeRemaining == DBL_MAX)
-        backgroundTime = @"Unlimited";
-    else {
-        backgroundTime = [NSString stringWithFormat:@"%lf", app.backgroundTimeRemaining];
-    }
     NSLog(@"Timeout, no location update within %lf seconds.",  locationUpdateTimeout);
-    NSLog(@"Background time remaining %@ seconds", backgroundTime);
+    NSLog(@"Background time remaining %@ seconds", [BackgroundViewController backgroundTimeRemaining]);
 
     [self.manager stopUpdatingLocation];
 }
