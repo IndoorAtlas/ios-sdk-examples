@@ -52,10 +52,10 @@ const double requiredAccuracy = 100.0; // meters
 
     UIApplication *app = [UIApplication sharedApplication];
     NSString *backgroundTime;
-    if (app.backgroundTimeRemaining == DBL_MAX)
+    if (app.backgroundTimeRemaining == DBL_MAX) {
         backgroundTime = @"unlimited";
-    else {
-        backgroundTime = [NSString stringWithFormat:@"%lf", app.backgroundTimeRemaining];
+    } else {
+        backgroundTime = [@(app.backgroundTimeRemaining) stringValue];
     }
     NSLog(@"background time remaining %@ seconds", backgroundTime);
 
@@ -148,6 +148,7 @@ const double requiredAccuracy = 100.0; // meters
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+    // These locations are not used at all
     NSLog(@"Received CLLocation");
 }
 
@@ -171,7 +172,6 @@ const double requiredAccuracy = 100.0; // meters
 - (void)showNotification:(NSString *)message
 {
     UILocalNotification *notification = [[UILocalNotification alloc]init];
-    notification.repeatInterval = NSCalendarUnitDay;
     [notification setAlertBody:message];
     [notification setFireDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     [notification setTimeZone:[NSTimeZone  defaultTimeZone]];
