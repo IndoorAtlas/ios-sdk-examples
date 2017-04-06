@@ -4,30 +4,30 @@
 #import "../ApiKeys.h"
 #import <PubNub/PubNub.h>
 
-const CGFloat kCircleAlpha  = 0.2;
-const CGFloat kDotAlpha     = 1.0;
-const CGFloat kCircleRadius = 50.0;
-const CGFloat kMinRadius    = 1.0;
-const CGFloat kDotSizeRatio = 20.0;
-const CGFloat kTextOffset   = 5.0;
-const CGFloat kTimeOutTime  = 5.0;
-const CGFloat kUsernameFontSize = 12.0;
-const CGFloat kLabelBorderSize  = 0.5;
-const CGFloat kScrollViewInset  = 100.0;
+static const CGFloat kCircleAlpha  = 0.2;
+static const CGFloat kDotAlpha     = 1.0;
+static const CGFloat kCircleRadius = 50.0;
+static const CGFloat kMinRadius    = 1.0;
+static const CGFloat kDotSizeRatio = 20.0;
+static const CGFloat kTextOffset   = 5.0;
+static const CGFloat kTimeOutTime  = 5.0;
+static const CGFloat kUsernameFontSize = 12.0;
+static const CGFloat kLabelBorderSize  = 0.5;
+static const CGFloat kScrollViewInset  = 100.0;
 
-const NSString* kSourceKey   = @"source";
-const NSString* kLocationKey = @"location";
-const NSString* kLatKey      = @"lat";
-const NSString* kLonKey      = @"lon";
-const NSString* kNameKey     = @"name";
-const NSString* kColorKey    = @"color";
-const NSString* kIdKey       = @"id";
-const NSString* kAccuracyKey = @"accuracy";
+static const NSString* kSourceKey   = @"source";
+static const NSString* kLocationKey = @"location";
+static const NSString* kLatKey      = @"lat";
+static const NSString* kLonKey      = @"lon";
+static const NSString* kNameKey     = @"name";
+static const NSString* kColorKey    = @"color";
+static const NSString* kIdKey       = @"id";
+static const NSString* kAccuracyKey = @"accuracy";
 
-NSString* const kChannelNameKey = @"channelName";
-NSString* const kUsernameKey    = @"username";
-NSString* const kUUIDkey        = @"uuid";
-NSString* const kUserColorKey   = @"color";
+static NSString* const kChannelNameKey = @"channelName";
+static NSString* const kUsernameKey    = @"username";
+static NSString* const kUUIDkey        = @"uuid";
+static NSString* const kUserColorKey   = @"color";
 
 @interface ShareLocationUser : NSObject
 @property (nonatomic, readonly, nonnull) NSString *uuid;
