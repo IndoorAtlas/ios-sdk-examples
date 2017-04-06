@@ -11,6 +11,7 @@
 #import "RegionViewController.h"
 #import "ShareLocationViewController.h"
 #import "BackgroundViewController.h"
+#import "OrientationViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -35,9 +36,12 @@
      andDescription:nil],
        [self newDemo:[RegionViewController class]
            withTitle:@"Regions"
-      andDescription:nil],
+     andDescription:nil],
        [self newDemo:[BackgroundViewController class]
            withTitle:@"Background"
+     andDescription:nil],
+       [self newDemo:[OrientationViewController class]
+           withTitle:@"Orientation"
       andDescription:nil],
       ] mutableCopy];
     

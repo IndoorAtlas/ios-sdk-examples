@@ -28,6 +28,11 @@
 		C30C65611BD8B26900EE8340 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655B1BD8B26900EE8340 /* Examples.m */; };
 		C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655D1BD8B26900EE8340 /* ImageViewController.m */; };
 		C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */; };
+		C3552B7D1E7BD8690060FB90 /* OrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */; };
+		C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3552B7C1E7BD8690060FB90 /* PanoramaView.m */; };
+		C3552B851E7BE8330060FB90 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3552B841E7BE8330060FB90 /* GLKit.framework */; };
+		C3552B871E7BE83C0060FB90 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3552B861E7BE83C0060FB90 /* OpenGLES.framework */; };
+		C3552B8C1E7BEF080060FB90 /* telescope_compass_2048.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3552B8B1E7BEF080060FB90 /* telescope_compass_2048.jpg */; };
 		C3AC85121BD8B8C500E17837 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AC85111BD8B8C500E17837 /* SystemConfiguration.framework */; };
 		C3AC85131BD8B8CC00E17837 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DB3CA61BA15A4C0048FD81 /* MapKit.framework */; };
 /* End PBXBuildFile section */
@@ -65,6 +70,13 @@
 		C30C655C1BD8B26900EE8340 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageViewController.h; path = Examples/ImageViewController.h; sourceTree = "<group>"; };
 		C30C655D1BD8B26900EE8340 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageViewController.m; path = Examples/ImageViewController.m; sourceTree = "<group>"; };
 		C3442F161BA1746A00BE1CF5 /* ApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
+		C3552B791E7BD8690060FB90 /* OrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrientationViewController.h; path = Examples/OrientationViewController.h; sourceTree = "<group>"; };
+		C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrientationViewController.m; path = Examples/OrientationViewController.m; sourceTree = "<group>"; };
+		C3552B7B1E7BD8690060FB90 /* PanoramaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PanoramaView.h; path = Examples/PanoramaView.h; sourceTree = "<group>"; };
+		C3552B7C1E7BD8690060FB90 /* PanoramaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PanoramaView.m; path = Examples/PanoramaView.m; sourceTree = "<group>"; };
+		C3552B841E7BE8330060FB90 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		C3552B861E7BE83C0060FB90 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C3552B8B1E7BEF080060FB90 /* telescope_compass_2048.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = telescope_compass_2048.jpg; path = images/telescope_compass_2048.jpg; sourceTree = SOURCE_ROOT; };
 		C38C89121BE1FCCB0008B4DE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C39CEB331E855F5500BEEDC3 /* BackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BackgroundViewController.h; path = Examples/BackgroundViewController.h; sourceTree = "<group>"; };
 		C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundViewController.m; path = Examples/BackgroundViewController.m; sourceTree = "<group>"; };
@@ -77,6 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3552B871E7BE83C0060FB90 /* OpenGLES.framework in Frameworks */,
+				C3552B851E7BE8330060FB90 /* GLKit.framework in Frameworks */,
 				31F7A84D1BE2420C003C5163 /* libz.dylib in Frameworks */,
 				C3AC85131BD8B8CC00E17837 /* MapKit.framework in Frameworks */,
 				C3AC85121BD8B8C500E17837 /* SystemConfiguration.framework in Frameworks */,
@@ -99,7 +113,8 @@
 			children = (
 				C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */,
 				494D6CF618DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets */,
-				494D6CF018DC8AAA004AA8E1 /* source */,
+				C3552B811E7BD8E60060FB90 /* Images */,
+				494D6CF018DC8AAA004AA8E1 /* Source */,
 				494D6CC018DC8A44004AA8E1 /* Frameworks */,
 				494D6CBF18DC8A44004AA8E1 /* Products */,
 			);
@@ -116,6 +131,8 @@
 		494D6CC018DC8A44004AA8E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C3552B861E7BE83C0060FB90 /* OpenGLES.framework */,
+				C3552B841E7BE8330060FB90 /* GLKit.framework */,
 				31F7A84C1BE2420C003C5163 /* libz.dylib */,
 				C38C89121BE1FCCB0008B4DE /* libz.tbd */,
 				C3AC85111BD8B8C500E17837 /* SystemConfiguration.framework */,
@@ -132,7 +149,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		494D6CF018DC8AAA004AA8E1 /* source */ = {
+		494D6CF018DC8AAA004AA8E1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				C30C65531BD8B24400EE8340 /* Examples */,
@@ -143,7 +160,7 @@
 				C30C654F1BD8B23700EE8340 /* SDKDemoMasterViewController.m */,
 				C3442F161BA1746A00BE1CF5 /* ApiKeys.h */,
 			);
-			name = source;
+			name = Source;
 			path = src;
 			sourceTree = "<group>";
 		};
@@ -152,6 +169,10 @@
 			children = (
 				C39CEB331E855F5500BEEDC3 /* BackgroundViewController.h */,
 				C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */,
+				C3552B791E7BD8690060FB90 /* OrientationViewController.h */,
+				C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */,
+				C3552B7B1E7BD8690060FB90 /* PanoramaView.h */,
+				C3552B7C1E7BD8690060FB90 /* PanoramaView.m */,
 				C30320A11E42107F0075ACF1 /* RegionViewController.h */,
 				C30320A21E42107F0075ACF1 /* RegionViewController.m */,
 				933320E91E30AAE200804C34 /* ShareLocationViewController.h */,
@@ -168,6 +189,15 @@
 				C30C655D1BD8B26900EE8340 /* ImageViewController.m */,
 			);
 			name = Examples;
+			sourceTree = "<group>";
+		};
+		C3552B811E7BD8E60060FB90 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C3552B8B1E7BEF080060FB90 /* telescope_compass_2048.jpg */,
+			);
+			name = Images;
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				494D6CF718DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets in Resources */,
+				C3552B8C1E7BEF080060FB90 /* telescope_compass_2048.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +270,8 @@
 			files = (
 				C30C65521BD8B23700EE8340 /* SDKDemoMasterViewController.m in Sources */,
 				C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */,
+				C3552B7D1E7BD8690060FB90 /* OrientationViewController.m in Sources */,
+				C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */,
 				C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */,
 				C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */,
 				C30C65601BD8B26900EE8340 /* ConsoleViewController.m in Sources */,
