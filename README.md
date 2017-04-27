@@ -1,4 +1,4 @@
-## IndoorAtlas SDK 2.3
+## IndoorAtlas SDK 2.4
 
 ### Quick Start with CocoaPods
 
@@ -16,9 +16,9 @@ http://docs.indooratlas.com/ios/
 
 http://docs.indooratlas.com/ios/getting-started.html
 
-### What is new in SDK 2.x
+### What is new in SDK 2.4
 
-http://docs.indooratlas.com/sdk-22-release-information.html
+http://docs.indooratlas.com/sdk-24-release-information.html
 
 #### Known issues
 
