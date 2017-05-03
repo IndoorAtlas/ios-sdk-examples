@@ -6,6 +6,7 @@
 #import <IndoorAtlas/IAResourceManager.h>
 #import <MapKit/MapKit.h>
 #import "AppleMapsViewController.h"
+#import "CalibrationIndicator.h"
 #import "../ApiKeys.h"
 
 @interface AppleMapsViewController () <MKMapViewDelegate, IALocationManagerDelegate> {
@@ -14,6 +15,7 @@
     MKMapCamera *camera;
     MKCircle *circle;
 }
+@property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @end
 
 @implementation AppleMapsViewController
@@ -47,6 +49,11 @@
     }
 }
 
+- (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
+{
+    [self.calibrationIndicator setCalibration:quality];
+}
+
 /**
  * Authenticate to IndoorAtlas services and request location updates
  */
@@ -58,8 +65,13 @@
     IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
     locationManager.location = location;
 
-    // set delegate to receive location updates
+    // Set delegate to receive location updates
     locationManager.delegate = self;
+
+    // Add calibration indicator to navigation bar
+    self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:locationManager.calibration];
+
+    [self.calibrationIndicator setCalibration:locationManager.calibration];
 
     // Request location updates
     [locationManager startUpdatingLocation];
