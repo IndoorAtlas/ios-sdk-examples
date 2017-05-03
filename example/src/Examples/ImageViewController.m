@@ -1,6 +1,7 @@
 #import <IndoorAtlas/IALocationManager.h>
 #import <IndoorAtlas/IAResourceManager.h>
 #import "ImageViewController.h"
+#import "CalibrationIndicator.h"
 #import "../ApiKeys.h"
 
 @interface ImageViewController () <IALocationManagerDelegate> {
@@ -12,6 +13,7 @@
 @property (nonatomic, strong) UIView *circle;
 @property (nonatomic, strong) IALocationManager *manager;
 @property (nonatomic, strong) IAResourceManager *resourceManager;
+@property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @end
 
 @implementation ImageViewController
@@ -45,6 +47,11 @@
         return;
 
     [self fetchFloorplanWithId:region.identifier];
+}
+
+- (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
+{
+    [self.calibrationIndicator setCalibration:quality];
 }
 
 #pragma mark IndoorAtlas API Usage
@@ -118,6 +125,11 @@
 
     // Create floor plan manager
     self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.manager];
+
+    // Add calibration indicator to navigation bar
+    self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:self.manager.calibration];
+
+    [self.calibrationIndicator setCalibration:self.manager.calibration];
 
     // Request location updates
     [self.manager startUpdatingLocation];

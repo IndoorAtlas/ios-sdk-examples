@@ -27,12 +27,13 @@
 		C30C65601BD8B26900EE8340 /* ConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C65591BD8B26900EE8340 /* ConsoleViewController.m */; };
 		C30C65611BD8B26900EE8340 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655B1BD8B26900EE8340 /* Examples.m */; };
 		C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655D1BD8B26900EE8340 /* ImageViewController.m */; };
-		C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */; };
+		C324CCD31EB9AE100056CD80 /* CalibrationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C324CCD21EB9AE100056CD80 /* CalibrationIndicator.m */; };
 		C3552B7D1E7BD8690060FB90 /* OrientationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */; };
 		C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3552B7C1E7BD8690060FB90 /* PanoramaView.m */; };
 		C3552B851E7BE8330060FB90 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3552B841E7BE8330060FB90 /* GLKit.framework */; };
 		C3552B871E7BE83C0060FB90 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3552B861E7BE83C0060FB90 /* OpenGLES.framework */; };
 		C3552B8C1E7BEF080060FB90 /* telescope_compass_2048.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3552B8B1E7BEF080060FB90 /* telescope_compass_2048.jpg */; };
+		C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */; };
 		C3AC85121BD8B8C500E17837 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3AC85111BD8B8C500E17837 /* SystemConfiguration.framework */; };
 		C3AC85131BD8B8CC00E17837 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DB3CA61BA15A4C0048FD81 /* MapKit.framework */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,8 @@
 		C30C655B1BD8B26900EE8340 /* Examples.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Examples.m; path = Examples/Examples.m; sourceTree = "<group>"; };
 		C30C655C1BD8B26900EE8340 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageViewController.h; path = Examples/ImageViewController.h; sourceTree = "<group>"; };
 		C30C655D1BD8B26900EE8340 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageViewController.m; path = Examples/ImageViewController.m; sourceTree = "<group>"; };
+		C324CCD11EB9AE100056CD80 /* CalibrationIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationIndicator.h; path = Examples/CalibrationIndicator.h; sourceTree = "<group>"; };
+		C324CCD21EB9AE100056CD80 /* CalibrationIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalibrationIndicator.m; path = Examples/CalibrationIndicator.m; sourceTree = "<group>"; };
 		C3442F161BA1746A00BE1CF5 /* ApiKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiKeys.h; sourceTree = "<group>"; };
 		C3552B791E7BD8690060FB90 /* OrientationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrientationViewController.h; path = Examples/OrientationViewController.h; sourceTree = "<group>"; };
 		C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrientationViewController.m; path = Examples/OrientationViewController.m; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 				C30C655B1BD8B26900EE8340 /* Examples.m */,
 				C30C655C1BD8B26900EE8340 /* ImageViewController.h */,
 				C30C655D1BD8B26900EE8340 /* ImageViewController.m */,
+				C324CCD11EB9AE100056CD80 /* CalibrationIndicator.h */,
+				C324CCD21EB9AE100056CD80 /* CalibrationIndicator.m */,
 			);
 			name = Examples;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 				C30C65501BD8B23700EE8340 /* main.m in Sources */,
 				C30C65611BD8B26900EE8340 /* Examples.m in Sources */,
 				C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */,
+				C324CCD31EB9AE100056CD80 /* CalibrationIndicator.m in Sources */,
 				C30C655F1BD8B26900EE8340 /* AppleMapsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,6 +7,7 @@
 #import <MapKit/MapKit.h>
 #import "AppleMapsOverlayViewController.h"
 #import "../ApiKeys.h"
+#import "CalibrationIndicator.h"
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
@@ -86,6 +87,7 @@
 @property (strong) IAFloorPlan *floorPlan;
 @property (nonatomic, strong) IAResourceManager *resourceManager;
 @property CGRect rotated;
+@property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @end
 
 @implementation AppleMapsOverlayViewController
@@ -254,27 +256,35 @@
     }
 }
 
+- (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
+{
+    [self.calibrationIndicator setCalibration:quality];
+}
+
 /**
  * Request location updates
  */
 - (void)requestLocation
 {
     self.locationManager = [IALocationManager sharedInstance];
-    
+
     // Optionally set initial location
     IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
     self.locationManager.location = location;
-    
+
     // set delegate to receive location updates
     self.locationManager.delegate = self;
-    
+
     // Create floor plan manager
     self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.locationManager];
-    
+
+    self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:self.locationManager.calibration];
+
+    [self.calibrationIndicator setCalibration:self.locationManager.calibration];
+
     // Request location updates
     [self.locationManager startUpdatingLocation];
 }
-
 
 #pragma mark MapsOverlayView boilerplate
 
