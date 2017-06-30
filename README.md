@@ -16,9 +16,9 @@ http://docs.indooratlas.com/ios/
 
 http://docs.indooratlas.com/ios/getting-started.html
 
-### What is new in SDK 2.4
+### What is new in SDK 2.5
 
-http://docs.indooratlas.com/sdk-24-release-information.html
+http://docs.indooratlas.com/sdk-25-beta-release-information.html
 
 #### Known issues
 
