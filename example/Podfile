@@ -1,7 +1,10 @@
-platform :ios, '7.0'
+platform :ios, '8.0'
+
+source 'https://github.com/CocoaPods/Specs.git'   
+source 'git@github.com:IndoorAtlas/CocoaPods-Specs.git'
 
 target 'sdk-examples' do
-pod 'IndoorAtlas', '~> 2.4.1'
+pod 'IndoorAtlas', '~> 2.5.0-beta'
 pod 'Fabric' # Not required
 pod 'Crashlytics' # Not required
 pod "PubNub", "~> 4" # For PubNub example
