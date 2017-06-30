@@ -1,4 +1,4 @@
-## IndoorAtlas SDK 2.4
+## IndoorAtlas SDK 2.5
 
 ### Quick Start with CocoaPods
 
