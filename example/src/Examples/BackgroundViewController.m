@@ -81,12 +81,6 @@ const double requiredAccuracy = 100.0; // meters
  */
 - (void)requestLocation
 {
-    // Create IALocationManager and point delegate to receiver
-    self.manager = [IALocationManager sharedInstance];
-    self.manager.delegate = self;
-
-    // Request location updates
-    [self.manager startUpdatingLocation];
 
     // shuts down IALocationManager if no location is received within timeout seconds
     self.locationTimer = [NSTimer scheduledTimerWithTimeInterval:locationUpdateTimeout target:self
@@ -189,6 +183,15 @@ const double requiredAccuracy = 100.0; // meters
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    // Create IALocationManager and point delegate to receiver
+    self.manager = [IALocationManager sharedInstance];
+    self.manager.delegate = self;
+    self.manager.desiredAccuracy = kIALocationAccuracyLow;
+    
+    // Request location updates
+    [self.manager startUpdatingLocation];
+    
     [self setupCLLocationManager];
     [self startBackgroundTask];
 

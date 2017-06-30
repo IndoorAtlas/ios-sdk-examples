@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31F7A84D1BE2420C003C5163 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F7A84C1BE2420C003C5163 /* libz.dylib */; };
+		44E05CF0C6069B8739DA268E /* libPods-sdk-examples.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EB9EB706428D8D3F61DFBF /* libPods-sdk-examples.a */; };
 		494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC118DC8A44004AA8E1 /* Foundation.framework */; };
 		494D6CC418DC8A44004AA8E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */; };
 		494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC518DC8A44004AA8E1 /* UIKit.framework */; };
@@ -17,6 +18,8 @@
 		49A11F231B2965BB0040D562 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F221B2965BB0040D562 /* Security.framework */; };
 		49A11F251B2965C20040D562 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F241B2965C20040D562 /* CFNetwork.framework */; };
 		49B1A9F21B9F2E8C003D957D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */; };
+		654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820C1F03B189006F71D4 /* GeofenceViewController.m */; };
+		654A82101F06353C006F71D4 /* LowPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820F1F06353C006F71D4 /* LowPowerViewController.m */; };
 		933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 933320EA1E30AAE200804C34 /* ShareLocationViewController.m */; };
 		C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30320A21E42107F0075ACF1 /* RegionViewController.m */; };
 		C30C65501BD8B23700EE8340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654B1BD8B23700EE8340 /* main.m */; };
@@ -50,8 +53,15 @@
 		49A11F221B2965BB0040D562 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		49A11F241B2965C20040D562 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		5FBEB7EE734060BE5687552A /* Pods-sdk-examples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-examples.release.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples.release.xcconfig"; sourceTree = "<group>"; };
+		60F2B605666BB6E3CA3461A0 /* Pods-sdk-examples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-examples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples.debug.xcconfig"; sourceTree = "<group>"; };
+		654A820C1F03B189006F71D4 /* GeofenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GeofenceViewController.m; path = Examples/GeofenceViewController.m; sourceTree = "<group>"; };
+		654A820E1F03B1AA006F71D4 /* GeofenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeofenceViewController.h; path = Examples/GeofenceViewController.h; sourceTree = "<group>"; };
+		654A820F1F06353C006F71D4 /* LowPowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LowPowerViewController.m; path = Examples/LowPowerViewController.m; sourceTree = "<group>"; };
+		654A82111F06357B006F71D4 /* LowPowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LowPowerViewController.h; path = Examples/LowPowerViewController.h; sourceTree = "<group>"; };
 		933320E91E30AAE200804C34 /* ShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareLocationViewController.h; path = Examples/ShareLocationViewController.h; sourceTree = "<group>"; };
 		933320EA1E30AAE200804C34 /* ShareLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareLocationViewController.m; path = Examples/ShareLocationViewController.m; sourceTree = "<group>"; };
+		97EB9EB706428D8D3F61DFBF /* libPods-sdk-examples.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk-examples.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30320A11E42107F0075ACF1 /* RegionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionViewController.h; path = Examples/RegionViewController.h; sourceTree = "<group>"; };
 		C30320A21E42107F0075ACF1 /* RegionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionViewController.m; path = Examples/RegionViewController.m; sourceTree = "<group>"; };
 		C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sdk-examples-Info.plist"; sourceTree = "<group>"; };
@@ -105,6 +115,7 @@
 				494D6CF918DC8ABC004AA8E1 /* IndoorAtlas.framework in Frameworks */,
 				494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */,
 				494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */,
+				44E05CF0C6069B8739DA268E /* libPods-sdk-examples.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,6 +131,7 @@
 				494D6CF018DC8AAA004AA8E1 /* Source */,
 				494D6CC018DC8A44004AA8E1 /* Frameworks */,
 				494D6CBF18DC8A44004AA8E1 /* Products */,
+				FFF83D5C7C65A62966FF9FB2 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +160,7 @@
 				494D6CC118DC8A44004AA8E1 /* Foundation.framework */,
 				494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */,
 				494D6CC518DC8A44004AA8E1 /* UIKit.framework */,
+				97EB9EB706428D8D3F61DFBF /* libPods-sdk-examples.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -176,6 +189,8 @@
 				C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */,
 				C3552B7B1E7BD8690060FB90 /* PanoramaView.h */,
 				C3552B7C1E7BD8690060FB90 /* PanoramaView.m */,
+				654A820C1F03B189006F71D4 /* GeofenceViewController.m */,
+				654A820E1F03B1AA006F71D4 /* GeofenceViewController.h */,
 				C30320A11E42107F0075ACF1 /* RegionViewController.h */,
 				C30320A21E42107F0075ACF1 /* RegionViewController.m */,
 				933320E91E30AAE200804C34 /* ShareLocationViewController.h */,
@@ -188,6 +203,8 @@
 				C30C65591BD8B26900EE8340 /* ConsoleViewController.m */,
 				C30C655A1BD8B26900EE8340 /* Examples.h */,
 				C30C655B1BD8B26900EE8340 /* Examples.m */,
+				654A82111F06357B006F71D4 /* LowPowerViewController.h */,
+				654A820F1F06353C006F71D4 /* LowPowerViewController.m */,
 				C30C655C1BD8B26900EE8340 /* ImageViewController.h */,
 				C30C655D1BD8B26900EE8340 /* ImageViewController.m */,
 				C324CCD11EB9AE100056CD80 /* CalibrationIndicator.h */,
@@ -205,6 +222,15 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		FFF83D5C7C65A62966FF9FB2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				60F2B605666BB6E3CA3461A0 /* Pods-sdk-examples.debug.xcconfig */,
+				5FBEB7EE734060BE5687552A /* Pods-sdk-examples.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -212,9 +238,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 494D6CEA18DC8A44004AA8E1 /* Build configuration list for PBXNativeTarget "sdk-examples" */;
 			buildPhases = (
+				67A0DC4E13A8AB6D43DEBE81 /* [CP] Check Pods Manifest.lock */,
 				494D6CBA18DC8A44004AA8E1 /* Sources */,
 				494D6CBB18DC8A44004AA8E1 /* Frameworks */,
 				494D6CBC18DC8A44004AA8E1 /* Resources */,
+				8D9AAF8A84B0492F3C76802A /* [CP] Embed Pods Frameworks */,
+				3EFC35DDAF914D3140A41C7D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -235,7 +264,8 @@
 				ORGANIZATIONNAME = IndoorAtlas;
 				TargetAttributes = {
 					494D6CBD18DC8A44004AA8E1 = {
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 8RT2RTCTMC;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -268,12 +298,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3EFC35DDAF914D3140A41C7D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		67A0DC4E13A8AB6D43DEBE81 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8D9AAF8A84B0492F3C76802A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		494D6CBA18DC8A44004AA8E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C30C65521BD8B23700EE8340 /* SDKDemoMasterViewController.m in Sources */,
+				654A82101F06353C006F71D4 /* LowPowerViewController.m in Sources */,
 				C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */,
 				C3552B7D1E7BD8690060FB90 /* OrientationViewController.m in Sources */,
 				C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */,
@@ -286,6 +365,7 @@
 				C30C65611BD8B26900EE8340 /* Examples.m in Sources */,
 				C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */,
 				C324CCD31EB9AE100056CD80 /* CalibrationIndicator.m in Sources */,
+				654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */,
 				C30C655F1BD8B26900EE8340 /* AppleMapsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,26 +456,34 @@
 		};
 		494D6CEB18DC8A44004AA8E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60F2B605666BB6E3CA3461A0 /* Pods-sdk-examples.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 8RT2RTCTMC;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "sdk-examples-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.indooratlas.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a6cdf473-35c5-4ef6-b626-e58869a4383d";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development (Running)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		494D6CEC18DC8A44004AA8E1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5FBEB7EE734060BE5687552A /* Pods-sdk-examples.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "sdk-examples-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.indooratlas.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
