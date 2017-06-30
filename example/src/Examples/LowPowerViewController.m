@@ -97,6 +97,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [locationManager stopUpdatingLocation];
+    locationManager.desiredAccuracy = kIALocationAccuracyBest;
     locationManager.delegate = nil;
     locationManager = nil;
     map.delegate = nil;
