@@ -1,13 +1,8 @@
-//
-//  LowPowerViewController.h
-//  indooratlas-ios-sdk-example
-//
-//  Created by Arno Solin on 30.6.2017.
-//  Copyright © 2017 IndoorAtlas. All rights reserved.
-//
+#import <UIKit/UIKit.h>
+#import "IndoorAtlas/IndoorAtlas.h"
+#import <MapKit/MapKit.h>
 
-#ifndef LowPowerViewController_h
-#define LowPowerViewController_h
-
-
-#endif /* LowPowerViewController_h */
+@interface LowPowerViewController : UIViewController
+@property (nonatomic, strong) IALocationManager *locationManager;
+@property (strong) MKMapView *map;
+@end
