@@ -1,5 +1,7 @@
 #import <UIKit/UIKit.h>
 
-@interface GeofenceViewController : UIViewController
+#import "AppleMapsOverlayViewController.h"
+
+@interface GeofenceViewController : AppleMapsOverlayViewController
 
 @end
