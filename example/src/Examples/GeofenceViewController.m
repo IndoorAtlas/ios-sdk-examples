@@ -27,7 +27,7 @@ static NSString *text[2] = {
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if (overlay == self.overlay) {
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
-        circleRenderer.fillColor = [UIColor colorWithRed:!self.inside green:self.inside blue:0 alpha:1.0];
+        circleRenderer.fillColor = [UIColor colorWithRed:!self.inside green:self.inside blue:0 alpha:0.7];
         return circleRenderer;
     }
     
@@ -62,19 +62,19 @@ static NSString *text[2] = {
     }
 }
 
-- (void)placeGeofence
+- (void)placeGeofence:(UITapGestureRecognizer *)recognizer
 {
-    IALocation *ialoc = self.locationManager.location;
-    CLLocation *clloc = ialoc.location;
+    CGPoint point = [recognizer locationInView:self.map];
+    CLLocationCoordinate2D tapLocation = [self.map convertPoint:point toCoordinateFromView:self.view];
     
-    const double lat_per_meter = 9e-06*cos(M_PI/180.0*clloc.coordinate.latitude);
+    const double lat_per_meter = 9e-06*cos(M_PI/180.0*tapLocation.latitude);
     const double lon_per_meter = 9e-06;
     
     // Add a circular geofence by adding points with a 5 m radius clockwise
     NSMutableArray<NSNumber*> *edges = [NSMutableArray array];
     for (int i = 1; i <= 10; i++) {
-        double lat = clloc.coordinate.latitude + 10*lat_per_meter*sin(-2*M_PI*i/10);
-        double lon = clloc.coordinate.longitude + 10*lon_per_meter*cos(-2*M_PI*i/10);
+        double lat = tapLocation.latitude + 10*lat_per_meter*sin(-2*M_PI*i/10);
+        double lon = tapLocation.longitude + 10*lon_per_meter*cos(-2*M_PI*i/10);
         [edges addObject:[NSNumber numberWithDouble:lat]];
         [edges addObject:[NSNumber numberWithDouble:lon]];
     }
@@ -86,9 +86,11 @@ static NSString *text[2] = {
         self.overlay = nil;
         self.geofence = nil;
     } else {
-        self.overlay = [MKCircle circleWithCenterCoordinate:clloc.coordinate radius:5.0];
+        self.inside = false;
+        self.overlay = [MKCircle circleWithCenterCoordinate:tapLocation radius:5.0];
         [self.map addOverlay:self.overlay];
-        
+
+        IALocation *ialoc = self.locationManager.location;
         self.geofence = [IAPolygonGeofence polygonGeofenceWithIdentifier:@"My geofence" andFloor:ialoc.floor edges:edges];
         
         [self.locationManager startMonitoringForGeofence:self.geofence];
@@ -100,7 +102,7 @@ static NSString *text[2] = {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(placeGeofence)];
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(placeGeofence:)];
     [self.view addGestureRecognizer:self.tap];
     self.label = [UILabel new];
     self.label.text = text[0];
