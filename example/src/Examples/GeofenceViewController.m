@@ -12,12 +12,12 @@ static NSString *text[2] = {
 };
 
 @interface AppleMapsOverlayViewController () <IALocationManagerDelegate, MKMapViewDelegate>
+@property (nonatomic, strong) UILabel *label;
 @end
 
 @interface GeofenceViewController () <IALocationManagerDelegate>
 @property (nonatomic, strong) IAGeofence *geofence;
 @property (nonatomic, strong) MKCircle *overlay;
-@property (nonatomic, strong) UILabel *label;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, assign) bool inside;
 @end
@@ -96,7 +96,12 @@ static NSString *text[2] = {
         [self.locationManager startMonitoringForGeofence:self.geofence];
     }
     
-    self.label.text = text[(self.geofence != nil)];
+    [self updateLabel];
+}
+
+- (void)updateLabel
+{
+    self.label.text = [NSString stringWithFormat:@"%@\n\nTrace ID:\n%@", text[(self.geofence != nil)], [self.locationManager.extraInfo objectForKey:kIATraceId]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,14 +109,10 @@ static NSString *text[2] = {
     [super viewWillAppear:animated];
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(placeGeofence:)];
     [self.view addGestureRecognizer:self.tap];
-    self.label = [UILabel new];
-    self.label.text = text[0];
-    self.label.textAlignment = NSTextAlignmentCenter;
-    self.label.numberOfLines = 0;
     CGRect frame = self.view.bounds;
-    frame.origin.y = (frame.size.height = 24 * 2) / 2;
+    frame.size.height = 24 * 6;
     self.label.frame = frame;
-    [self.view addSubview:self.label];
+    [self updateLabel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -119,8 +120,6 @@ static NSString *text[2] = {
     [super viewWillDisappear:animated];
     [self.view removeGestureRecognizer:self.tap];
     self.tap = nil;
-    [self.label removeFromSuperview];
-    self.label = nil;
     [self.locationManager stopMonitoringForGeofence:self.geofence];
     self.geofence = nil;
     self.overlay = nil;

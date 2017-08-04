@@ -88,6 +88,7 @@
 @property (nonatomic, strong) IAResourceManager *resourceManager;
 @property CGRect rotated;
 @property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
+@property (nonatomic, strong) UILabel *label;
 @end
 
 @implementation AppleMapsOverlayViewController
@@ -138,6 +139,8 @@
             camera.centerCoordinate = l.coordinate;
         }
     }
+    
+    [self updateLabel];
 }
 
 - (void)changeMapOverlay
@@ -286,6 +289,11 @@
     [self.locationManager startUpdatingLocation];
 }
 
+- (void)updateLabel
+{
+    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [self.locationManager.extraInfo objectForKey:kIATraceId]];
+}
+
 #pragma mark MapsOverlayView boilerplate
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -296,6 +304,15 @@
     [self.view addSubview:map];
     map.frame = self.view.bounds;
     map.delegate = self;
+    
+    self.label = [UILabel new];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    self.label.numberOfLines = 0;
+    self.label.font = [UIFont fontWithName:@"Trebuchet MS" size:14.0f];
+    CGRect frame = self.view.bounds;
+    frame.size.height = 24 * 2;
+    self.label.frame = frame;
+    [self.view addSubview:self.label];
     
     [self requestLocation];
 }
@@ -313,6 +330,9 @@
     map.delegate = nil;
     [map removeFromSuperview];
     map = nil;
+    
+    [self.label removeFromSuperview];
+    self.label = nil;
 }
 
 @end
