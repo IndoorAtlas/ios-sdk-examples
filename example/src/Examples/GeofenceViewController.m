@@ -7,7 +7,7 @@
 #import "../ApiKeys.h"
 
 static NSString *text[2] = {
-    @"Tap to add geofence to your current location",
+    @"Tap to add geofence",
     @"Tap to remove geofence",
 };
 
