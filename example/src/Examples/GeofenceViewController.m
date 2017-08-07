@@ -47,6 +47,9 @@ static NSString *text[2] = {
             [self.map removeOverlay:self.overlay];
             [self.map addOverlay:self.overlay];
         }
+        
+        // IAGeofence is subclass of IARegion
+        NSLog(@"Inside geofence %@", region);
     }
 }
 
@@ -58,6 +61,9 @@ static NSString *text[2] = {
         if (self.overlay) {
             [self.map removeOverlay:self.overlay];
             [self.map addOverlay:self.overlay];
+            
+            // IAGeofence is subclass of IARegion
+            NSLog(@"Outside geofence %@", region);
         }
     }
 }
