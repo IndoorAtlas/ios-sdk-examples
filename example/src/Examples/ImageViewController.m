@@ -14,6 +14,7 @@
 @property (nonatomic, strong) IALocationManager *manager;
 @property (nonatomic, strong) IAResourceManager *resourceManager;
 @property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
+@property (nonatomic, strong) UILabel *label;
 @end
 
 @implementation ImageViewController
@@ -39,6 +40,7 @@
     }
 
     self.circle.hidden = NO;
+    [self updateLabel];
 }
 
 - (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
@@ -120,8 +122,10 @@
     self.manager.delegate = self;
 
     // Optionally set initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    self.manager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.manager.location = location;
+    }
 
     // Create floor plan manager
     self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.manager];
@@ -133,6 +137,11 @@
 
     // Request location updates
     [self.manager startUpdatingLocation];
+}
+
+- (void)updateLabel
+{
+    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [self.manager.extraInfo objectForKey:kIATraceId]];
 }
 
 #pragma mark ImageViewContoller boilerplate
@@ -148,6 +157,16 @@
     self.circle.hidden = YES;
     [self.imageView addSubview:self.circle];
 
+    self.label = [UILabel new];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    self.label.numberOfLines = 0;
+    self.label.font = [UIFont fontWithName:@"Trebuchet MS" size:14.0f];
+    self.label.textColor = [UIColor whiteColor];
+    CGRect frame = self.view.bounds;
+    frame.size.height = 24 * 2;
+    self.label.frame = frame;
+    [self.view addSubview:self.label];
+    
     [self requestLocation];
 }
 
@@ -160,6 +179,8 @@
     self.resourceManager = nil;
     self.imageView.image = nil;
     self.imageView = nil;
+    [self.label removeFromSuperview];
+    self.label = nil;
 }
 
 @end

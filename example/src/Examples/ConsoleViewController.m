@@ -26,6 +26,7 @@
 }
 
 #pragma mark IALocationManagerDelegate methods
+
 /**
  * Position packet handling from IndoorAtlasPositioner
  */
@@ -43,6 +44,24 @@
     [self log:@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude];
 }
 
+/**
+ * Region enter event
+ */
+- (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
+{
+    (void)manager;
+    [self log:@"entered region: %@", region];
+}
+
+/**
+ * Region exit event
+ */
+- (void)indoorLocationManager:(IALocationManager *)manager didExitRegion:(IARegion *)region
+{
+    (void)manager;
+    [self log:@"exited region: %@", region];
+}
+
 #pragma mark IndoorAtlas API Usage
 
 /**
@@ -57,11 +76,15 @@
     self.manager.delegate = self;
 
     // Optionally initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    self.manager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.manager.location = location;
+        [self log:@"Give explicit location: %@", location];
+    }
 
     // Request location updates
     [self.manager startUpdatingLocation];
+    [self log:@"Start updating location"];
 }
 
 #pragma mark boilerplate

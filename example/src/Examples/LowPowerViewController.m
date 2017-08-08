@@ -17,6 +17,7 @@
     IAFloor *currentFloor;
 }
 @property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
+@property (nonatomic, strong) UILabel *label;
 @end
 
 @implementation LowPowerViewController
@@ -54,11 +55,18 @@
         // Assign the camera to your map view.
         map.camera = camera;
     }
+    
+    [self updateLabel];
 }
 
 - (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
 {
     [self.calibrationIndicator setCalibration:quality];
+}
+
+- (void)updateLabel
+{
+    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [locationManager.extraInfo objectForKey:kIATraceId]];
 }
 
 /**
@@ -69,8 +77,10 @@
     locationManager = [IALocationManager sharedInstance];
     
     // Optionally set initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    locationManager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        locationManager.location = location;
+    }
     
     // Set delegate to receive location updates
     locationManager.delegate = self;
@@ -90,6 +100,15 @@
     [self.view addSubview:map];
     map.frame = self.view.bounds;
     map.delegate = self;
+    
+    self.label = [UILabel new];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    self.label.numberOfLines = 0;
+    self.label.font = [UIFont fontWithName:@"Trebuchet MS" size:14.0f];
+    CGRect frame = self.view.bounds;
+    frame.size.height = 24 * 2;
+    self.label.frame = frame;
+    [self.view addSubview:self.label];
     
     [self requestLocation];
 }
