@@ -272,8 +272,10 @@
     self.locationManager = [IALocationManager sharedInstance];
 
     // Optionally set initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    self.locationManager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.locationManager.location = location;
+    }
 
     // set delegate to receive location updates
     self.locationManager.delegate = self;

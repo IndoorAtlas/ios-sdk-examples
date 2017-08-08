@@ -81,8 +81,10 @@
     self.manager.delegate = self;
 
     // Optionally initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    self.manager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.manager.location = location;
+    }
 
     // Request location updates
     [self.manager startUpdatingLocation];
