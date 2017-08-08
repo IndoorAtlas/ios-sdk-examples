@@ -20,6 +20,7 @@ static NSString *text[2] = {
 @property (nonatomic, strong) MKCircle *overlay;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, assign) bool inside;
+@property (nonatomic, strong) UILabel *bottomLabel;
 @end
 
 @implementation GeofenceViewController
@@ -107,7 +108,8 @@ static NSString *text[2] = {
 
 - (void)updateLabel
 {
-    self.label.text = [NSString stringWithFormat:@"%@\n\nTrace ID:\n%@", text[(self.geofence != nil)], [self.locationManager.extraInfo objectForKey:kIATraceId]];
+    self.label.text = [NSString stringWithFormat:@"%@", text[(self.geofence != nil)]];
+    self.bottomLabel.text = [NSString stringWithFormat:@"Trace ID: %@", [self.locationManager.extraInfo objectForKey:kIATraceId]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,9 +117,18 @@ static NSString *text[2] = {
     [super viewWillAppear:animated];
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(placeGeofence:)];
     [self.view addGestureRecognizer:self.tap];
+    self.label.font = [UIFont fontWithName:@"Trebuchet MS" size:18.0f];
+    
+    self.bottomLabel = [UILabel new];
+    self.bottomLabel.textAlignment = NSTextAlignmentCenter;
+    self.bottomLabel.numberOfLines = 0;
+    self.bottomLabel.font = [UIFont fontWithName:@"Trebuchet MS" size:14.0f];
     CGRect frame = self.view.bounds;
     frame.size.height = 24 * 6;
-    self.label.frame = frame;
+    frame.origin.y = self.view.bounds.size.height - frame.size.height - 14;
+    self.bottomLabel.frame = frame;
+    [self.view addSubview:self.bottomLabel];
+    
     [self updateLabel];
 }
 
@@ -127,6 +138,7 @@ static NSString *text[2] = {
     [self.view removeGestureRecognizer:self.tap];
     self.tap = nil;
     [self.locationManager stopMonitoringForGeofence:self.geofence];
+    [self.bottomLabel removeFromSuperview];
     self.geofence = nil;
     self.overlay = nil;
 }
