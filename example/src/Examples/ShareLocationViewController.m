@@ -196,8 +196,10 @@ static NSString* const kUserColorKey   = @"color";
     self.manager.delegate = self;
     
     // Optionally set initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    self.manager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.manager.location = location;
+    }
     
     // Create floor plan manager
     self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.manager];

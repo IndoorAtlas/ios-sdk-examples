@@ -62,7 +62,7 @@
     NSString *venue = self.venueId ? [NSString stringWithFormat:@"In venue<br>%@", self.venueId] : @"Outside mapped area";
     NSString *fp = self.floorplanId ? [NSString stringWithFormat:@"In floor plan<br>%@", self.floorplanId] : @"No floor plan";
 
-    NSString * htmlString = [NSString stringWithFormat:@"<div style=\"text-align:center\"><big><b>Region information</b><br><br>%@<br><br>%@<br><br><hr><b>Floor level</b><br><h1>%ld</h1>Certainty: %.1lf %%<br><br><b>Trace Id</b><br>%@<br></div></big>",venue, fp, (long)self.floorLevel, self.floorCertainty * 100, self.traceId];
+    NSString * htmlString = [NSString stringWithFormat:@"<div style=\"text-align:center\"><big><b>Region information</b><br><br>%@<br><br>%@<br><br><hr><b>Floor level</b><br><h1>%ld</h1>Certainty: %.1lf %%<br><br><b>Trace Id</b><br>%@<br></big></div>",venue, fp, (long)self.floorLevel, self.floorCertainty * 100, self.traceId];
 
     NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
 
@@ -81,8 +81,10 @@
     self.manager.delegate = self;
 
     // Optionally initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    self.manager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.manager.location = location;
+    }
 
     // Request location updates
     [self.manager startUpdatingLocation];
@@ -110,6 +112,8 @@
     [self.manager stopUpdatingLocation];
     self.manager.delegate = nil;
     self.manager = nil;
+    [_regionLabel removeFromSuperview];
+    _regionLabel = nil;
 }
 
 @end

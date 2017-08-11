@@ -5,40 +5,47 @@
 #import <IndoorAtlas/IALocationManager.h>
 #import <IndoorAtlas/IAResourceManager.h>
 #import <MapKit/MapKit.h>
-#import "AppleMapsViewController.h"
+#import "LowPowerViewController.h"
 #import "CalibrationIndicator.h"
 #import "../ApiKeys.h"
 
-@interface AppleMapsViewController () <MKMapViewDelegate, IALocationManagerDelegate> {
+@interface LowPowerViewController () <MKMapViewDelegate, IALocationManagerDelegate> {
     IALocationManager *locationManager;
     MKMapView *map;
     MKMapCamera *camera;
     MKCircle *circle;
+    IAFloor *currentFloor;
 }
 @property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @property (nonatomic, strong) UILabel *label;
 @end
 
-@implementation AppleMapsViewController
+@implementation LowPowerViewController
 
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
     MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
-    circleRenderer.fillColor =  [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
+
+    // Change circle color by floor level
+    const double hue = (double)(60*currentFloor.level % 360);
+    circleRenderer.fillColor =  [UIColor colorWithHue:hue/360.0 saturation:1.0 brightness:1.0 alpha:0.5];
+    
     return circleRenderer;
 }
 
 - (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
 {
     (void)manager;
-
-    CLLocation *l = [(IALocation*)locations.lastObject location];
+    
+    IALocation *ialoc = [locations lastObject];
+    CLLocation *l = [ialoc location];
+    currentFloor = ialoc.floor;
     NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
-
+    
     if (circle != nil) {
         [map removeOverlay:circle];
     }
-
-    circle = [MKCircle circleWithCenterCoordinate:l.coordinate radius:3];
+    
+    circle = [MKCircle circleWithCenterCoordinate:l.coordinate radius:l.horizontalAccuracy];
     [map addOverlay:circle];
     
     if (camera == nil) {
@@ -57,34 +64,32 @@
     [self.calibrationIndicator setCalibration:quality];
 }
 
+- (void)updateLabel
+{
+    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [locationManager.extraInfo objectForKey:kIATraceId]];
+}
+
 /**
  * Authenticate to IndoorAtlas services and request location updates
  */
 - (void)requestLocation
 {
     locationManager = [IALocationManager sharedInstance];
-
+    
     // Optionally set initial location
     if (kFloorplanId.length) {
         IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
         locationManager.location = location;
     }
-
+    
     // Set delegate to receive location updates
     locationManager.delegate = self;
-
-    // Add calibration indicator to navigation bar
-    self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:locationManager.calibration];
-
-    [self.calibrationIndicator setCalibration:locationManager.calibration];
-
+    
+    // Request low-power (and less accurate) locations
+    locationManager.desiredAccuracy = kIALocationAccuracyLow;
+    
     // Request location updates
     [locationManager startUpdatingLocation];
-}
-
-- (void)updateLabel
-{
-    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [locationManager.extraInfo objectForKey:kIATraceId]];
 }
 
 #pragma mark MapsView boilerplate
@@ -104,19 +109,19 @@
     frame.size.height = 24 * 2;
     self.label.frame = frame;
     [self.view addSubview:self.label];
+    
     [self requestLocation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [locationManager stopUpdatingLocation];
+    locationManager.desiredAccuracy = kIALocationAccuracyBest;
     locationManager.delegate = nil;
     locationManager = nil;
     map.delegate = nil;
     [map removeFromSuperview];
     map = nil;
-    [self.label removeFromSuperview];
-    self.label = nil;
 }
 
 @end

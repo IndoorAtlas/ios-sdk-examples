@@ -48,7 +48,7 @@
     CMQuaternion q = self.attitude.quaternion;
     CLLocationCoordinate2D c = self.location.location.coordinate;
 
-    NSString * htmlString = [NSString stringWithFormat:@"<font color=\"#ff0000\"><div style=\"text-align:center\"><big><b>Location</b><br>%lf,%lf<br><br><b>Orientation</b><br>%lf %lf %lf %lf<br><hr><b>Heading</b><br>%lf</div></big></font>", c.latitude, c.longitude, q.w, q.x, q.y, q.z, self.heading.trueHeading];
+    NSString * htmlString = [NSString stringWithFormat:@"<font color=\"#ff0000\"><div style=\"text-align:center\"><big><b>Location</b><br>%lf,%lf<br><br><b>Orientation</b><br>%lf %lf %lf %lf<br><hr><b>Heading</b><br>%lf<br/><br/><b>Trace ID</b><br/>%@</big></div></font>", c.latitude, c.longitude, q.w, q.x, q.y, q.z, self.heading.trueHeading, [self.manager.extraInfo objectForKey:kIATraceId]];
 
     NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
 
@@ -81,8 +81,10 @@
     self.manager.delegate = self;
 
     // Optionally initial location
-    IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-    self.manager.location = location;
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.manager.location = location;
+    }
 
     // Request location updates
     [self.manager startUpdatingLocation];
@@ -127,6 +129,10 @@
     [self.manager stopUpdatingLocation];
     self.manager.delegate = nil;
     self.manager = nil;
+    [panoramaView removeFromSuperview];
+    panoramaView = nil;
+    [_label removeFromSuperview];
+    _label = nil;
 }
 
 -(void) glkView:(GLKView *)view drawInRect:(CGRect)rect{
