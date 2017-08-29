@@ -1,5 +1,6 @@
 /**
- * IndoorAtlas SDK Apple Maps example
+ * IndoorAtlas SDK positioning example
+ * Copyright © IndoorAtlas.
  */
 
 #import <IndoorAtlas/IALocationManager.h>

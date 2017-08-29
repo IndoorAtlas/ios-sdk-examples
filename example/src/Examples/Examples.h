@@ -1,3 +1,8 @@
+/**
+ * IndoorAtlas SDK positioning example
+ * Copyright © IndoorAtlas.
+ */
+
 #import <Foundation/Foundation.h>
 
 @interface Examples : NSObject

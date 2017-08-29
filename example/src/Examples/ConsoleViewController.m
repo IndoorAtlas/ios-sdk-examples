@@ -1,6 +1,6 @@
 /**
  * IndoorAtlas SDK positioning example
- * Prints the received locations to debug console
+ * Copyright © IndoorAtlas.
  */
 
 #import <IndoorAtlas/IALocationManager.h>

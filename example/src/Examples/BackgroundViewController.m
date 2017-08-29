@@ -1,7 +1,6 @@
 /**
  * IndoorAtlas SDK positioning example
- * Periodically runs IndoorAtlas SDK at background
- * Copyright 2017 Seppo Tomperi <seppo.tomperi@indooratlas.com>
+ * Copyright © IndoorAtlas.
  */
 
 #import <IndoorAtlas/IALocationManager.h>

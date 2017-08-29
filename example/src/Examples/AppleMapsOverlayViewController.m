@@ -1,6 +1,6 @@
 /**
- * IndoorAtlas SDK Apple Maps Overlay example
- * Copyright 2017 Seppo Tomperi <seppo.tomperi@indooratlas.com>
+ * IndoorAtlas SDK positioning example
+ * Copyright © IndoorAtlas.
  */
 
 #import "IndoorAtlas/IndoorAtlas.h"

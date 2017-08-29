@@ -1,5 +1,6 @@
 /**
  * IndoorAtlas SDK positioning example
+ * Copyright © IndoorAtlas.
  */
 
 #import <IndoorAtlas/IALocationManager.h>
