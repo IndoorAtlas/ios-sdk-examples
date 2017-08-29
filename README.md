@@ -68,4 +68,4 @@ http://docs.indooratlas.com/ios/CHANGELOG.html
 
 ## License
 
-Copyright 2015-2017 IndoorAtlas Ltd. The IndoorAtlas SDK Examples are released under the Apache License. See the [LICENSE.md](https://github.com/IndoorAtlas//ios-sdk-examples/blob/master/LICENSE.md) file for details.
+Copyright 2015-2017 IndoorAtlas Ltd. The IndoorAtlas SDK Examples are released under the Apache License. See the [LICENSE.md](https://github.com/IndoorAtlas/ios-sdk-examples/blob/master/LICENSE.md) file for details.
