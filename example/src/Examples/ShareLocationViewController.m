@@ -1,3 +1,8 @@
+/**
+ * IndoorAtlas SDK positioning example
+ * Copyright © IndoorAtlas.
+ */
+
 #import <IndoorAtlas/IALocationManager.h>
 #import <IndoorAtlas/IAResourceManager.h>
 #import "ShareLocationViewController.h"

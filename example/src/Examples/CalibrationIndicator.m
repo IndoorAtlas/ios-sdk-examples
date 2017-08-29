@@ -1,10 +1,7 @@
-//
-//  CalibrationIndicator.m
-//  indooratlas-ios-sdk-example
-//
-//  Created by Seppo Tomperi on 02/05/2017.
-//  Copyright © 2017 IndoorAtlas. All rights reserved.
-//
+/**
+ * IndoorAtlas SDK positioning example
+ * Copyright © IndoorAtlas.
+ */
 
 #import "CalibrationIndicator.h"
 #import "UIKit/UIKit.h"

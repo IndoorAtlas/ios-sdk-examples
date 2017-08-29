@@ -1,7 +1,7 @@
-//
-//  ApiKeys.h
-//  indooratlas-ios-sdk
-//
+/**
+ * IndoorAtlas SDK positioning example
+ * Copyright © IndoorAtlas.
+ */
 
 #ifndef indooratlas_ios_sdk_ApiKeys_h
 #define indooratlas_ios_sdk_ApiKeys_h
