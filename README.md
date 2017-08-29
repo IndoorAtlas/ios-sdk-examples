@@ -4,6 +4,8 @@
 
 This example app showcases the IndoorAtlas SDK features and acts as a reference implementation in Objective-C for many of the basic SDK features. Getting started requires you to set up a free developer account and fingerprint your indoor venue using the IndoorAtlas MapCreator tool.
 
+There are also similar examples for [Swift](https://github.com/IndoorAtlas/ios-sdk-swift-examples) and [Android](https://github.com/IndoorAtlas/android-sdk-examples).
+
 * [Getting Started](#getting-started)
     * [Set up your account](#set-up-your-account)
     * [Get started by using CocoaPods](#get-started-by-using-cocoapods)
