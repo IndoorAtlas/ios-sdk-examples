@@ -158,7 +158,8 @@
 
     self.imageView.frame = self.view.frame;
     self.circle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
-    self.circle.backgroundColor = [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
+    self.circle.backgroundColor = [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:1.0];
+    self.circle.layer.cornerRadius = self.circle.frame.size.width / 2;
     self.circle.hidden = YES;
     [self.imageView addSubview:self.circle];
 

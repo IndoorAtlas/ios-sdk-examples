@@ -97,7 +97,7 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if (overlay == self.circle) {
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
-        circleRenderer.fillColor = [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
+        circleRenderer.fillColor = [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:1.0];
         circleRenderer.alpha = 1.f;
         return circleRenderer;
     } else if (overlay == mapOverlay) {
