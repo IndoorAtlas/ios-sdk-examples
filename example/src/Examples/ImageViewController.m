@@ -32,7 +32,7 @@
 - (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
 
-    IALocation* loc = [locations lastObject];
+    IALocation *loc = [locations lastObject];
 
     __weak typeof(self) weakSelf = self;
     if (self.floorPlan != nil) {
@@ -68,7 +68,7 @@
  * These methods are just wrappers around server requests.
  * You will need api key and secret to fetch resources.
  */
-- (void)fetchFloorplanWithId:(NSString*)floorplanId
+- (void)fetchFloorplanWithId:(NSString *)floorplanId
 {
     __weak typeof(self) weakSelf = self;
     if (floorPlanFetch != nil) {

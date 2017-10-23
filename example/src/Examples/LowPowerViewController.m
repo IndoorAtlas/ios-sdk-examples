@@ -33,7 +33,7 @@
     return circleRenderer;
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
     

@@ -28,11 +28,11 @@
     return circleRenderer;
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
 
-    CLLocation *l = [(IALocation*)locations.lastObject location];
+    CLLocation *l = [(IALocation *)locations.lastObject location];
     NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
 
     if (circle != nil) {

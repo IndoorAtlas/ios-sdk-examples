@@ -23,7 +23,7 @@
 /**
  * Position packet handling from IndoorAtlasPositioner
  */
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
     IALocation *ialoc = [locations lastObject];
