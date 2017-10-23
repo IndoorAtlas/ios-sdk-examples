@@ -11,15 +11,6 @@
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
-@interface MapOverlay : NSObject <MKOverlay>
-- (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated;
-- (MKMapRect)boundingMapRect;
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property CLLocationCoordinate2D center;
-@property MKMapRect rect;
-
-@end
-
 @implementation MapOverlay
 
 - (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated
@@ -44,12 +35,6 @@
     return _rect;
 }
 
-@end
-
-@interface MapOverlayRenderer : MKOverlayRenderer
-@property (nonatomic, strong, readwrite) IAFloorPlan *floorPlan;
-@property (strong, readwrite) UIImage *image;
-@property CGRect rotated;
 @end
 
 @implementation MapOverlayRenderer
@@ -114,11 +99,11 @@
     }
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
     
-    CLLocation *l = [(IALocation*)locations.lastObject location];
+    CLLocation *l = [(IALocation *)locations.lastObject location];
     NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
     
     if (self.circle != nil) {
@@ -171,7 +156,7 @@
 #endif
 }
 
-- (NSString*)cacheFile {
+- (NSString *)cacheFile {
     //get the caches directory path
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSCachesDirectory, NSUserDomainMask, YES);
@@ -212,7 +197,7 @@
 }
 
 // Image is fetched again each time. It can be cached on device.
-- (void)fetchImage:(IAFloorPlan*)floorPlan
+- (void)fetchImage:(IAFloorPlan *)floorPlan
 {
     if (imageFetch != nil) {
         [imageFetch cancel];
@@ -227,7 +212,7 @@
     }];
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didEnterRegion:(IARegion*)region
+- (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
 {
     (void) manager;
     if (region.type != kIARegionTypeFloorPlan)

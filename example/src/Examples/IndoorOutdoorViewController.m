@@ -5,13 +5,13 @@
 
 #import "IndoorOutdoorViewController.h"
 #import "IndoorAtlas/IndoorAtlas.h"
+#import "AppleMapsOverlayViewController.h"
 #import <MapKit/MapKit.h>
 #import "../ApiKeys.h"
 #import "CalibrationIndicator.h"
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
-
-typedef enum{
+typedef enum {
     blueDot = 0,
     accuracyCircle
 }LocationType;
@@ -32,71 +32,9 @@ typedef enum{
 }
 @end
 
-
-@interface IndoorOutdoorMapOverlay : NSObject <MKOverlay>
-- (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated;
-- (MKMapRect)boundingMapRect;
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property CLLocationCoordinate2D center;
-@property MKMapRect rect;
-
-@end
-
-@implementation IndoorOutdoorMapOverlay
-
-- (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated
-{
-    self = [super init];
-    if (self != nil) {
-        
-        _center = floorPlan.center;
-        MKMapPoint topLeft = MKMapPointForCoordinate(floorPlan.topLeft);
-        _rect = MKMapRectMake(topLeft.x + rotated.origin.x, topLeft.y + rotated.origin.y,
-                              rotated.size.width, rotated.size.height);
-    }
-    return self;
-}
-
-- (CLLocationCoordinate2D)coordinate
-{
-    return self.center;
-}
-
-- (MKMapRect)boundingMapRect {
-    return _rect;
-}
-
-@end
-
-@interface IndoorOutdoorOverlayRenderer : MKOverlayRenderer
-@property (nonatomic, strong, readwrite) IAFloorPlan *floorPlan;
-@property (strong, readwrite) UIImage *image;
-@property CGRect rotated;
-@end
-
-@implementation IndoorOutdoorOverlayRenderer
-
-- (void)drawMapRect:(MKMapRect)mapRect
-          zoomScale:(MKZoomScale)zoomScale
-          inContext:(CGContextRef)ctx
-{
-    double mapPointsPerMeter = MKMapPointsPerMeterAtLatitude(self.floorPlan.center.latitude);
-    CGRect rect = CGRectMake(0, 0, self.floorPlan.widthMeters * mapPointsPerMeter, self.floorPlan.heightMeters * mapPointsPerMeter);
-    
-    CGContextTranslateCTM(ctx, -_rotated.origin.x, -_rotated.origin.y);
-    // Rotate around top left corner
-    CGContextRotateCTM(ctx, degreesToRadians(self.floorPlan.bearing));
-    
-    UIGraphicsPushContext(ctx);
-    [_image drawInRect:rect blendMode:kCGBlendModeNormal alpha:1.0];
-    UIGraphicsPopContext();
-}
-
-@end
-
 @interface IndoorOutdoorViewController () <MKMapViewDelegate, IALocationManagerDelegate, UIGestureRecognizerDelegate> {
-    IndoorOutdoorMapOverlay *mapOverlay;
-    IndoorOutdoorOverlayRenderer *mapOverlayRenderer;
+    MapOverlay *mapOverlay;
+    MapOverlayRenderer *mapOverlayRenderer;
     id<IAFetchTask> floorPlanFetch;
     id<IAFetchTask> imageFetch;
     
@@ -112,7 +50,6 @@ typedef enum{
 @property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @property (nonatomic, strong) UILabel *label;
 @property LocationAnnotation *currentBlueDotAnnotation;
-@property LocationAnnotation *currentAccuracyCircleAnnotation;
 @property CLLocation *currentLocation;
 @property MKCircle *radiusCircle;
 @end
@@ -130,7 +67,7 @@ typedef enum{
         return circleRenderer;
     } else if (overlay == mapOverlay) {
         mapOverlay = overlay;
-        mapOverlayRenderer = [[IndoorOutdoorOverlayRenderer alloc] initWithOverlay:mapOverlay];
+        mapOverlayRenderer = [[MapOverlayRenderer alloc] initWithOverlay:overlay];
         mapOverlayRenderer.rotated = self.rotated;
         mapOverlayRenderer.floorPlan = self.floorPlan;
         mapOverlayRenderer.image = fpImage;
@@ -142,11 +79,11 @@ typedef enum{
     }
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray*)locations
 {
     (void)manager;
     
-    CLLocation *l = [(IALocation*)locations.lastObject location];
+    CLLocation *l = [(IALocation *)locations.lastObject location];
     NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
 
     if (self.radiusCircle != nil) {
@@ -193,7 +130,7 @@ typedef enum{
     double a = degreesToRadians(self.floorPlan.bearing);
     self.rotated = CGRectApplyAffineTransform(cgRect, CGAffineTransformMakeRotation(a));
     
-    mapOverlay = [[IndoorOutdoorMapOverlay alloc] initWithFloorPlan:self.floorPlan andRotatedRect:self.rotated];
+    mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan andRotatedRect:self.rotated];
     [mapView addOverlay:mapOverlay];
     
     // Enable to show red circles on floorplan corners
@@ -250,7 +187,7 @@ typedef enum{
 }
 
 // Image is fetched again each time. It can be cached on device.
-- (void)fetchImage:(IAFloorPlan*)floorPlan
+- (void)fetchImage:(IAFloorPlan *)floorPlan
 {
     if (imageFetch != nil) {
         [imageFetch cancel];
@@ -265,12 +202,15 @@ typedef enum{
     }];
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didEnterRegion:(IARegion*)region
+- (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
 {
     [self.mapView setShowsUserLocation:NO];
     (void) manager;
     if (region.type != kIARegionTypeFloorPlan)
+    {
+        [self.IALocationManager startUpdatingLocation];
         return;
+    }
     
     NSLog(@"Floor plan changed to %@", region.identifier);
     updateCamera = true;
@@ -301,11 +241,11 @@ typedef enum{
 - (void)indoorLocationManager:(IALocationManager *)manager didExitRegion:(IARegion *)region
 {
     if (region.type == kIARegionTypeFloorPlan) {
-        NSLog(@"exit exit exit: fp");
         return;
     }
-    NSLog(@"exit exit exit: vn");
 
+    [self.IALocationManager stopUpdatingLocation];
+    [self.mapView removeAnnotation:_currentBlueDotAnnotation];
     [self.mapView setShowsUserLocation:YES];
 }
 
@@ -337,7 +277,7 @@ typedef enum{
 
 - (void)updateLabel
 {
-    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [self.IALocationManager.extraInfo objectForKey:kIATraceId]];
+    self.label.text = [NSString stringWithFormat:@"TraceID: %@", [self.IALocationManager.extraInfo objectForKey:kIATraceId]];
 }
 
 #pragma mark MapsOverlayView boilerplate
@@ -389,13 +329,11 @@ typedef enum{
     else if ([annotation isKindOfClass:[MKPinAnnotationView class]]) {
         MKPinAnnotationView *view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Annotation"];
         return view;
-        
     }
     
     else if ([annotation isKindOfClass:[LocationAnnotation class]])
     {
-        
-        LocationAnnotation *circleAnnotation = (LocationAnnotation*)annotation;
+        LocationAnnotation *circleAnnotation = (LocationAnnotation *)annotation;
         
         NSString *type = @"";
         UIColor *color = [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:1.0];
@@ -413,7 +351,7 @@ typedef enum{
             borderWidth = 0;
         }
         
-        MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:type];
+        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:type];
         if (annotationView)
         {
             annotationView.annotation = circleAnnotation;
@@ -436,7 +374,6 @@ typedef enum{
     }
     return nil;
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
