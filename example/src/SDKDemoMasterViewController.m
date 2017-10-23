@@ -10,6 +10,7 @@
 #import "SDKDemoMasterViewController.h"
 #import "SDKDemoAppDelegate.h"
 #import "Examples/Examples.h"
+#import "OrientationViewController.h"
 
 @implementation SDKDemoMasterViewController {
     NSArray *demos_;

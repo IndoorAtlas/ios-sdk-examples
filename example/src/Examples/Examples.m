@@ -19,6 +19,7 @@
 #import "GeofenceViewController.h"
 #import "LowPowerViewController.h"
 #import "OrientationViewController.h"
+#import "IndoorOutdoorViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -56,6 +57,9 @@
        [self newDemo:[OrientationViewController class]
          withTitle:@"Orientation"
      andDescription:nil],
+       [self newDemo:[IndoorOutdoorViewController class]
+           withTitle:@"Indoor-Outdoor"
+      andDescription:nil],
       ] mutableCopy];
     
     if ([kPubNubPublishKey length] > 0 && [kPubNubSubscribeKey length] > 0) {

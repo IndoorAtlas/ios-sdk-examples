@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Platform location requested for better indoor positioning experience.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Platform location requested for better indoor positioning experience.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -28,11 +32,12 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>For better indoor positioning experience.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Platform location requested for better indoor positioning experience.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>For better indoor positioning</string>
-<!--FABRIC-->
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
@@ -54,7 +59,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>For better indoor positioning experience.</string>
 </dict>
 </plist>

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31F7A84D1BE2420C003C5163 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F7A84C1BE2420C003C5163 /* libz.dylib */; };
-		44E05CF0C6069B8739DA268E /* libPods-sdk-examples.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EB9EB706428D8D3F61DFBF /* libPods-sdk-examples.a */; };
+		3808D26B2E926547F59B3CA6 /* Pods_sdk_examples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */; };
 		494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC118DC8A44004AA8E1 /* Foundation.framework */; };
 		494D6CC418DC8A44004AA8E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */; };
 		494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC518DC8A44004AA8E1 /* UIKit.framework */; };
@@ -21,6 +21,7 @@
 		654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820C1F03B189006F71D4 /* GeofenceViewController.m */; };
 		654A82101F06353C006F71D4 /* LowPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820F1F06353C006F71D4 /* LowPowerViewController.m */; };
 		933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 933320EA1E30AAE200804C34 /* ShareLocationViewController.m */; };
+		BC2F14BA1F988F110020662A /* IndoorOutdoorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */; };
 		C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30320A21E42107F0075ACF1 /* RegionViewController.m */; };
 		C30C65501BD8B23700EE8340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654B1BD8B23700EE8340 /* main.m */; };
 		C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654D1BD8B23700EE8340 /* SDKDemoAppDelegate.m */; };
@@ -61,7 +62,9 @@
 		654A82111F06357B006F71D4 /* LowPowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LowPowerViewController.h; path = Examples/LowPowerViewController.h; sourceTree = "<group>"; };
 		933320E91E30AAE200804C34 /* ShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareLocationViewController.h; path = Examples/ShareLocationViewController.h; sourceTree = "<group>"; };
 		933320EA1E30AAE200804C34 /* ShareLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareLocationViewController.m; path = Examples/ShareLocationViewController.m; sourceTree = "<group>"; };
-		97EB9EB706428D8D3F61DFBF /* libPods-sdk-examples.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk-examples.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_examples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC2F14B81F988EF10020662A /* IndoorOutdoorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IndoorOutdoorViewController.h; path = Examples/IndoorOutdoorViewController.h; sourceTree = "<group>"; };
+		BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IndoorOutdoorViewController.m; path = Examples/IndoorOutdoorViewController.m; sourceTree = "<group>"; };
 		C30320A11E42107F0075ACF1 /* RegionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionViewController.h; path = Examples/RegionViewController.h; sourceTree = "<group>"; };
 		C30320A21E42107F0075ACF1 /* RegionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionViewController.m; path = Examples/RegionViewController.m; sourceTree = "<group>"; };
 		C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sdk-examples-Info.plist"; sourceTree = "<group>"; };
@@ -115,7 +118,7 @@
 				494D6CF918DC8ABC004AA8E1 /* IndoorAtlas.framework in Frameworks */,
 				494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */,
 				494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */,
-				44E05CF0C6069B8739DA268E /* libPods-sdk-examples.a in Frameworks */,
+				3808D26B2E926547F59B3CA6 /* Pods_sdk_examples.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +163,7 @@
 				494D6CC118DC8A44004AA8E1 /* Foundation.framework */,
 				494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */,
 				494D6CC518DC8A44004AA8E1 /* UIKit.framework */,
-				97EB9EB706428D8D3F61DFBF /* libPods-sdk-examples.a */,
+				A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -185,6 +188,8 @@
 			children = (
 				C39CEB331E855F5500BEEDC3 /* BackgroundViewController.h */,
 				C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */,
+				BC2F14B81F988EF10020662A /* IndoorOutdoorViewController.h */,
+				BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */,
 				C3552B791E7BD8690060FB90 /* OrientationViewController.h */,
 				C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */,
 				C3552B7B1E7BD8690060FB90 /* PanoramaView.h */,
@@ -326,7 +331,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8D9AAF8A84B0492F3C76802A /* [CP] Embed Pods Frameworks */ = {
@@ -358,6 +363,7 @@
 				C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */,
 				C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */,
 				C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */,
+				BC2F14BA1F988F110020662A /* IndoorOutdoorViewController.m in Sources */,
 				C30C65601BD8B26900EE8340 /* ConsoleViewController.m in Sources */,
 				C30C655E1BD8B26900EE8340 /* AppleMapsOverlayViewController.m in Sources */,
 				933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */,
@@ -466,8 +472,8 @@
 				INFOPLIST_FILE = "sdk-examples-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.indooratlas.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "0d27045a-5b5e-451e-9c70-fbb1d4e6a8a1";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development (Running)";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
