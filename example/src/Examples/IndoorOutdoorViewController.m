@@ -133,7 +133,7 @@ typedef enum {
     mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan andRotatedRect:self.rotated];
     [mapView addOverlay:mapOverlay];
     
-    // Enable to show red circles on floorplan corners
+    // Enable to show red circles on floor plan corners
 #if 0
     MKCircle *topLeft = [MKCircle circleWithCenterCoordinate:_floorPlan.topLeft radius:5];
     [map addOverlay:topLeft];
@@ -232,7 +232,7 @@ typedef enum {
                     [weakSelf saveFloorPlan:floorPlan key:region.identifier];
                     [weakSelf fetchImage:floorPlan];
                 } else {
-                    NSLog(@"There was error during floorplan fetch: %@", error);
+                    NSLog(@"There was error during floor plan fetch: %@", error);
                 }
             }];
         }

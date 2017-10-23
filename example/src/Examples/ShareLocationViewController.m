@@ -162,15 +162,15 @@ static NSString* const kUserColorKey   = @"color";
     
     floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:floorplanId andCompletion:^(IAFloorPlan *floorplan, NSError *error) {
         if (error) {
-            NSLog(@"Error during floorplan fetch: %@", error);
+            NSLog(@"Error during floor plan fetch: %@", error);
             return;
         }
         
-        NSLog(@"fetched floorplan with id: %@", floorplanId);
+        NSLog(@"fetched floor plan with id: %@", floorplanId);
         
         imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
             if (error) {
-                NSLog(@"Error during floorplan image fetch: %@", error);
+                NSLog(@"Error during floor plan image fetch: %@", error);
                 return;
             }
             self.scrollView.zoomScale = 1.0;

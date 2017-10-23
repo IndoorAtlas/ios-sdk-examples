@@ -143,7 +143,7 @@
     mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan andRotatedRect:self.rotated];
     [map addOverlay:mapOverlay];
 
-    // Enable to show red circles on floorplan corners
+    // Enable to show red circles on floor plan corners
 #if 0
     MKCircle *topLeft = [MKCircle circleWithCenterCoordinate:_floorPlan.topLeft radius:5];
     [map addOverlay:topLeft];
