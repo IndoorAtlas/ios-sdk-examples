@@ -75,6 +75,13 @@
     self.manager = [IALocationManager sharedInstance];
     self.manager.delegate = self;
 
+    // Optionally initial location
+    if (kFloorplanId.length) {
+        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
+        self.manager.location = location;
+        [self log:@"Give explicit location: %@", location];
+    }
+
     // Request location updates
     [self.manager startUpdatingLocation];
     [self log:@"Start updating location"];
