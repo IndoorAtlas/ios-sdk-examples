@@ -208,10 +208,11 @@ typedef enum {
     (void) manager;
     
     if (region.type == kIARegionTypeVenue) {
+        [self showToastWithText:@"Entered venue"];
         [self.IALocationManager startUpdatingLocation];
         return;
     } else if (region.type == kIARegionTypeFloorPlan) {
-    
+
         NSLog(@"Floor plan changed to %@", region.identifier);
         updateCamera = true;
         if (floorPlanFetch != nil) {
@@ -244,7 +245,7 @@ typedef enum {
     if (region.type == kIARegionTypeFloorPlan) {
         return;
     } else if (region.type == kIARegionTypeVenue) {
-
+        [self showToastWithText:@"Exited venue"];
         [self.IALocationManager stopUpdatingLocation];
         [self.mapView removeAnnotation:_currentBlueDotAnnotation];
         [self.mapView setShowsUserLocation:YES];
@@ -393,6 +394,25 @@ typedef enum {
     
     [self.label removeFromSuperview];
     self.label = nil;
+}
+
+- (void)showToastWithText:(NSString *) text {
+    UILabel *toastLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - 150, self.view.frame.size.height/2 -40, 300, 35)];
+    toastLabel.backgroundColor = [UIColor blackColor];
+    toastLabel.textColor = [UIColor whiteColor];
+    toastLabel.textAlignment = NSTextAlignmentCenter;
+    toastLabel.text = text;
+    toastLabel.alpha = 0.8;
+    toastLabel.layer.cornerRadius = 10;
+    toastLabel.clipsToBounds = YES;
+    [self.view addSubview:toastLabel];
+    
+    [UIView animateWithDuration:5.0 animations:^{
+        toastLabel.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [toastLabel removeFromSuperview];
+    }];
+    
 }
 @end
 

@@ -102,7 +102,7 @@
     [panoramaView addGestureRecognizer:tapRecognizer];
     
     _informationLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x-self.view.frame.size.width/2, 0, self.view.frame.size.width, 200)];
-    _informationLabel.textColor = [UIColor redColor];
+    _informationLabel.textColor = [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:1.0];
     _informationLabel.text = @"";
     _informationLabel.numberOfLines = 20;
     _informationLabel.textAlignment = NSTextAlignmentCenter;
