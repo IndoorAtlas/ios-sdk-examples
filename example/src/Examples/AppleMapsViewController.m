@@ -65,12 +65,6 @@
 {
     locationManager = [IALocationManager sharedInstance];
 
-    // Optionally set initial location
-    if (kFloorplanId.length) {
-        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-        locationManager.location = location;
-    }
-
     // Set delegate to receive location updates
     locationManager.delegate = self;
 
@@ -85,7 +79,7 @@
 
 - (void)updateLabel
 {
-    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [locationManager.extraInfo objectForKey:kIATraceId]];
+    self.label.text = [NSString stringWithFormat:@"TraceID: %@", [locationManager.extraInfo objectForKey:kIATraceId]];
 }
 
 #pragma mark MapsView boilerplate
