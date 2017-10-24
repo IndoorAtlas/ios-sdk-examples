@@ -181,6 +181,7 @@ const double requiredAccuracy = 100.0; // meters
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // Create IALocationManager and point delegate to receiver
     self.manager = [IALocationManager sharedInstance];
