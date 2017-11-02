@@ -245,7 +245,7 @@ typedef enum {
     if (region.type == kIARegionTypeFloorPlan) {
         return;
     } else if (region.type == kIARegionTypeVenue) {
-        [self showToastWithText:@"Exited venue"];
+        [self showToastWithText:@"Exit venue"];
         [self.IALocationManager stopUpdatingLocation];
         [self.mapView removeAnnotation:_currentBlueDotAnnotation];
         [self.mapView setShowsUserLocation:YES];
