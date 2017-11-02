@@ -172,15 +172,16 @@ const double requiredAccuracy = 100.0; // meters
 
 - (void)updateLabel
 {
-    NSString * htmlString = [NSString stringWithFormat:@"<div style=\"text-align:center\"><big><b>Background Example</b><br>If application is backgrounded while this view is showing, this example keeps running periodically on the background and every %.1lf seconds uses IndoorAtlas SDK to get location information. Increases battery usage.<br/><br/><b>Trace ID</b><br/>%@</big></div>", locationUpdateInterval,  [self.manager.extraInfo objectForKey:kIATraceId]];
+    NSString *htmlString = [NSString stringWithFormat:@"<div style=\"text-align:center\"><big><b>Background Example</b><br>If application is backgrounded while this view is showing, this example keeps running periodically on the background and every %.1lf seconds uses IndoorAtlas SDK to get location information. Increases battery usage.<br/><br/><b>Trace ID</b><br/>%@</big></div>", locationUpdateInterval,  [self.manager.extraInfo objectForKey:kIATraceId]];
 
-    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    NSAttributedString *attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
 
     [label setAttributedText:attrStr];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // Create IALocationManager and point delegate to receiver
     self.manager = [IALocationManager sharedInstance];

@@ -23,7 +23,7 @@
 /**
  * Position packet handling from IndoorAtlasPositioner
  */
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
     IALocation *ialoc = [locations lastObject];
@@ -81,12 +81,6 @@
     self.manager = [IALocationManager sharedInstance];
     self.manager.delegate = self;
 
-    // Optionally initial location
-    if (kFloorplanId.length) {
-        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-        self.manager.location = location;
-    }
-
     // Request location updates
     [self.manager startUpdatingLocation];
 }
@@ -94,8 +88,8 @@
 #pragma mark boilerplate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self requestLocation];
-
     _regionLabel = [[UILabel alloc] initWithFrame:self.view.frame];
 
     [_regionLabel setTextColor:[UIColor blackColor]];

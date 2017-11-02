@@ -47,7 +47,7 @@ static NSString* const kUserColorKey   = @"color";
 
 @implementation ShareLocationUser
 
--(id)initWithUUID:(NSString*) uuid {
+-(id)initWithUUID:(NSString *) uuid {
     self = [super init];
     if (self) {
         _uuid = uuid;
@@ -135,7 +135,7 @@ static NSString* const kUserColorKey   = @"color";
 /**
  * When exiting region the PubNub channel is exited also
  */
--(void)indoorLocationManager:(nonnull IALocationManager*)manager didExitRegion:(nonnull IARegion*)region {
+-(void)indoorLocationManager:(nonnull IALocationManager *)manager didExitRegion:(nonnull IARegion *)region {
     if (region) {
         [self.client unsubscribeFromPresenceChannels:@[region.identifier]];
     }
@@ -148,7 +148,7 @@ static NSString* const kUserColorKey   = @"color";
  * These methods are just wrappers around server requests.
  * You will need api key and secret to fetch resources.
  */
-- (void)fetchFloorplanWithId:(NSString*)floorplanId {
+- (void)fetchFloorplanWithId:(NSString *)floorplanId {
     [self.activityIndicator startAnimating];
     __weak typeof(self) weakSelf = self;
     if (floorPlanFetch != nil) {
@@ -162,15 +162,15 @@ static NSString* const kUserColorKey   = @"color";
     
     floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:floorplanId andCompletion:^(IAFloorPlan *floorplan, NSError *error) {
         if (error) {
-            NSLog(@"Error during floorplan fetch: %@", error);
+            NSLog(@"Error during floor plan fetch: %@", error);
             return;
         }
         
-        NSLog(@"fetched floorplan with id: %@", floorplanId);
+        NSLog(@"fetched floor plan with id: %@", floorplanId);
         
         imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
             if (error) {
-                NSLog(@"Error during floorplan image fetch: %@", error);
+                NSLog(@"Error during floor plan image fetch: %@", error);
                 return;
             }
             self.scrollView.zoomScale = 1.0;
@@ -199,12 +199,6 @@ static NSString* const kUserColorKey   = @"color";
     // Create IALocationManager and point delegate to receiver
     self.manager = [IALocationManager new];
     self.manager.delegate = self;
-    
-    // Optionally set initial location
-    if (kFloorplanId.length) {
-        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-        self.manager.location = location;
-    }
     
     // Create floor plan manager
     self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.manager];
@@ -509,8 +503,8 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Create default text label
  */
--(UILabel*) defaultLabelWithText:(NSString*) text andFrame:(CGRect) frame {
-    UILabel* label = [[UILabel alloc] initWithFrame:frame];
+-(UILabel *) defaultLabelWithText:(NSString *) text andFrame:(CGRect) frame {
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.textColor = [UIColor blackColor];
     label.textAlignment = NSTextAlignmentCenter;
     label.backgroundColor = [UIColor whiteColor];
@@ -525,9 +519,9 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Timer callback for removing old users from the map
  */
-- (void)timeOut:(NSTimer*)timer {
+- (void)timeOut:(NSTimer *)timer {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate* now = [NSDate date];
+    NSDate *now = [NSDate date];
     NSMutableArray *oldItemKeys = [NSMutableArray array];
     for (NSString *key in self.users) {
         ShareLocationUser *user = [self.users objectForKey:key];
@@ -544,8 +538,8 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Dialog for updating username & channel
  */
--(void)showSettings:(UIBarButtonItem*)sender {
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle: @"Settings"
+-(void)showSettings:(UIBarButtonItem *)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle: @"Settings"
                                                                               message: @"Change name/channel name"
                                                                        preferredStyle:UIAlertControllerStyleAlert];
 
@@ -599,8 +593,8 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Sets new random color for user
  */
--(void)setRandomColor:(UIBarButtonItem*)sender {
-    UIColor* color = [self randomColor];
+-(void)setRandomColor:(UIBarButtonItem *)sender {
+    UIColor *color = [self randomColor];
     self.user.color = [self RGBFromUIColor:color];
     self.user.dot.backgroundColor = [self UIColorFromRGB:self.user.color withAlpha:kDotAlpha];
     self.user.circle.backgroundColor = [self UIColorFromRGB:self.user.color withAlpha:kCircleAlpha];
@@ -613,7 +607,7 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Random color as UIColor
  */
--(UIColor*)randomColor {
+-(UIColor *)randomColor {
     CGFloat red   = arc4random_uniform(255) / 255.0;
     CGFloat green = arc4random_uniform(255) / 255.0;
     CGFloat blue  = arc4random_uniform(255) / 255.0;
@@ -623,7 +617,7 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Converts android color to UIColor
  */
--(UIColor*)UIColorFromRGB:(NSInteger)rgbValue withAlpha:(CGFloat)alpha {
+-(UIColor *)UIColorFromRGB:(NSInteger)rgbValue withAlpha:(CGFloat)alpha {
     return [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0
                            green:((float)((rgbValue & 0xFF00) >> 8))/255.0
                             blue:((float)(rgbValue & 0xFF))/255.0
@@ -633,7 +627,7 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Converts UIColor to android color
  */
--(NSInteger)RGBFromUIColor:(UIColor*)color {
+-(NSInteger)RGBFromUIColor:(UIColor *)color {
     NSInteger integerColor = 0;
     CGFloat red, green, blue, alpha;
     if ([color getRed: &red green: &green blue: &blue alpha: &alpha]) {
@@ -649,7 +643,7 @@ static NSString* const kUserColorKey   = @"color";
  * Update user label position. We dont want to scale the label as the rest of the map so we 
  * need to update label in correct position
  */
--(void)updateUserLabelPosition:(ShareLocationUser*) user withView:(UIView*) view andZoomScale:(CGFloat) zoomScale {
+-(void)updateUserLabelPosition:(ShareLocationUser *) user withView:(UIView *) view andZoomScale:(CGFloat) zoomScale {
     float dotSize = (user.dot.frame.size.width/2 * zoomScale);
     CGPoint labelCenter = [[user.circle superview] convertPoint:user.circle.center toView:view];
     labelCenter.x += (user.userLabel.frame.size.width/2 + kTextOffset + dotSize);
@@ -659,22 +653,22 @@ static NSString* const kUserColorKey   = @"color";
 /*
  * Converts IALocation location to JSON which is sent to the PubNub channel
  */
-- (NSString*)locationToJSON:(IALocation*) location {
+- (NSString *)locationToJSON:(IALocation *) location {
     
-    NSDictionary* sourceDict = @{kColorKey : @(self.user.color),
+    NSDictionary *sourceDict = @{kColorKey : @(self.user.color),
                                  kIdKey    : self.client.uuid,
                                  kNameKey  : self.user.username};
     
-    NSDictionary* locationDict = @{kAccuracyKey : @(location.location.horizontalAccuracy),
+    NSDictionary *locationDict = @{kAccuracyKey : @(location.location.horizontalAccuracy),
                                    kLatKey : @(location.location.coordinate.latitude),
                                    kLonKey : @(location.location.coordinate.longitude)};
     
     
-    NSDictionary* dict = @{kSourceKey   : sourceDict,
+    NSDictionary *dict = @{kSourceKey   : sourceDict,
                            kLocationKey : locationDict};
     
-    NSString* json = @"";
-    NSError* error;
+    NSString *json = @"";
+    NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&error];
     if (!error) {
         json = [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
@@ -689,7 +683,7 @@ static NSString* const kUserColorKey   = @"color";
  * Update user circle to match accuracy received from JSON message.
  * Also update the dot size because so its shown correctly in the map
  */
--(void)updateUserCircle:(ShareLocationUser*) user withRadius:(CGFloat) radius {
+-(void)updateUserCircle:(ShareLocationUser *) user withRadius:(CGFloat) radius {
     CGRect frame = user.circle.frame;
     frame.size.width = radius;
     frame.size.height = radius;

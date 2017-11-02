@@ -12,19 +12,18 @@
         PanoramaView *panoramaView;
 }
 @property (nonatomic, strong) IALocationManager *manager;
-@property (nonatomic, strong) UILabel *label;
+@property (nonatomic, strong) UILabel *informationLabel;
 @property (nonatomic, strong) IALocation *location;
 @property (nonatomic, strong) IAHeading *heading;
 @property (nonatomic, strong) IAAttitude *attitude;
 @end
 
 @implementation OrientationViewController
-
 #pragma mark IALocationManagerDelegate methods
 /**
  * Position packet handling from IndoorAtlasPositioner
  */
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     /* Uses only the last object */
     _location = [locations lastObject];
@@ -47,15 +46,11 @@
 {
     CMQuaternion q = self.attitude.quaternion;
     CLLocationCoordinate2D c = self.location.location.coordinate;
-
-    NSString * htmlString = [NSString stringWithFormat:@"<font color=\"#ff0000\"><div style=\"text-align:center\"><big><b>Location</b><br>%lf,%lf<br><br><b>Orientation</b><br>%lf %lf %lf %lf<br><hr><b>Heading</b><br>%lf<br/><br/><b>Trace ID</b><br/>%@</big></div></font>", c.latitude, c.longitude, q.w, q.x, q.y, q.z, self.heading.trueHeading, [self.manager.extraInfo objectForKey:kIATraceId]];
-
-    NSAttributedString * attrStr = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-
-    [_label setAttributedText:attrStr];
+    
+    _informationLabel.text = [NSString stringWithFormat:@"Location: \n%f %f \nQuaternion: \n%f %f %f %f \nHeading: \n%f \nTraceID: \n%@ ", c.latitude, c.longitude, q.w, q.x, q.y, q.z, self.heading.trueHeading, [self.manager.extraInfo objectForKey:kIATraceId]];
 }
 
-- (void)setPanoramaAttitude:(IAAttitude*)attitude
+- (void)setPanoramaAttitude:(IAAttitude *)attitude
 {
     CMQuaternion q = attitude.quaternion;
     GLKQuaternion gq = GLKQuaternionMake(q.x, q.y, q.z, q.w);
@@ -89,20 +84,10 @@
     // Request location updates
     [self.manager startUpdatingLocation];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self requestLocation];
-    CGRect f = self.view.frame;
-
-    CGRect labelFrame = CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height / 2);
-    _label = [[UILabel alloc] initWithFrame:labelFrame];
-
-    [_label setTextColor:[UIColor blueColor]];
-    [_label setBackgroundColor:[UIColor clearColor]];
-    [_label setFont:[UIFont fontWithName: @"Trebuchet MS" size: 14.0f]];
-    [_label setNumberOfLines:0];
-
+    
     panoramaView = [[PanoramaView alloc] init];
     [panoramaView setImage:@"telescope_compass_2048.jpg"];
     [panoramaView setOrientToDevice:NO];
@@ -111,17 +96,24 @@
     [panoramaView setShowTouches:NO];
 
     [self setView:panoramaView];
-    [panoramaView addSubview:_label];
 
     // Add tap gesture recognizer to hide / show label
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleLabel:)];
     [panoramaView addGestureRecognizer:tapRecognizer];
-
+    
+    _informationLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.center.x-self.view.frame.size.width/2, 0, self.view.frame.size.width, 200)];
+    _informationLabel.textColor = [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:1.0];
+    _informationLabel.text = @"";
+    _informationLabel.numberOfLines = 20;
+    _informationLabel.textAlignment = NSTextAlignmentCenter;
+    _informationLabel.adjustsFontSizeToFitWidth = YES;
+    [self.view addSubview:_informationLabel];
+    
     [self updateLabel];
 }
 
-- (void)toggleLabel:(UITapGestureRecognizer*)sender {
-    _label.hidden = !_label.hidden;
+- (void)toggleLabel:(UITapGestureRecognizer *)sender {
+    _informationLabel.hidden = !_informationLabel.hidden;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -131,8 +123,8 @@
     self.manager = nil;
     [panoramaView removeFromSuperview];
     panoramaView = nil;
-    [_label removeFromSuperview];
-    _label = nil;
+    [_informationLabel removeFromSuperview];
+    _informationLabel = nil;
 }
 
 -(void) glkView:(GLKView *)view drawInRect:(CGRect)rect{

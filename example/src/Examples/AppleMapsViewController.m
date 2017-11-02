@@ -24,15 +24,15 @@
 
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay {
     MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:(MKCircle *)overlay];
-    circleRenderer.fillColor =  [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
+    circleRenderer.fillColor =  [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:1.0];
     return circleRenderer;
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
 
-    CLLocation *l = [(IALocation*)locations.lastObject location];
+    CLLocation *l = [(IALocation *)locations.lastObject location];
     NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
 
     if (circle != nil) {
@@ -65,12 +65,6 @@
 {
     locationManager = [IALocationManager sharedInstance];
 
-    // Optionally set initial location
-    if (kFloorplanId.length) {
-        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-        locationManager.location = location;
-    }
-
     // Set delegate to receive location updates
     locationManager.delegate = self;
 
@@ -85,7 +79,7 @@
 
 - (void)updateLabel
 {
-    self.label.text = [NSString stringWithFormat:@"Trace ID: %@", [locationManager.extraInfo objectForKey:kIATraceId]];
+    self.label.text = [NSString stringWithFormat:@"TraceID: %@", [locationManager.extraInfo objectForKey:kIATraceId]];
 }
 
 #pragma mark MapsView boilerplate

@@ -17,7 +17,7 @@
 -(void) draw;  // place in GLKViewController's glkView:drawInRect:
 
 /// Set image by path or bundle - will check at both
--(void) setImage:(NSString*)fileName;
+-(void) setImage:(NSString *)fileName;
 
 -(void)setOffsetMatrix:(GLKMatrix4)matrix;
 

@@ -15,7 +15,7 @@
 
 @implementation ConsoleViewController
 
-- (void)log:(NSString*)fmt, ...
+- (void)log:(NSString *)fmt, ...
 {
     va_list args;
     va_start(args, fmt);
@@ -30,10 +30,10 @@
 /**
  * Position packet handling from IndoorAtlasPositioner
  */
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
-    CLLocation *l = [(IALocation*)locations.lastObject location];
+    CLLocation *l = [(IALocation *)locations.lastObject location];
 
     if (!self.traced) {
         [self log:@"Trace ID: %@", [self.manager.extraInfo objectForKey:kIATraceId]];

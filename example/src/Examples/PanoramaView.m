@@ -35,7 +35,7 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
 
 -(bool) execute;
 -(id) init:(GLint)stacks slices:(GLint)slices radius:(GLfloat)radius textureFile:(NSString *)textureFile;
--(void) swapTexture:(NSString*)textureFile;
+-(void) swapTexture:(NSString *)textureFile;
 -(CGPoint) getTextureSize;
 
 @end
@@ -89,7 +89,7 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
         }
     }
     if([responder respondsToSelector:@selector(setPreferredFramesPerSecond:)])
-        [(GLKViewController*)responder setPreferredFramesPerSecond:FPS];
+        [(GLKViewController *)responder setPreferredFramesPerSecond:FPS];
 }
 -(void) initDevice{
     motionManager = [[CMMotionManager alloc] init];
@@ -105,7 +105,7 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
     _fieldOfView = fieldOfView;
     [self rebuildProjectionMatrix];
 }
--(void) setImage:(NSString*)fileName{
+-(void) setImage:(NSString *)fileName{
     [sphere swapTexture:fileName];
 }
 -(void) setTouchToPan:(BOOL)touchToPan{
@@ -126,8 +126,8 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
     }
 }
 #pragma mark- OPENGL
--(void)initOpenGL:(EAGLContext*)context{
-    [(CAEAGLLayer*)self.layer setOpaque:NO];
+-(void)initOpenGL:(EAGLContext *)context{
+    [(CAEAGLLayer *)self.layer setOpaque:NO];
     _aspectRatio = self.frame.size.width/self.frame.size.height;
     _fieldOfView = 45 + 45 * atanf(_aspectRatio); // hell ya
     [self rebuildProjectionMatrix];
@@ -180,8 +180,8 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
             glColor4f(1.0f, 1.0f, 1.0f, 0.5f);
             for(int i = 0; i < [[_touches allObjects] count]; i++){
                 glPushMatrix();
-                    CGPoint touchPoint = CGPointMake([(UITouch*)[[_touches allObjects] objectAtIndex:i] locationInView:self].x,
-                                                     [(UITouch*)[[_touches allObjects] objectAtIndex:i] locationInView:self].y);
+                    CGPoint touchPoint = CGPointMake([(UITouch *)[[_touches allObjects] objectAtIndex:i] locationInView:self].x,
+                                                     [(UITouch *)[[_touches allObjects] objectAtIndex:i] locationInView:self].y);
                     [self drawHotspotLines:[self vectorFromScreenLocation:touchPoint inAttitude:_attitudeMatrix]];
                 glPopMatrix();
             }
@@ -297,7 +297,7 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
     return CGPointMake( (screenVector.x/screenVector.z/2.0 + 0.5) * self.frame.size.width,
                        (0.5-screenVector.y/screenVector.z/2) * self.frame.size.height );
 }
--(BOOL) computeScreenLocation:(CGPoint*)location fromVector:(GLKVector3)vector inAttitude:(GLKMatrix4)matrix{
+-(BOOL) computeScreenLocation:(CGPoint *)location fromVector:(GLKVector3)vector inAttitude:(GLKMatrix4)matrix{
 //This method returns whether the point is before or behind the screen.
     GLKVector4 screenVector;
     GLKVector4 vector4;
@@ -327,15 +327,15 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
     if(_numberOfTouches){
         bool found = false;
         for(int i = 0; i < [[_touches allObjects] count]; i++){
-            CGPoint touchPoint = CGPointMake([(UITouch*)[[_touches allObjects] objectAtIndex:i] locationInView:self].x,
-                                             [(UITouch*)[[_touches allObjects] objectAtIndex:i] locationInView:self].y);
+            CGPoint touchPoint = CGPointMake([(UITouch *)[[_touches allObjects] objectAtIndex:i] locationInView:self].x,
+                                             [(UITouch *)[[_touches allObjects] objectAtIndex:i] locationInView:self].y);
             found |= CGRectContainsPoint(rect, [self imagePixelAtScreenLocation:touchPoint]);
         }
         return found;
     }
     return false;
 }
--(void)pinchHandler:(UIPinchGestureRecognizer*)sender{
+-(void)pinchHandler:(UIPinchGestureRecognizer *)sender{
     _numberOfTouches = sender.numberOfTouches;
     static float zoom;
     if([sender state] == 1)
@@ -350,7 +350,7 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
         _numberOfTouches = 0;
     }
 }
--(void) panHandler:(UIPanGestureRecognizer*)sender{
+-(void) panHandler:(UIPanGestureRecognizer *)sender{
     static GLKVector3 touchVector;
     if([sender state] == 1){
         touchVector = [self vectorFromScreenLocation:[sender locationInView:sender.view] inAttitude:_offsetMatrix];
@@ -527,7 +527,7 @@ GLKQuaternion GLKQuaternionFromTwoVectors(GLKVector3 u, GLKVector3 v){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, IMAGE_SCALING);
     return info;
 }
--(void)swapTexture:(NSString*)textureFile{
+-(void)swapTexture:(NSString *)textureFile{
     GLuint name = m_TextureInfo.name;
     glDeleteTextures(1, &name);
     if ([[NSFileManager defaultManager] fileExistsAtPath:textureFile]) {

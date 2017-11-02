@@ -11,15 +11,6 @@
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
-@interface MapOverlay : NSObject <MKOverlay>
-- (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated;
-- (MKMapRect)boundingMapRect;
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property CLLocationCoordinate2D center;
-@property MKMapRect rect;
-
-@end
-
 @implementation MapOverlay
 
 - (id)initWithFloorPlan:(IAFloorPlan *)floorPlan andRotatedRect:(CGRect)rotated
@@ -44,12 +35,6 @@
     return _rect;
 }
 
-@end
-
-@interface MapOverlayRenderer : MKOverlayRenderer
-@property (nonatomic, strong, readwrite) IAFloorPlan *floorPlan;
-@property (strong, readwrite) UIImage *image;
-@property CGRect rotated;
 @end
 
 @implementation MapOverlayRenderer
@@ -97,7 +82,7 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if (overlay == self.circle) {
         MKCircleRenderer *circleRenderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
-        circleRenderer.fillColor = [UIColor colorWithRed:0 green:0.647 blue:0.961 alpha:1.0];
+        circleRenderer.fillColor = [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:1.0];
         circleRenderer.alpha = 1.f;
         return circleRenderer;
     } else if (overlay == mapOverlay) {
@@ -114,11 +99,11 @@
     }
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didUpdateLocations:(NSArray*)locations
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
     
-    CLLocation *l = [(IALocation*)locations.lastObject location];
+    CLLocation *l = [(IALocation *)locations.lastObject location];
     NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
     
     if (self.circle != nil) {
@@ -158,7 +143,7 @@
     mapOverlay = [[MapOverlay alloc] initWithFloorPlan:self.floorPlan andRotatedRect:self.rotated];
     [map addOverlay:mapOverlay];
 
-    // Enable to show red circles on floorplan corners
+    // Enable to show red circles on floor plan corners
 #if 0
     MKCircle *topLeft = [MKCircle circleWithCenterCoordinate:_floorPlan.topLeft radius:5];
     [map addOverlay:topLeft];
@@ -171,7 +156,7 @@
 #endif
 }
 
-- (NSString*)cacheFile {
+- (NSString *)cacheFile {
     //get the caches directory path
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSCachesDirectory, NSUserDomainMask, YES);
@@ -212,7 +197,7 @@
 }
 
 // Image is fetched again each time. It can be cached on device.
-- (void)fetchImage:(IAFloorPlan*)floorPlan
+- (void)fetchImage:(IAFloorPlan *)floorPlan
 {
     if (imageFetch != nil) {
         [imageFetch cancel];
@@ -227,7 +212,7 @@
     }];
 }
 
-- (void)indoorLocationManager:(IALocationManager*)manager didEnterRegion:(IARegion*)region
+- (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
 {
     (void) manager;
     if (region.type != kIARegionTypeFloorPlan)
@@ -270,12 +255,6 @@
 - (void)requestLocation
 {
     self.locationManager = [IALocationManager sharedInstance];
-
-    // Optionally set initial location
-    if (kFloorplanId.length) {
-        IALocation *location = [IALocation locationWithFloorPlanId:kFloorplanId];
-        self.locationManager.location = location;
-    }
 
     // set delegate to receive location updates
     self.locationManager.delegate = self;
