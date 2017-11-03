@@ -2,7 +2,7 @@ use_frameworks!
 platform :ios, '8.0'
 
 target 'sdk-examples' do
-pod 'IndoorAtlas', '~> 2.5.3'
+pod 'IndoorAtlas', '~> 2.6.0'
 pod 'Fabric' # Not required
 pod 'Crashlytics' # Not required
 pod "PubNub", "~> 4" # For PubNub example
