@@ -53,6 +53,7 @@ These examples are included in the app:
 * Geofence: Allows the user to set geofences and triggers callbacks once the user enters/exits the geofence.
 * Low-power: Positioning using the low-power mode.
 * Orientation: Demonstrates the 3D orientation API.
+* Indoor-Outdoor: Example of transitions from unmapped (outdoor) spaces to mapped (indoor) spaces.
 
 ## Documentation
 
