@@ -22,6 +22,8 @@
 		654A82101F06353C006F71D4 /* LowPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820F1F06353C006F71D4 /* LowPowerViewController.m */; };
 		933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 933320EA1E30AAE200804C34 /* ShareLocationViewController.m */; };
 		BC2F14BA1F988F110020662A /* IndoorOutdoorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */; };
+		BC36D94E202C7870001273F4 /* wayfinding-graph.json in Resources */ = {isa = PBXBuildFile; fileRef = BC36D94D202C7870001273F4 /* wayfinding-graph.json */; };
+		BCEF21B4202B2B0B0083B732 /* WayfindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF21B3202B2B0B0083B732 /* WayfindingViewController.m */; };
 		C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30320A21E42107F0075ACF1 /* RegionViewController.m */; };
 		C30C65501BD8B23700EE8340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654B1BD8B23700EE8340 /* main.m */; };
 		C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654D1BD8B23700EE8340 /* SDKDemoAppDelegate.m */; };
@@ -65,6 +67,9 @@
 		A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_examples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC2F14B81F988EF10020662A /* IndoorOutdoorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IndoorOutdoorViewController.h; path = Examples/IndoorOutdoorViewController.h; sourceTree = "<group>"; };
 		BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IndoorOutdoorViewController.m; path = Examples/IndoorOutdoorViewController.m; sourceTree = "<group>"; };
+		BC36D94D202C7870001273F4 /* wayfinding-graph.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "wayfinding-graph.json"; path = "Examples/wayfinding-graph.json"; sourceTree = "<group>"; };
+		BCEF21B2202B2B0B0083B732 /* WayfindingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WayfindingViewController.h; path = Examples/WayfindingViewController.h; sourceTree = "<group>"; };
+		BCEF21B3202B2B0B0083B732 /* WayfindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WayfindingViewController.m; path = Examples/WayfindingViewController.m; sourceTree = "<group>"; };
 		C30320A11E42107F0075ACF1 /* RegionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionViewController.h; path = Examples/RegionViewController.h; sourceTree = "<group>"; };
 		C30320A21E42107F0075ACF1 /* RegionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionViewController.m; path = Examples/RegionViewController.m; sourceTree = "<group>"; };
 		C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sdk-examples-Info.plist"; sourceTree = "<group>"; };
@@ -200,6 +205,9 @@
 				C30320A21E42107F0075ACF1 /* RegionViewController.m */,
 				933320E91E30AAE200804C34 /* ShareLocationViewController.h */,
 				933320EA1E30AAE200804C34 /* ShareLocationViewController.m */,
+				BCEF21B2202B2B0B0083B732 /* WayfindingViewController.h */,
+				BCEF21B3202B2B0B0083B732 /* WayfindingViewController.m */,
+				BC36D94D202C7870001273F4 /* wayfinding-graph.json */,
 				C30C65541BD8B26900EE8340 /* AppleMapsOverlayViewController.h */,
 				C30C65551BD8B26900EE8340 /* AppleMapsOverlayViewController.m */,
 				C30C65561BD8B26900EE8340 /* AppleMapsViewController.h */,
@@ -269,7 +277,7 @@
 				ORGANIZATIONNAME = IndoorAtlas;
 				TargetAttributes = {
 					494D6CBD18DC8A44004AA8E1 = {
-						DevelopmentTeam = 8RT2RTCTMC;
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -298,6 +306,7 @@
 			files = (
 				494D6CF718DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets in Resources */,
 				C3552B8C1E7BEF080060FB90 /* telescope_compass_2048.jpg in Resources */,
+				BC36D94E202C7870001273F4 /* wayfinding-graph.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +381,7 @@
 				C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */,
 				C324CCD31EB9AE100056CD80 /* CalibrationIndicator.m in Sources */,
 				654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */,
+				BCEF21B4202B2B0B0083B732 /* WayfindingViewController.m in Sources */,
 				C30C655F1BD8B26900EE8340 /* AppleMapsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,13 +477,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "sdk-examples-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.indooratlas.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.indooratlas.ios-sdk-examples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0d27045a-5b5e-451e-9c70-fbb1d4e6a8a1";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Development (Running)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -485,11 +496,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "sdk-examples-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.indooratlas.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.indooratlas.ios-sdk-examples;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};

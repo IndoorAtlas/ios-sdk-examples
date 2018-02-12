@@ -54,6 +54,7 @@ These examples are included in the app:
 * Low-power: Positioning using the low-power mode.
 * Orientation: Demonstrates the 3D orientation API.
 * Indoor-Outdoor: Example of transitions from unmapped (outdoor) spaces to mapped (indoor) spaces.
+* Wayfinding: Example of how to use IndoorAtlas Wayfinding framework.
 
 ## Documentation
 

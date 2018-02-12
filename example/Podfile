@@ -1,9 +1,13 @@
 use_frameworks!
 platform :ios, '8.0'
 
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:IndoorAtlas/CocoaPods-Specs.git'
+
 target 'sdk-examples' do
-pod 'IndoorAtlas', '~> 2.6.0'
 pod 'Fabric' # Not required
 pod 'Crashlytics' # Not required
 pod "PubNub", "~> 4" # For PubNub example
+pod 'IndoorAtlas', '2.7.0-beta'
+pod 'IndoorAtlasWayfinding', '2.7.0-beta'
 end
