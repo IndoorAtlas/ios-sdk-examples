@@ -20,6 +20,7 @@
 #import "LowPowerViewController.h"
 #import "OrientationViewController.h"
 #import "IndoorOutdoorViewController.h"
+#import "WayfindingViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -59,6 +60,9 @@
      andDescription:nil],
        [self newDemo:[IndoorOutdoorViewController class]
            withTitle:@"Indoor-Outdoor"
+      andDescription:nil],
+       [self newDemo:[WayfindingViewController class]
+           withTitle:@"Wayfinding"
       andDescription:nil],
       ] mutableCopy];
     
