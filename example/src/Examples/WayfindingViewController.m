@@ -78,6 +78,14 @@
 
     [_wayfinder setLocationWithLatitude:l.coordinate.latitude Longitude:l.coordinate.longitude Floor:l.floor.level];
 
+    NSArray *route = [NSArray array];
+    @try {
+        route = [_wayfinder getRoute];
+        [self plotRoute:route];
+    } @catch(NSException *exception) {
+        NSLog(@"route: %@", exception.reason);
+    }
+
     if (self.circle != nil) {
         [map removeOverlay:self.circle];
     }
