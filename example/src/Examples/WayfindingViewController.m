@@ -72,11 +72,12 @@
 - (void)indoorLocationManager:(IALocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     (void)manager;
-
-    CLLocation *l = [(IALocation *)locations.lastObject location];
-    NSLog(@"position changed to coordinate (lat,lon): %f, %f", l.coordinate.latitude, l.coordinate.longitude);
-
-    [_wayfinder setLocationWithLatitude:l.coordinate.latitude Longitude:l.coordinate.longitude Floor:l.floor.level];
+    IALocation *ialoc = [locations lastObject];
+    CLLocation *l = [ialoc location];
+    
+    NSLog(@"position changed to (lat,lon,floor): %f, %f, %d", l.coordinate.latitude, l.coordinate.longitude, (int)ialoc.floor.level);
+    
+    [_wayfinder setLocationWithLatitude:l.coordinate.latitude Longitude:l.coordinate.longitude Floor:(int)ialoc.floor.level];
 
     NSArray *route = [NSArray array];
     @try {
@@ -250,7 +251,6 @@
 #pragma mark MapsOverlayView boilerplate
 
 -(void) handleLongPress:(UILongPressGestureRecognizer*)pressGesture {
-
     if (pressGesture.state != UIGestureRecognizerStateBegan) {
         return;
     }
