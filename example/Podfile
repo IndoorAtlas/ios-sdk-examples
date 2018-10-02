@@ -8,6 +8,6 @@ target 'sdk-examples' do
 pod 'Fabric' # Not required
 pod 'Crashlytics' # Not required
 pod "PubNub", "~> 4" # For PubNub example
-pod 'IndoorAtlas', '2.7.0-beta'
-pod 'IndoorAtlasWayfinding', '2.7.0-beta'
+pod 'IndoorAtlas', '2.8.4'
+pod 'IndoorAtlasWayfinding', '2.8.0'
 end
