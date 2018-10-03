@@ -7,7 +7,6 @@
 
 #import <UIKit/UIKit.h>
 #import "IndoorAtlas/IndoorAtlas.h"
-#import <IndoorAtlasWayfinding/wayfinding.h>
 #import <MapKit/MapKit.h>
 #import "AppleMapsOverlayViewController.h"
 

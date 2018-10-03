@@ -10,7 +10,6 @@
 #import "../ApiKeys.h"
 
 @interface ImageViewController () <IALocationManagerDelegate> {
-    id<IAFetchTask> floorPlanFetch;
     id<IAFetchTask> imageFetch;
 }
 @property (nonatomic, strong) IAFloorPlan *floorPlan;
@@ -59,7 +58,7 @@
     if (region.type != kIARegionTypeFloorPlan)
         return;
 
-    [self fetchFloorplanWithId:region.identifier];
+    [self fetchFloorplanWithId:region.floorplan];
 }
 
 - (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
@@ -74,53 +73,39 @@
  * These methods are just wrappers around server requests.
  * You will need api key and secret to fetch resources.
  */
-- (void)fetchFloorplanWithId:(NSString *)floorplanId
+- (void)fetchFloorplanWithId:(IAFloorPlan *)floorplan
 {
     __weak typeof(self) weakSelf = self;
-    if (floorPlanFetch != nil) {
-        [floorPlanFetch cancel];
-        floorPlanFetch = nil;
-    }
     if (imageFetch != nil) {
         [imageFetch cancel];
         imageFetch = nil;
     }
 
-    floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:floorplanId andCompletion:^(IAFloorPlan *floorplan, NSError *error) {
-       if (error) {
-           NSLog(@"Error during floor plan fetch: %@", error);
-           return;
-       }
+    imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
+        if (error) {
+            NSLog(@"Error during floor plan image fetch: %@", error);
+            return;
+        }
 
-       NSLog(@"Fetched floor plan with id: %@", floorplanId);
+        UIImage *image = [UIImage imageWithData:data];
 
-       imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
-           if (error) {
-               NSLog(@"Error during floor plan image fetch: %@", error);
-               return;
-           }
+        float scale = fmin(1.0, fmin(weakSelf.view.bounds.size.width / floorplan.width,
+                                    weakSelf.view.bounds.size.height / floorplan.height));
 
-           UIImage *image = [UIImage imageWithData:data];
+        CGAffineTransform t = CGAffineTransformMakeScale(scale, scale);
 
-           float scale = fmin(1.0, fmin(weakSelf.view.bounds.size.width / floorplan.width,
-                                        weakSelf.view.bounds.size.height / floorplan.height));
+        weakSelf.imageView.transform = CGAffineTransformIdentity;
+        weakSelf.imageView.image = image;
+        weakSelf.imageView.frame = CGRectMake(0, 0, floorplan.width, floorplan.height);
+        weakSelf.imageView.transform = t;
+        weakSelf.imageView.center = weakSelf.view.center;
+        weakSelf.imageView.backgroundColor = [UIColor whiteColor];
 
-           CGAffineTransform t = CGAffineTransformMakeScale(scale, scale);
-
-           weakSelf.imageView.transform = CGAffineTransformIdentity;
-           weakSelf.imageView.image = image;
-           weakSelf.imageView.frame = CGRectMake(0, 0, floorplan.width, floorplan.height);
-           weakSelf.imageView.transform = t;
-           weakSelf.imageView.center = weakSelf.view.center;
-           weakSelf.imageView.backgroundColor = [UIColor whiteColor];
-
-           // 1 meters in pixels
-           float size = floorplan.meterToPixelConversion;
-           weakSelf.circle.transform = CGAffineTransformMakeScale(size, size);
-       }];
-
-       weakSelf.floorPlan = floorplan;
-   }];
+        // 1 meters in pixels
+        float size = floorplan.meterToPixelConversion;
+        weakSelf.circle.transform = CGAffineTransformMakeScale(size, size);
+    }];
+    weakSelf.floorPlan = floorplan;
 }
 
 /**

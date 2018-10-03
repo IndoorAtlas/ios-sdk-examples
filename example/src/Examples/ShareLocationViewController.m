@@ -128,7 +128,7 @@ static NSString* const kUserColorKey   = @"color";
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.channelLabel setText:region.identifier];
         [self.client subscribeToChannels:@[region.identifier] withPresence:NO];
-        [self fetchFloorplanWithId:region.identifier];
+        [self fetchFloorplanWithId:region.floorplan];
     }
 }
 
@@ -148,48 +148,34 @@ static NSString* const kUserColorKey   = @"color";
  * These methods are just wrappers around server requests.
  * You will need api key and secret to fetch resources.
  */
-- (void)fetchFloorplanWithId:(NSString *)floorplanId {
+- (void)fetchFloorplanWithId:(IAFloorPlan *)floorplan {
     [self.activityIndicator startAnimating];
     __weak typeof(self) weakSelf = self;
-    if (floorPlanFetch != nil) {
-        [floorPlanFetch cancel];
-        floorPlanFetch = nil;
-    }
     if (imageFetch != nil) {
         [imageFetch cancel];
         imageFetch = nil;
     }
     
-    floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:floorplanId andCompletion:^(IAFloorPlan *floorplan, NSError *error) {
+    imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
         if (error) {
-            NSLog(@"Error during floor plan fetch: %@", error);
+            NSLog(@"Error during floor plan image fetch: %@", error);
             return;
         }
-        
-        NSLog(@"fetched floor plan with id: %@", floorplanId);
-        
-        imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
-            if (error) {
-                NSLog(@"Error during floor plan image fetch: %@", error);
-                return;
-            }
-            self.scrollView.zoomScale = 1.0;
-            UIImage *image = [UIImage imageWithData:data];
-            [self.imageView setImage:image];
-            self.imageView.frame = CGRectMake(0, 0, [image size].width, [image size].height);
-            [self.scrollView setContentSize:[image size]];
+        self.scrollView.zoomScale = 1.0;
+        UIImage *image = [UIImage imageWithData:data];
+        [self.imageView setImage:image];
+        self.imageView.frame = CGRectMake(0, 0, [image size].width, [image size].height);
+        [self.scrollView setContentSize:[image size]];
             
-            float zoomWidth = self.view.bounds.size.width / self.imageView.image.size.width;
-            float zoomHeight = self.view.bounds.size.height / self.imageView.image.size.height;
+        float zoomWidth = self.view.bounds.size.width / self.imageView.image.size.width;
+        float zoomHeight = self.view.bounds.size.height / self.imageView.image.size.height;
             
-            float zoomScale = MIN(zoomWidth, zoomHeight);
-            self.scrollView.zoomScale = self.scrollView.minimumZoomScale = zoomScale;
-            [self.scrollView setContentOffset:CGPointMake(0, -kScrollViewInset)];
-            [self.activityIndicator stopAnimating];
-        }];
-        
-        weakSelf.floorPlan = floorplan;
+        float zoomScale = MIN(zoomWidth, zoomHeight);
+        self.scrollView.zoomScale = self.scrollView.minimumZoomScale = zoomScale;
+        [self.scrollView setContentOffset:CGPointMake(0, -kScrollViewInset)];
+        [self.activityIndicator stopAnimating];
     }];
+    weakSelf.floorPlan = floorplan;
 }
 
 /**

@@ -35,7 +35,6 @@ typedef enum {
 @interface IndoorOutdoorViewController () <MKMapViewDelegate, IALocationManagerDelegate, UIGestureRecognizerDelegate> {
     MapOverlay *mapOverlay;
     MapOverlayRenderer *mapOverlayRenderer;
-    id<IAFetchTask> floorPlanFetch;
     id<IAFetchTask> imageFetch;
     
     UIImage *fpImage;
@@ -175,17 +174,6 @@ typedef enum {
     [cache writeToFile:cFile atomically:YES];
 }
 
-// Loads floor plan meta data from NSCachesDirectory
-// Remember that if you edit the floor plan position
-// from www.indooratlas.com then you must fetch the IAFloorPlan again from server
-- (IAFloorPlan *)loadFloorPlanWithId:(NSString *)key {
-    NSDictionary *cache = [NSMutableDictionary dictionaryWithContentsOfFile:[self cacheFile]];
-    NSData *data = [cache objectForKey:key];
-    IAFloorPlan *object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
-    return object;
-}
-
 // Image is fetched again each time. It can be cached on device.
 - (void)fetchImage:(IAFloorPlan *)floorPlan
 {
@@ -209,34 +197,14 @@ typedef enum {
     
     if (region.type == kIARegionTypeVenue) {
         [self showToastWithText:@"Entered venue"];
-        [self.IALocationManager startUpdatingLocation];
         return;
     } else if (region.type == kIARegionTypeFloorPlan) {
 
         NSLog(@"Floor plan changed to %@", region.identifier);
         updateCamera = true;
-        if (floorPlanFetch != nil) {
-            [floorPlanFetch cancel];
-            floorPlanFetch = nil;
-        }
         
-        IAFloorPlan *fp = [self loadFloorPlanWithId:region.identifier];
-        if (fp != nil) {
-            // use stored floor plan meta data
-            self.floorPlan = fp;
-            [self fetchImage:fp];
-        } else {
-            __weak typeof(self) weakSelf = self;
-            floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:region.identifier andCompletion:^(IAFloorPlan *floorPlan, NSError *error) {
-                if (!error) {
-                    self.floorPlan = floorPlan;
-                    [weakSelf saveFloorPlan:floorPlan key:region.identifier];
-                    [weakSelf fetchImage:floorPlan];
-                } else {
-                    NSLog(@"There was error during floor plan fetch: %@", error);
-                }
-            }];
-        }
+        self.floorPlan = region.floorplan;
+        [self fetchImage:self.floorPlan];
     }
 }
 
@@ -246,9 +214,6 @@ typedef enum {
         return;
     } else if (region.type == kIARegionTypeVenue) {
         [self showToastWithText:@"Exit venue"];
-        [self.IALocationManager stopUpdatingLocation];
-        [self.mapView removeAnnotation:_currentBlueDotAnnotation];
-        [self.mapView setShowsUserLocation:YES];
     }
 }
 

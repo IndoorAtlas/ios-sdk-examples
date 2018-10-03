@@ -60,7 +60,6 @@
 @interface AppleMapsOverlayViewController () <MKMapViewDelegate, IALocationManagerDelegate> {
     MapOverlay *mapOverlay;
     MapOverlayRenderer *mapOverlayRenderer;
-    id<IAFetchTask> floorPlanFetch;
     id<IAFetchTask> imageFetch;
     
     UIImage *fpImage;
@@ -220,28 +219,9 @@
     
     NSLog(@"Floor plan changed to %@", region.identifier);
     updateCamera = true;
-    if (floorPlanFetch != nil) {
-        [floorPlanFetch cancel];
-        floorPlanFetch = nil;
-    }
     
-    IAFloorPlan *fp = [self loadFloorPlanWithId:region.identifier];
-    if (fp != nil) {
-        // use stored floor plan meta data
-        self.floorPlan = fp;
-        [self fetchImage:fp];
-    } else {
-        __weak typeof(self) weakSelf = self;
-        floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:region.identifier andCompletion:^(IAFloorPlan *floorPlan, NSError *error) {
-            if (!error) {
-                self.floorPlan = floorPlan;
-                [weakSelf saveFloorPlan:floorPlan key:region.identifier];
-                [weakSelf fetchImage:floorPlan];
-            } else {
-                NSLog(@"There was error during floorplan fetch: %@", error);
-            }
-        }];
-    }
+    self.floorPlan = region.floorplan;
+    [self fetchImage:region.floorplan];
 }
 
 - (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality

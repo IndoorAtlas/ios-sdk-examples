@@ -12,7 +12,6 @@
 @interface WayfindingViewController () <MKMapViewDelegate, IALocationManagerDelegate> {
     MapOverlay *mapOverlay;
     MapOverlayRenderer *mapOverlayRenderer;
-    id<IAFetchTask> floorPlanFetch;
     id<IAFetchTask> imageFetch;
 
     UIImage *fpImage;
@@ -26,7 +25,6 @@
 @property CGRect rotated;
 @property (nonatomic, strong) UILabel *label;
 
-@property IAWayfinding *wayfinder;
 @property MKPolyline *routeLine;
 @property MKPolylineRenderer *lineView;
 @property MKPointAnnotation *location;
@@ -76,16 +74,6 @@
     CLLocation *l = [ialoc location];
     
     NSLog(@"position changed to (lat,lon,floor): %f, %f, %d", l.coordinate.latitude, l.coordinate.longitude, (int)ialoc.floor.level);
-    
-    [_wayfinder setLocationWithLatitude:l.coordinate.latitude Longitude:l.coordinate.longitude Floor:(int)ialoc.floor.level];
-
-    NSArray *route = [NSArray array];
-    @try {
-        route = [_wayfinder getRoute];
-        [self plotRoute:route];
-    } @catch(NSException *exception) {
-        NSLog(@"route: %@", exception.reason);
-    }
 
     if (self.circle != nil) {
         [map removeOverlay:self.circle];
@@ -108,6 +96,10 @@
     }
 
     [self updateLabel];
+}
+
+- (void)indoorLocationManager:(IALocationManager *)manager didUpdateRoute:(IARoute *)route {
+    [self plotRoute:route];
 }
 
 - (void)changeMapOverlay
@@ -202,28 +194,9 @@
 
     NSLog(@"Floor plan changed to %@", region.identifier);
     updateCamera = true;
-    if (floorPlanFetch != nil) {
-        [floorPlanFetch cancel];
-        floorPlanFetch = nil;
-    }
-
-    IAFloorPlan *fp = [self loadFloorPlanWithId:region.identifier];
-    if (fp != nil) {
-        // use stored floor plan meta data
-        self.floorPlan = fp;
-        [self fetchImage:fp];
-    } else {
-        __weak typeof(self) weakSelf = self;
-        floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:region.identifier andCompletion:^(IAFloorPlan *floorPlan, NSError *error) {
-            if (!error) {
-                self.floorPlan = floorPlan;
-                [weakSelf saveFloorPlan:floorPlan key:region.identifier];
-                [weakSelf fetchImage:floorPlan];
-            } else {
-                NSLog(@"There was error during floorplan fetch: %@", error);
-            }
-        }];
-    }
+    
+    self.floorPlan = region.floorplan;
+    [self fetchImage:region.floorplan];
 }
 
 /**
@@ -238,6 +211,9 @@
 
     // Create floor plan manager
     self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.locationManager];
+    
+    // Locking to indoors
+    [self.locationManager lockIndoors:true];
 
     // Request location updates
     [self.locationManager startUpdatingLocation];
@@ -256,48 +232,47 @@
     }
     CGPoint touchPoint = [pressGesture locationInView:map];
     CLLocationCoordinate2D coord= [map convertPoint:touchPoint toCoordinateFromView:map];
+    IAWayfindingRequest *req = [[IAWayfindingRequest alloc] init];
+    req.coordinate = coord;
+    // Set floor number of the current floor if present
+    if (_floorPlan) {
+        req.floor = _floorPlan.floor.level;
+    } else {
+        req.floor = 0;
+    }
     @try {
-        [_wayfinder setDestinationWithLatitude:coord.latitude Longitude:coord.longitude Floor:1];
+        [self.locationManager startMonitoringForWayfinding:req];
     } @catch(NSException *exception) {
         NSLog(@"loc: %@", exception.reason);
     }
-
-    NSArray *route = [NSArray array];
-    @try {
-        route = [_wayfinder getRoute];
-    } @catch(NSException *exception) {
-        NSLog(@"route: %@", exception.reason);
-    }
-
-    [self plotRoute:route];
 }
 
-- (void) plotRoute:(NSArray *)route {
-    if ([route count] == 0) {
+- (void) plotRoute:(IARoute *)route {
+    if ([route.legs count] == 0) {
         return;
     }
 
-    CLLocationCoordinate2D *coordinateArray = malloc(sizeof(CLLocationCoordinate2D) * route.count + 1);
+    CLLocationCoordinate2D *coordinateArray = malloc(sizeof(CLLocationCoordinate2D) * route.legs.count + 1);
     CLLocationCoordinate2D coord;
-    IARoutingLeg *leg = route[0];
+    IARouteLeg *leg = route.legs[0];
 
-    coord.latitude = leg.begin.latitude;
-    coord.longitude = leg.begin.longitude;
+    coord.latitude = leg.begin.coordinate.latitude;
+    coord.longitude = leg.begin.coordinate.longitude;
 
     coordinateArray[0] = coord;
 
-    for (int i=0; i < [route count]; i++) {
+    for (int i=0; i < [route.legs count]; i++) {
         CLLocationCoordinate2D coord;
-        IARoutingLeg *leg = route[i];
-        coord.latitude = leg.end.latitude;
-        coord.longitude = leg.end.longitude;
+        IARouteLeg *leg = route.legs[i];
+        coord.latitude = leg.end.coordinate.latitude;
+        coord.longitude = leg.end.coordinate.longitude;
         coordinateArray[i+1] = coord;
     }
 
     if (_routeLine) {
         [map removeOverlay:_routeLine];
     }
-    self.routeLine  = [MKPolyline polylineWithCoordinates:coordinateArray count:route.count + 1];
+    self.routeLine  = [MKPolyline polylineWithCoordinates:coordinateArray count:route.legs.count + 1];
 
     free(coordinateArray);
     [map addOverlay:_routeLine];
@@ -308,14 +283,7 @@
 
     // Load graph
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString* filePath = [bundle pathForResource:@"wayfinding-graph" ofType:@"json"];
-    NSString *graphString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    @try {
-        _wayfinder = [[IAWayfinding alloc] initWithGraph:graphString];
-    } @catch(NSException *exception) {
-        NSLog(@"graph: %@", exception.reason);
-    }
-
+    
     UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [pressRecognizer setDelaysTouchesBegan:YES];
     pressRecognizer.delegate = self;
@@ -340,6 +308,7 @@
     frame.size.height = 24 * 2;
     self.label.frame = frame;
     [self.view addSubview:self.label];
+    
 
     [self requestLocation];
 }

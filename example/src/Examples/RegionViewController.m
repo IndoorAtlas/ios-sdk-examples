@@ -10,9 +10,9 @@
 @interface RegionViewController () <IALocationManagerDelegate>
 @property (nonatomic, strong) IALocationManager *manager;
 @property (nonatomic, strong) UILabel *regionLabel;
-@property (nonatomic, strong) NSString *venueId;
-@property (nonatomic, strong) NSString *floorplanId;
 @property (nonatomic, strong) NSString *traceId;
+@property (nonatomic, strong) IAVenue *venue;
+@property (nonatomic, strong) IAFloorPlan *floorplan;
 @property NSInteger floorLevel;
 @property IACertainty floorCertainty;
 @end
@@ -42,9 +42,9 @@
 - (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
 {
     if (region.type == kIARegionTypeVenue) {
-        self.venueId = region.identifier;
+        self.venue = region.venue;
     } else if (region.type == kIARegionTypeFloorPlan) {
-        self.floorplanId = region.identifier;
+        self.floorplan = region.floorplan;
     }
     [self updateLabel];
 }
@@ -60,8 +60,8 @@
     // Called each time label is updated to show time variant
     self.traceId = [self.manager.extraInfo objectForKey:kIATraceId];
 
-    NSString *venue = self.venueId ? [NSString stringWithFormat:@"In venue<br>%@", self.venueId] : @"Outside mapped area";
-    NSString *fp = self.floorplanId ? [NSString stringWithFormat:@"In floor plan<br>%@", self.floorplanId] : @"No floor plan";
+    NSString *venue = self.venue ? [NSString stringWithFormat:@"In venue<br>%@", self.venue.name] : @"Outside mapped area";
+    NSString *fp = self.floorplan ? [NSString stringWithFormat:@"In floor plan<br>%@", self.floorplan.name] : @"No floor plan";
 
     NSString * htmlString = [NSString stringWithFormat:@"<div style=\"text-align:center\"><big><b>Region information</b><br><br>%@<br><br>%@<br><br><hr><b>Floor level</b><br><h1>%ld</h1>Certainty: %.1lf %%<br><br><b>Trace Id</b><br>%@<br></big></div>",venue, fp, (long)self.floorLevel, self.floorCertainty * 100, self.traceId];
 
