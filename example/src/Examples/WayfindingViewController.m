@@ -195,8 +195,10 @@
     NSLog(@"Floor plan changed to %@", region.identifier);
     updateCamera = true;
     
-    self.floorPlan = region.floorplan;
-    [self fetchImage:region.floorplan];
+    if (region.floorplan) {
+        self.floorPlan = region.floorplan;
+        [self fetchImage:region.floorplan];
+    }
 }
 
 /**

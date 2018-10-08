@@ -57,8 +57,9 @@
 {
     if (region.type != kIARegionTypeFloorPlan)
         return;
-
-    [self fetchFloorplanWithId:region.floorplan];
+    if (region.floorplan) {
+        [self fetchFloorplanImage:region.floorplan];
+    }
 }
 
 - (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
@@ -73,7 +74,7 @@
  * These methods are just wrappers around server requests.
  * You will need api key and secret to fetch resources.
  */
-- (void)fetchFloorplanWithId:(IAFloorPlan *)floorplan
+- (void)fetchFloorplanImage:(IAFloorPlan *)floorplan
 {
     __weak typeof(self) weakSelf = self;
     if (imageFetch != nil) {

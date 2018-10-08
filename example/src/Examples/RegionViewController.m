@@ -41,9 +41,9 @@
 
 - (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
 {
-    if (region.type == kIARegionTypeVenue) {
+    if (region.type == kIARegionTypeVenue && region.venue) {
         self.venue = region.venue;
-    } else if (region.type == kIARegionTypeFloorPlan) {
+    } else if (region.type == kIARegionTypeFloorPlan && region.floorplan) {
         self.floorplan = region.floorplan;
     }
     [self updateLabel];

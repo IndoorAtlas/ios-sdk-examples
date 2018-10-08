@@ -128,7 +128,9 @@ static NSString* const kUserColorKey   = @"color";
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.channelLabel setText:region.identifier];
         [self.client subscribeToChannels:@[region.identifier] withPresence:NO];
-        [self fetchFloorplanWithId:region.floorplan];
+        if (region.floorplan) {
+            [self fetchFloorplanImage:region.floorplan];
+        }
     }
 }
 
@@ -148,7 +150,7 @@ static NSString* const kUserColorKey   = @"color";
  * These methods are just wrappers around server requests.
  * You will need api key and secret to fetch resources.
  */
-- (void)fetchFloorplanWithId:(IAFloorPlan *)floorplan {
+- (void)fetchFloorplanImage:(IAFloorPlan *)floorplan {
     [self.activityIndicator startAnimating];
     __weak typeof(self) weakSelf = self;
     if (imageFetch != nil) {

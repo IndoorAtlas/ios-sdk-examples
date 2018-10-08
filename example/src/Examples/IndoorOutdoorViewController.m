@@ -203,8 +203,10 @@ typedef enum {
         NSLog(@"Floor plan changed to %@", region.identifier);
         updateCamera = true;
         
-        self.floorPlan = region.floorplan;
-        [self fetchImage:self.floorPlan];
+        if (region.floorplan) {
+            self.floorPlan = region.floorplan;
+            [self fetchImage:self.floorPlan];
+        }
     }
 }
 
