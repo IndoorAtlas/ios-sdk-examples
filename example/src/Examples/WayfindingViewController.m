@@ -237,10 +237,10 @@
     // Set floor number of the current floor
     if (_floorPlan) {
         req.floor = _floorPlan.floor.level;
+        [self.locationManager startMonitoringForWayfinding:req];
     } else {
         NSLog(@"Not sending wayfinding request: no floor plan");
     }
-    [self.locationManager startMonitoringForWayfinding:req];
 }
 
 - (void) plotRoute:(IARoute *)route {
