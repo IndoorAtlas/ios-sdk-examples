@@ -234,17 +234,13 @@
     CLLocationCoordinate2D coord= [map convertPoint:touchPoint toCoordinateFromView:map];
     IAWayfindingRequest *req = [[IAWayfindingRequest alloc] init];
     req.coordinate = coord;
-    // Set floor number of the current floor if present
+    // Set floor number of the current floor
     if (_floorPlan) {
         req.floor = _floorPlan.floor.level;
     } else {
-        req.floor = 0;
+        NSLog(@"Not sending wayfinding request: no floor plan");
     }
-    @try {
-        [self.locationManager startMonitoringForWayfinding:req];
-    } @catch(NSException *exception) {
-        NSLog(@"loc: %@", exception.reason);
-    }
+    [self.locationManager startMonitoringForWayfinding:req];
 }
 
 - (void) plotRoute:(IARoute *)route {
