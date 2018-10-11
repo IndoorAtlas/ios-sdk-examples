@@ -12,5 +12,5 @@
 
 @interface WayfindingViewController : UIViewController
 @property (nonatomic, strong) IALocationManager *locationManager;
-@property (strong) MKMapView *map;
+@property (strong) MKMapView *mapView;
 @end

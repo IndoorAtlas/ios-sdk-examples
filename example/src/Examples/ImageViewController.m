@@ -74,39 +74,37 @@
  * These methods are just wrappers around server requests.
  * You will need api key and secret to fetch resources.
  */
-- (void)fetchFloorplanImage:(IAFloorPlan *)floorplan
+- (void)fetchFloorplanImage:(IAFloorPlan *)floorPlan
 {
     __weak typeof(self) weakSelf = self;
-    if (imageFetch != nil) {
-        [imageFetch cancel];
-        imageFetch = nil;
-    }
-
-    imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
-        if (error) {
-            NSLog(@"Error during floor plan image fetch: %@", error);
-            return;
-        }
-
-        UIImage *image = [UIImage imageWithData:data];
-
-        float scale = fmin(1.0, fmin(weakSelf.view.bounds.size.width / floorplan.width,
-                                    weakSelf.view.bounds.size.height / floorplan.height));
-
-        CGAffineTransform t = CGAffineTransformMakeScale(scale, scale);
-
-        weakSelf.imageView.transform = CGAffineTransformIdentity;
-        weakSelf.imageView.image = image;
-        weakSelf.imageView.frame = CGRectMake(0, 0, floorplan.width, floorplan.height);
-        weakSelf.imageView.transform = t;
-        weakSelf.imageView.center = weakSelf.view.center;
-        weakSelf.imageView.backgroundColor = [UIColor whiteColor];
-
-        // 1 meters in pixels
-        float size = floorplan.meterToPixelConversion;
-        weakSelf.circle.transform = CGAffineTransformMakeScale(size, size);
-    }];
-    weakSelf.floorPlan = floorplan;
+    weakSelf.floorPlan = floorPlan;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                   ^{
+                       NSError *error = nil;
+                       NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:nil error:&error];
+                       if (error) {
+                           NSLog(@"Error loading floor plan image: %@", [error localizedDescription]);
+                           return;
+                       }
+                       double width = floorPlan.width;
+                       double height = floorPlan.height;
+                       float size = floorPlan.meterToPixelConversion;
+                       dispatch_sync(dispatch_get_main_queue(), ^{
+                           UIImage *image = [UIImage imageWithData:imageData];
+                           float scale = fmin(1.0, fmin(weakSelf.view.bounds.size.width / width, weakSelf.view.bounds.size.height / height));
+                           CGAffineTransform t = CGAffineTransformMakeScale(scale, scale);
+                           
+                           weakSelf.imageView.transform = CGAffineTransformIdentity;
+                           weakSelf.imageView.image = image;
+                           weakSelf.imageView.frame = CGRectMake(0, 0, width, height);
+                           weakSelf.imageView.transform = t;
+                           weakSelf.imageView.center = weakSelf.view.center;
+                           weakSelf.imageView.backgroundColor = [UIColor whiteColor];
+                           
+                           // 1 meters in pixels
+                           weakSelf.circle.transform = CGAffineTransformMakeScale(size, size);
+                       });
+                   });
 }
 
 /**
@@ -118,13 +116,18 @@
     self.manager = [IALocationManager new];
     self.manager.delegate = self;
 
-    // Create floor plan manager
-    self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.manager];
-
     // Add calibration indicator to navigation bar
     self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:self.manager.calibration];
 
     [self.calibrationIndicator setCalibration:self.manager.calibration];
+
+    // Disable indoor-outdoor detection
+    [self.manager lockIndoors:true];
+    
+    // Set the desired accuracy of location updates to one of the following:
+    // kIALocationAccuracyBest : High accuracy mode (default)
+    // kIALocationAccuracyLow : Low accuracy mode, uses less power
+    self.manager.desiredAccuracy = kIALocationAccuracyBest;
 
     // Request location updates
     [self.manager startUpdatingLocation];

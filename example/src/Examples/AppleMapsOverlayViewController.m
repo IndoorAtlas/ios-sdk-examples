@@ -60,7 +60,6 @@
 @interface AppleMapsOverlayViewController () <MKMapViewDelegate, IALocationManagerDelegate> {
     MapOverlay *mapOverlay;
     MapOverlayRenderer *mapOverlayRenderer;
-    id<IAFetchTask> imageFetch;
     
     UIImage *fpImage;
     NSData *image;
@@ -69,7 +68,6 @@
 }
 @property (strong) MKCircle *circle;
 @property (strong) IAFloorPlan *floorPlan;
-@property (nonatomic, strong) IAResourceManager *resourceManager;
 @property CGRect rotated;
 @property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @property (nonatomic, strong) UILabel *label;
@@ -129,6 +127,10 @@
 
 - (void)changeMapOverlay
 {
+    if (self.floorPlan == nil) {
+        return;
+    }
+    
     if (mapOverlay != nil)
         [map removeOverlay:mapOverlay];
 
@@ -198,17 +200,21 @@
 // Image is fetched again each time. It can be cached on device.
 - (void)fetchImage:(IAFloorPlan *)floorPlan
 {
-    if (imageFetch != nil) {
-        [imageFetch cancel];
-        imageFetch = nil;
-    }
+
     __weak typeof(self) weakSelf = self;
-    imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorPlan.imageUrl andCompletion:^(NSData *imageData, NSError *error){
-        if (!error) {
-            fpImage = [[UIImage alloc] initWithData:imageData];
-            [weakSelf changeMapOverlay];
-        }
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                    ^{
+                        NSError *error = nil;
+                        NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:nil error:&error];
+                        if (error) {
+                            NSLog(@"Error loading floor plan image: %@", [error localizedDescription]);
+                            return;
+                        }
+                        dispatch_sync(dispatch_get_main_queue(), ^{
+                            fpImage = [UIImage imageWithData:imageData];
+                            [weakSelf changeMapOverlay];
+                        });
+                    });
 }
 
 - (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region
@@ -240,9 +246,6 @@
 
     // set delegate to receive location updates
     self.locationManager.delegate = self;
-
-    // Create floor plan manager
-    self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.locationManager];
 
     self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:self.locationManager.calibration];
 
@@ -285,7 +288,6 @@
     [self.locationManager stopUpdatingLocation];
     self.locationManager.delegate = nil;
     self.locationManager = nil;
-    self.resourceManager = nil;
     mapOverlayRenderer.image = nil;
     fpImage = nil;
     mapOverlayRenderer = nil;
