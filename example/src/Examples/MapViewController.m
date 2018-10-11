@@ -1,11 +1,11 @@
 //
-//  WayfindingViewController.m
+//  MapViewController.m
 //  sdk-examples
 //
 //  Copyright © 2018 IndoorAtlas. All rights reserved.
 //
 
-#import "WayfindingViewController.h"
+#import "MapViewController.h"
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
@@ -30,7 +30,7 @@ typedef enum {
 }
 @end
 
-@interface WayfindingViewController () <MKMapViewDelegate, IALocationManagerDelegate, UIGestureRecognizerDelegate> {
+@interface MapViewController () <MKMapViewDelegate, IALocationManagerDelegate, UIGestureRecognizerDelegate> {
     MapOverlay *mapOverlay;
     MapOverlayRenderer *mapOverlayRenderer;
 
@@ -55,7 +55,7 @@ typedef enum {
 @property MKCircle *radiusCircle;
 @end
 
-@implementation WayfindingViewController
+@implementation MapViewController
 @synthesize mapView;
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
@@ -230,7 +230,7 @@ typedef enum {
     // Set the desired accuracy of location updates to one of the following:
     // kIALocationAccuracyBest : High accuracy mode (default)
     // kIALocationAccuracyLow : Low accuracy mode, uses less power
-    self.locationManager.desiredAccuracy = kIALocationAccuracyLow;
+    self.locationManager.desiredAccuracy = kIALocationAccuracyBest;
 
     // Request location updates
     [self.locationManager startUpdatingLocation];

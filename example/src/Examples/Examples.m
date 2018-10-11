@@ -15,7 +15,7 @@
 #import "BackgroundViewController.h"
 #import "GeofenceViewController.h"
 #import "OrientationViewController.h"
-#import "WayfindingViewController.h"
+#import "MapViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -26,7 +26,10 @@
 
 + (NSArray *)loadDemos {
     NSMutableArray *mapDemos =
-    [@[[self newDemo:[ImageViewController class]
+    [@[[self newDemo:[MapViewController class]
+         withTitle:@"Map View"
+     andDescription:nil],
+       [self newDemo:[ImageViewController class]
          withTitle:@"Image View"
      andDescription:nil],
        [self newDemo:[BackgroundViewController class]
@@ -37,10 +40,7 @@
      andDescription:nil],
        [self newDemo:[OrientationViewController class]
          withTitle:@"Orientation"
-     andDescription:nil],
-       [self newDemo:[WayfindingViewController class]
-           withTitle:@"Wayfinding"
-      andDescription:nil],
+     andDescription:nil]
       ] mutableCopy];
     
     if ([kPubNubPublishKey length] > 0 && [kPubNubSubscribeKey length] > 0) {
