@@ -176,7 +176,6 @@
     [self.manager stopUpdatingLocation];
     self.manager.delegate = nil;
     self.manager = nil;
-    self.resourceManager = nil;
     self.imageView.image = nil;
     self.imageView = nil;
     [self.label removeFromSuperview];
