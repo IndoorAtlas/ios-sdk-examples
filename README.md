@@ -20,7 +20,7 @@ There are also similar examples for [Swift](https://github.com/IndoorAtlas/ios-s
 
 ### Set up your account
 
-* Set up your [free developer account](https://app.indooratlas.com) in the IndoorAtlas developer portal. Help with getting started is available in the [Quick Start Guide](http://docs.indooratlas.com/quick-start-guide.html).
+* Set up your [free developer account](https://app.indooratlas.com) in the IndoorAtlas developer portal. Help with getting started is available in the [IndoorAtlas support pages](https://indooratlas.freshdesk.com/support/home).
 * To enable IndoorAtlas indoor positioning in a venue, the venue needs to be fingerprinted with the [IndoorAtlas MapCreator 2](https://play.google.com/store/apps/details?id=com.indooratlas.android.apps.jaywalker) tool.
 * To start developing your own app, create an [API key](https://app.indooratlas.com/apps).
 
@@ -38,36 +38,26 @@ Set your API keys in `ApiKeys.h`. API keys can be generated at https://app.indoo
 
 ### Manual IndoorAtlas framework download
 
-If you are not using CocoaPods, the IndoorAtlas SDK framework can be downloaded and installed manually by following the steps on the IndoorAtlas web site: http://docs.indooratlas.com/ios/getting-started.html
+If you are not using CocoaPods, the IndoorAtlas SDK framework can be downloaded and installed manually by following the steps in the [manual installation of iOS SDK](https://indooratlas.freshdesk.com/support/solutions/articles/36000092592-manual-installation-of-ios-sdk).
 
 ## Features
 
 These examples are included in the app:
 
-* Apple Maps: Shows the IndoorAtlas blue dot location overlaid on Apple Maps.
-* Apple Maps Overlay: Shows the location together with the associated floor plan bitmap overlay on the world map.
+* Map View: Example of using IndoorAtlas positioning with AppleMaps overlay. Demonstrates the use of region change, indoor-outdoor and wayfinding features of the IndoorAtlas SDK. 
 * Image View: Floor plan bitmap image view with the blue dot location.
-* Console Prints: Shows console printout provided by the SDK.
-* Regions: Demonstrates venue and floor plan region identifiers together with floor number and floor certainty.
 * Background: Demonstrates running the SDK in the background, by periodically initiating positioning.
 * Geofence: Allows the user to set geofences and triggers callbacks once the user enters/exits the geofence.
-* Low-power: Positioning using the low-power mode.
 * Orientation: Demonstrates the 3D orientation API.
-* Indoor-Outdoor: Example of transitions from unmapped (outdoor) spaces to mapped (indoor) spaces.
-* Wayfinding: Example of how to use IndoorAtlas Wayfinding framework.
 
 ## Documentation
 
-The IndoorAtlas SDK API documentation is available in the documentation portal: http://docs.indooratlas.com/ios/
-
-#### Known issues
-
-* iOS automatic floor plan recognition is not always reliable. It can be improved by using ambient beacons, auxiliary information sources, or UI design choices. Otherwise, we  recommend to set floorplan id directly when possible.
+The IndoorAtlas SDK API documentation is available in the documentation portal: https://docs.indooratlas.com/ios/latest/
 
 ## SDK Changelog
 
-http://docs.indooratlas.com/ios/CHANGELOG.html
+https://docs.indooratlas.com/technical/changelogs/ios/
 
 ## License
 
-Copyright 2015-2017 IndoorAtlas Ltd. The IndoorAtlas SDK Examples are released under the Apache License. See the [LICENSE.md](https://github.com/IndoorAtlas/ios-sdk-examples/blob/master/LICENSE.md) file for details.
+Copyright 2015-2018 IndoorAtlas Ltd. The IndoorAtlas SDK Examples are released under the Apache License. See the [LICENSE.md](https://github.com/IndoorAtlas/ios-sdk-examples/blob/master/LICENSE.md) file for details.
