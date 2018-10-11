@@ -4,20 +4,16 @@
  */
 
 #import <IndoorAtlas/IALocationManager.h>
-#import <IndoorAtlas/IAResourceManager.h>
 #import "ImageViewController.h"
 #import "CalibrationIndicator.h"
 #import "../ApiKeys.h"
 
-@interface ImageViewController () <IALocationManagerDelegate> {
-    id<IAFetchTask> imageFetch;
-}
+@interface ImageViewController () <IALocationManagerDelegate> {}
 @property (nonatomic, strong) IAFloorPlan *floorPlan;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIView *circle;
 @property (nonatomic, strong) UIView *accuracyCircle;
 @property (nonatomic, strong) IALocationManager *manager;
-@property (nonatomic, strong) IAResourceManager *resourceManager;
 @property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @property (nonatomic, strong) UILabel *label;
 @end
