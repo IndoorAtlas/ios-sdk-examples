@@ -309,13 +309,11 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh",
 				"${PODS_ROOT}/IndoorAtlas/indooratlas-ios-sdk/IndoorAtlas.framework",
-				"${PODS_ROOT}/IndoorAtlasWayfinding/indooratlas-ios-wayfinding/IndoorAtlasWayfinding.framework",
 				"${BUILT_PRODUCTS_DIR}/PubNub/PubNub.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IndoorAtlas.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IndoorAtlasWayfinding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PubNub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
