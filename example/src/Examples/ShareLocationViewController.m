@@ -4,7 +4,6 @@
  */
 
 #import <IndoorAtlas/IALocationManager.h>
-#import <IndoorAtlas/IAResourceManager.h>
 #import "ShareLocationViewController.h"
 #import "../ApiKeys.h"
 #import <PubNub/PubNub.h>
@@ -57,15 +56,11 @@ static NSString* const kUserColorKey   = @"color";
 
 @end
 
-@interface ShareLocationViewController () <IALocationManagerDelegate, PNObjectEventListener, UIGestureRecognizerDelegate, UIScrollViewDelegate> {
-    id<IAFetchTask> floorPlanFetch;
-    id<IAFetchTask> imageFetch;
-}
+@interface ShareLocationViewController () <IALocationManagerDelegate, PNObjectEventListener, UIGestureRecognizerDelegate, UIScrollViewDelegate> {}
 
 @property (nonatomic, strong) IAFloorPlan *floorPlan;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) IALocationManager *manager;
-@property (nonatomic, strong) IAResourceManager *resourceManager;
 @property (nonatomic, strong) PubNub *client;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *channelLabel;
@@ -128,7 +123,9 @@ static NSString* const kUserColorKey   = @"color";
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.channelLabel setText:region.identifier];
         [self.client subscribeToChannels:@[region.identifier] withPresence:NO];
-        [self fetchFloorplanWithId:region.identifier];
+        if (region.floorplan) {
+            [self fetchFloorplanImage:region.floorplan];
+        }
     }
 }
 
@@ -144,52 +141,34 @@ static NSString* const kUserColorKey   = @"color";
 #pragma mark IndoorAtlas API Usage
 
 /**
- * Fetch floor plan and image with ID
- * These methods are just wrappers around server requests.
- * You will need api key and secret to fetch resources.
+ * Fetch floor plan image
  */
-- (void)fetchFloorplanWithId:(NSString *)floorplanId {
-    [self.activityIndicator startAnimating];
+- (void)fetchFloorplanImage:(IAFloorPlan *)floorPlan
+{
     __weak typeof(self) weakSelf = self;
-    if (floorPlanFetch != nil) {
-        [floorPlanFetch cancel];
-        floorPlanFetch = nil;
-    }
-    if (imageFetch != nil) {
-        [imageFetch cancel];
-        imageFetch = nil;
-    }
-    
-    floorPlanFetch = [self.resourceManager fetchFloorPlanWithId:floorplanId andCompletion:^(IAFloorPlan *floorplan, NSError *error) {
-        if (error) {
-            NSLog(@"Error during floor plan fetch: %@", error);
-            return;
-        }
-        
-        NSLog(@"fetched floor plan with id: %@", floorplanId);
-        
-        imageFetch = [self.resourceManager fetchFloorPlanImageWithUrl:floorplan.imageUrl andCompletion:^(NSData *data, NSError *error) {
-            if (error) {
-                NSLog(@"Error during floor plan image fetch: %@", error);
-                return;
-            }
-            self.scrollView.zoomScale = 1.0;
-            UIImage *image = [UIImage imageWithData:data];
-            [self.imageView setImage:image];
-            self.imageView.frame = CGRectMake(0, 0, [image size].width, [image size].height);
-            [self.scrollView setContentSize:[image size]];
-            
-            float zoomWidth = self.view.bounds.size.width / self.imageView.image.size.width;
-            float zoomHeight = self.view.bounds.size.height / self.imageView.image.size.height;
-            
-            float zoomScale = MIN(zoomWidth, zoomHeight);
-            self.scrollView.zoomScale = self.scrollView.minimumZoomScale = zoomScale;
-            [self.scrollView setContentOffset:CGPointMake(0, -kScrollViewInset)];
-            [self.activityIndicator stopAnimating];
-        }];
-        
-        weakSelf.floorPlan = floorplan;
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                   ^{
+                       NSError *error = nil;
+                       NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:nil error:&error];
+                       if (error) {
+                           NSLog(@"Error loading floor plan image: %@", [error localizedDescription]);
+                           return;
+                       }
+                       dispatch_sync(dispatch_get_main_queue(), ^{
+                           UIImage *image = [UIImage imageWithData:imageData];
+                           float scale = fmin(1.0, fmin(weakSelf.view.bounds.size.width / floorPlan.width, weakSelf.view.bounds.size.height / floorPlan.height));
+                           CGAffineTransform t = CGAffineTransformMakeScale(scale, scale);
+                           
+                           weakSelf.imageView.transform = CGAffineTransformIdentity;
+                           weakSelf.imageView.image = image;
+                           weakSelf.imageView.frame = CGRectMake(0, 0, floorPlan.width, floorPlan.height);
+                           weakSelf.imageView.transform = t;
+                           weakSelf.imageView.center = weakSelf.view.center;
+                           weakSelf.imageView.backgroundColor = [UIColor whiteColor];
+                           
+                       });
+                   });
+    weakSelf.floorPlan = floorPlan;
 }
 
 /**
@@ -199,9 +178,6 @@ static NSString* const kUserColorKey   = @"color";
     // Create IALocationManager and point delegate to receiver
     self.manager = [IALocationManager new];
     self.manager.delegate = self;
-    
-    // Create floor plan manager
-    self.resourceManager = [IAResourceManager resourceManagerWithLocationManager:self.manager];
     
     // Request location updates
     [self.manager startUpdatingLocation];
@@ -375,7 +351,6 @@ static NSString* const kUserColorKey   = @"color";
     [self.manager stopUpdatingLocation];
     self.manager.delegate = nil;
     self.manager = nil;
-    self.resourceManager = nil;
     [self.client unsubscribeFromAll];
 }
 

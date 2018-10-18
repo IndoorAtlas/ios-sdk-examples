@@ -1,5 +1,5 @@
 //
-//  WayfindingViewController.h
+//  MapViewController.h
 //  sdk-examples
 //
 //  Copyright © 2018 IndoorAtlas. All rights reserved.
@@ -7,11 +7,10 @@
 
 #import <UIKit/UIKit.h>
 #import "IndoorAtlas/IndoorAtlas.h"
-#import <IndoorAtlasWayfinding/wayfinding.h>
 #import <MapKit/MapKit.h>
 #import "AppleMapsOverlayViewController.h"
 
-@interface WayfindingViewController : UIViewController
+@interface MapViewController : UIViewController
 @property (nonatomic, strong) IALocationManager *locationManager;
-@property (strong) MKMapView *map;
+@property (strong) MKMapView *mapView;
 @end

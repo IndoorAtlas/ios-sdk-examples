@@ -19,18 +19,12 @@
 		49A11F251B2965C20040D562 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F241B2965C20040D562 /* CFNetwork.framework */; };
 		49B1A9F21B9F2E8C003D957D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */; };
 		654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820C1F03B189006F71D4 /* GeofenceViewController.m */; };
-		654A82101F06353C006F71D4 /* LowPowerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820F1F06353C006F71D4 /* LowPowerViewController.m */; };
+		85343E56216DD3DC00B89AFC /* AppleMapsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85343E54216DD3DC00B89AFC /* AppleMapsOverlayViewController.m */; };
 		933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 933320EA1E30AAE200804C34 /* ShareLocationViewController.m */; };
-		BC2F14BA1F988F110020662A /* IndoorOutdoorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */; };
-		BC36D94E202C7870001273F4 /* wayfinding-graph.json in Resources */ = {isa = PBXBuildFile; fileRef = BC36D94D202C7870001273F4 /* wayfinding-graph.json */; };
-		BCEF21B4202B2B0B0083B732 /* WayfindingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF21B3202B2B0B0083B732 /* WayfindingViewController.m */; };
-		C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30320A21E42107F0075ACF1 /* RegionViewController.m */; };
+		BCEF21B4202B2B0B0083B732 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF21B3202B2B0B0083B732 /* MapViewController.m */; };
 		C30C65501BD8B23700EE8340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654B1BD8B23700EE8340 /* main.m */; };
 		C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654D1BD8B23700EE8340 /* SDKDemoAppDelegate.m */; };
 		C30C65521BD8B23700EE8340 /* SDKDemoMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654F1BD8B23700EE8340 /* SDKDemoMasterViewController.m */; };
-		C30C655E1BD8B26900EE8340 /* AppleMapsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C65551BD8B26900EE8340 /* AppleMapsOverlayViewController.m */; };
-		C30C655F1BD8B26900EE8340 /* AppleMapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C65571BD8B26900EE8340 /* AppleMapsViewController.m */; };
-		C30C65601BD8B26900EE8340 /* ConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C65591BD8B26900EE8340 /* ConsoleViewController.m */; };
 		C30C65611BD8B26900EE8340 /* Examples.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655B1BD8B26900EE8340 /* Examples.m */; };
 		C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C655D1BD8B26900EE8340 /* ImageViewController.m */; };
 		C324CCD31EB9AE100056CD80 /* CalibrationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C324CCD21EB9AE100056CD80 /* CalibrationIndicator.m */; };
@@ -60,30 +54,19 @@
 		60F2B605666BB6E3CA3461A0 /* Pods-sdk-examples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk-examples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples.debug.xcconfig"; sourceTree = "<group>"; };
 		654A820C1F03B189006F71D4 /* GeofenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GeofenceViewController.m; path = Examples/GeofenceViewController.m; sourceTree = "<group>"; };
 		654A820E1F03B1AA006F71D4 /* GeofenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeofenceViewController.h; path = Examples/GeofenceViewController.h; sourceTree = "<group>"; };
-		654A820F1F06353C006F71D4 /* LowPowerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LowPowerViewController.m; path = Examples/LowPowerViewController.m; sourceTree = "<group>"; };
-		654A82111F06357B006F71D4 /* LowPowerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LowPowerViewController.h; path = Examples/LowPowerViewController.h; sourceTree = "<group>"; };
+		85343E54216DD3DC00B89AFC /* AppleMapsOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleMapsOverlayViewController.m; path = Examples/AppleMapsOverlayViewController.m; sourceTree = "<group>"; };
+		85343E55216DD3DC00B89AFC /* AppleMapsOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleMapsOverlayViewController.h; path = Examples/AppleMapsOverlayViewController.h; sourceTree = "<group>"; };
 		933320E91E30AAE200804C34 /* ShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareLocationViewController.h; path = Examples/ShareLocationViewController.h; sourceTree = "<group>"; };
 		933320EA1E30AAE200804C34 /* ShareLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareLocationViewController.m; path = Examples/ShareLocationViewController.m; sourceTree = "<group>"; };
 		A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_examples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC2F14B81F988EF10020662A /* IndoorOutdoorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IndoorOutdoorViewController.h; path = Examples/IndoorOutdoorViewController.h; sourceTree = "<group>"; };
-		BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IndoorOutdoorViewController.m; path = Examples/IndoorOutdoorViewController.m; sourceTree = "<group>"; };
-		BC36D94D202C7870001273F4 /* wayfinding-graph.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "wayfinding-graph.json"; path = "Examples/wayfinding-graph.json"; sourceTree = "<group>"; };
-		BCEF21B2202B2B0B0083B732 /* WayfindingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WayfindingViewController.h; path = Examples/WayfindingViewController.h; sourceTree = "<group>"; };
-		BCEF21B3202B2B0B0083B732 /* WayfindingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WayfindingViewController.m; path = Examples/WayfindingViewController.m; sourceTree = "<group>"; };
-		C30320A11E42107F0075ACF1 /* RegionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegionViewController.h; path = Examples/RegionViewController.h; sourceTree = "<group>"; };
-		C30320A21E42107F0075ACF1 /* RegionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegionViewController.m; path = Examples/RegionViewController.m; sourceTree = "<group>"; };
+		BCEF21B2202B2B0B0083B732 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Examples/MapViewController.h; sourceTree = "<group>"; };
+		BCEF21B3202B2B0B0083B732 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Examples/MapViewController.m; sourceTree = "<group>"; };
 		C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sdk-examples-Info.plist"; sourceTree = "<group>"; };
 		C30C654B1BD8B23700EE8340 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C30C654C1BD8B23700EE8340 /* SDKDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKDemoAppDelegate.h; sourceTree = "<group>"; };
 		C30C654D1BD8B23700EE8340 /* SDKDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKDemoAppDelegate.m; sourceTree = "<group>"; };
 		C30C654E1BD8B23700EE8340 /* SDKDemoMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKDemoMasterViewController.h; sourceTree = "<group>"; };
 		C30C654F1BD8B23700EE8340 /* SDKDemoMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKDemoMasterViewController.m; sourceTree = "<group>"; };
-		C30C65541BD8B26900EE8340 /* AppleMapsOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleMapsOverlayViewController.h; path = Examples/AppleMapsOverlayViewController.h; sourceTree = "<group>"; };
-		C30C65551BD8B26900EE8340 /* AppleMapsOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleMapsOverlayViewController.m; path = Examples/AppleMapsOverlayViewController.m; sourceTree = "<group>"; };
-		C30C65561BD8B26900EE8340 /* AppleMapsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleMapsViewController.h; path = Examples/AppleMapsViewController.h; sourceTree = "<group>"; };
-		C30C65571BD8B26900EE8340 /* AppleMapsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleMapsViewController.m; path = Examples/AppleMapsViewController.m; sourceTree = "<group>"; };
-		C30C65581BD8B26900EE8340 /* ConsoleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConsoleViewController.h; path = Examples/ConsoleViewController.h; sourceTree = "<group>"; };
-		C30C65591BD8B26900EE8340 /* ConsoleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConsoleViewController.m; path = Examples/ConsoleViewController.m; sourceTree = "<group>"; };
 		C30C655A1BD8B26900EE8340 /* Examples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Examples.h; path = Examples/Examples.h; sourceTree = "<group>"; };
 		C30C655B1BD8B26900EE8340 /* Examples.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Examples.m; path = Examples/Examples.m; sourceTree = "<group>"; };
 		C30C655C1BD8B26900EE8340 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageViewController.h; path = Examples/ImageViewController.h; sourceTree = "<group>"; };
@@ -191,33 +174,22 @@
 		C30C65531BD8B24400EE8340 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				85343E55216DD3DC00B89AFC /* AppleMapsOverlayViewController.h */,
+				85343E54216DD3DC00B89AFC /* AppleMapsOverlayViewController.m */,
 				C39CEB331E855F5500BEEDC3 /* BackgroundViewController.h */,
 				C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */,
-				BC2F14B81F988EF10020662A /* IndoorOutdoorViewController.h */,
-				BC2F14B91F988F110020662A /* IndoorOutdoorViewController.m */,
 				C3552B791E7BD8690060FB90 /* OrientationViewController.h */,
 				C3552B7A1E7BD8690060FB90 /* OrientationViewController.m */,
 				C3552B7B1E7BD8690060FB90 /* PanoramaView.h */,
 				C3552B7C1E7BD8690060FB90 /* PanoramaView.m */,
 				654A820C1F03B189006F71D4 /* GeofenceViewController.m */,
 				654A820E1F03B1AA006F71D4 /* GeofenceViewController.h */,
-				C30320A11E42107F0075ACF1 /* RegionViewController.h */,
-				C30320A21E42107F0075ACF1 /* RegionViewController.m */,
 				933320E91E30AAE200804C34 /* ShareLocationViewController.h */,
 				933320EA1E30AAE200804C34 /* ShareLocationViewController.m */,
-				BCEF21B2202B2B0B0083B732 /* WayfindingViewController.h */,
-				BCEF21B3202B2B0B0083B732 /* WayfindingViewController.m */,
-				BC36D94D202C7870001273F4 /* wayfinding-graph.json */,
-				C30C65541BD8B26900EE8340 /* AppleMapsOverlayViewController.h */,
-				C30C65551BD8B26900EE8340 /* AppleMapsOverlayViewController.m */,
-				C30C65561BD8B26900EE8340 /* AppleMapsViewController.h */,
-				C30C65571BD8B26900EE8340 /* AppleMapsViewController.m */,
-				C30C65581BD8B26900EE8340 /* ConsoleViewController.h */,
-				C30C65591BD8B26900EE8340 /* ConsoleViewController.m */,
+				BCEF21B2202B2B0B0083B732 /* MapViewController.h */,
+				BCEF21B3202B2B0B0083B732 /* MapViewController.m */,
 				C30C655A1BD8B26900EE8340 /* Examples.h */,
 				C30C655B1BD8B26900EE8340 /* Examples.m */,
-				654A82111F06357B006F71D4 /* LowPowerViewController.h */,
-				654A820F1F06353C006F71D4 /* LowPowerViewController.m */,
 				C30C655C1BD8B26900EE8340 /* ImageViewController.h */,
 				C30C655D1BD8B26900EE8340 /* ImageViewController.m */,
 				C324CCD11EB9AE100056CD80 /* CalibrationIndicator.h */,
@@ -256,7 +228,6 @@
 				494D6CBB18DC8A44004AA8E1 /* Frameworks */,
 				494D6CBC18DC8A44004AA8E1 /* Resources */,
 				8D9AAF8A84B0492F3C76802A /* [CP] Embed Pods Frameworks */,
-				3EFC35DDAF914D3140A41C7D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -277,8 +248,7 @@
 				ORGANIZATIONNAME = IndoorAtlas;
 				TargetAttributes = {
 					494D6CBD18DC8A44004AA8E1 = {
-						DevelopmentTeam = "";
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -306,41 +276,28 @@
 			files = (
 				494D6CF718DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets in Resources */,
 				C3552B8C1E7BEF080060FB90 /* telescope_compass_2048.jpg in Resources */,
-				BC36D94E202C7870001273F4 /* wayfinding-graph.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3EFC35DDAF914D3140A41C7D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		67A0DC4E13A8AB6D43DEBE81 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-sdk-examples-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8D9AAF8A84B0492F3C76802A /* [CP] Embed Pods Frameworks */ = {
@@ -349,9 +306,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh",
+				"${PODS_ROOT}/IndoorAtlas/indooratlas-ios-sdk/IndoorAtlas.framework",
+				"${BUILT_PRODUCTS_DIR}/PubNub/PubNub.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IndoorAtlas.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PubNub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -366,23 +328,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30C65521BD8B23700EE8340 /* SDKDemoMasterViewController.m in Sources */,
-				654A82101F06353C006F71D4 /* LowPowerViewController.m in Sources */,
 				C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */,
 				C3552B7D1E7BD8690060FB90 /* OrientationViewController.m in Sources */,
 				C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */,
 				C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */,
 				C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */,
-				BC2F14BA1F988F110020662A /* IndoorOutdoorViewController.m in Sources */,
-				C30C65601BD8B26900EE8340 /* ConsoleViewController.m in Sources */,
-				C30C655E1BD8B26900EE8340 /* AppleMapsOverlayViewController.m in Sources */,
 				933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */,
+				85343E56216DD3DC00B89AFC /* AppleMapsOverlayViewController.m in Sources */,
 				C30C65501BD8B23700EE8340 /* main.m in Sources */,
 				C30C65611BD8B26900EE8340 /* Examples.m in Sources */,
-				C30320A31E42107F0075ACF1 /* RegionViewController.m in Sources */,
 				C324CCD31EB9AE100056CD80 /* CalibrationIndicator.m in Sources */,
 				654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */,
-				BCEF21B4202B2B0B0083B732 /* WayfindingViewController.m in Sources */,
-				C30C655F1BD8B26900EE8340 /* AppleMapsViewController.m in Sources */,
+				BCEF21B4202B2B0B0083B732 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,11 +434,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "sdk-examples-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.indooratlas.ios-sdk-examples;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.indooratlas.ios-sdk-examples";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -496,11 +453,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "sdk-examples-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.indooratlas.ios-sdk-examples;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.indooratlas.ios-sdk-examples";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

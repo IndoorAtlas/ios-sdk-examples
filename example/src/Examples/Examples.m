@@ -9,18 +9,13 @@
 
 #import "Examples.h"
 
-#import "AppleMapsViewController.h"
 #import "AppleMapsOverlayViewController.h"
 #import "ImageViewController.h"
-#import "ConsoleViewController.h"
-#import "RegionViewController.h"
 #import "ShareLocationViewController.h"
 #import "BackgroundViewController.h"
 #import "GeofenceViewController.h"
-#import "LowPowerViewController.h"
 #import "OrientationViewController.h"
-#import "IndoorOutdoorViewController.h"
-#import "WayfindingViewController.h"
+#import "MapViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -31,20 +26,11 @@
 
 + (NSArray *)loadDemos {
     NSMutableArray *mapDemos =
-    [@[[self newDemo:[AppleMapsViewController class]
-         withTitle:@"Apple Maps"
-     andDescription:nil],
-       [self newDemo:[AppleMapsOverlayViewController class]
-         withTitle:@"Apple Maps Overlay"
+    [@[[self newDemo:[MapViewController class]
+         withTitle:@"Map View"
      andDescription:nil],
        [self newDemo:[ImageViewController class]
          withTitle:@"Image View"
-     andDescription:nil],
-       [self newDemo:[ConsoleViewController class]
-         withTitle:@"Console Prints"
-     andDescription:nil],
-       [self newDemo:[RegionViewController class]
-         withTitle:@"Regions"
      andDescription:nil],
        [self newDemo:[BackgroundViewController class]
          withTitle:@"Background"
@@ -52,18 +38,9 @@
        [self newDemo:[GeofenceViewController class]
          withTitle:@"Geofence"
      andDescription:nil],
-       [self newDemo:[LowPowerViewController class]
-         withTitle:@"Low-power"
-     andDescription:nil],
        [self newDemo:[OrientationViewController class]
          withTitle:@"Orientation"
-     andDescription:nil],
-       [self newDemo:[IndoorOutdoorViewController class]
-           withTitle:@"Indoor-Outdoor"
-      andDescription:nil],
-       [self newDemo:[WayfindingViewController class]
-           withTitle:@"Wayfinding"
-      andDescription:nil],
+     andDescription:nil]
       ] mutableCopy];
     
     if ([kPubNubPublishKey length] > 0 && [kPubNubSubscribeKey length] > 0) {
