@@ -10,9 +10,6 @@
 static NSString *kAPIKey = @"";
 static NSString *kAPISecret = @"";
 
-// Floor plan id is same as "FloorplanId" at the <https://app.indooratlas.com/locations>
-static NSString *kFloorplanId = @"";
-
 // Edit your own PubNub credentials here, keys can be generated at <https://www.pubnub.com>
 static NSString *kPubNubPublishKey   = @"";
 static NSString *kPubNubSubscribeKey = @"";
