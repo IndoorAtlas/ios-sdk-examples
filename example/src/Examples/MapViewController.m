@@ -405,6 +405,7 @@ typedef enum {
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.locationManager stopMonitoringForWayfinding];
     [self.locationManager stopUpdatingLocation];
     self.locationManager.delegate = nil;
     self.locationManager = nil;
