@@ -16,6 +16,7 @@
 #import "GeofenceViewController.h"
 #import "OrientationViewController.h"
 #import "MapViewController.h"
+#import "POIViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -37,6 +38,9 @@
      andDescription:nil],
        [self newDemo:[GeofenceViewController class]
          withTitle:@"Geofence"
+     andDescription:nil],
+       [self newDemo:[POIViewController class]
+         withTitle:@"Point of Interest"
      andDescription:nil],
        [self newDemo:[OrientationViewController class]
          withTitle:@"Orientation"

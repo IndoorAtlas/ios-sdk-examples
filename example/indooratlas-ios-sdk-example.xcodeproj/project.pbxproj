@@ -15,6 +15,7 @@
 		494D6CF718DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 494D6CF618DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets */; };
 		494D6CF918DC8ABC004AA8E1 /* IndoorAtlas.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CF818DC8ABC004AA8E1 /* IndoorAtlas.framework */; };
 		494D6CFB18DC8B16004AA8E1 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CFA18DC8B16004AA8E1 /* CoreMotion.framework */; };
+		496E7A3023DFE07000D12DFC /* POIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E7A2F23DFE07000D12DFC /* POIViewController.m */; };
 		49A11F231B2965BB0040D562 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F221B2965BB0040D562 /* Security.framework */; };
 		49A11F251B2965C20040D562 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F241B2965C20040D562 /* CFNetwork.framework */; };
 		49B1A9F21B9F2E8C003D957D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */; };
@@ -46,6 +47,8 @@
 		494D6CF618DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IndoorAtlasBundle.xcassets; sourceTree = "<group>"; };
 		494D6CF818DC8ABC004AA8E1 /* IndoorAtlas.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IndoorAtlas.framework; path = ../IndoorAtlas.framework; sourceTree = "<group>"; };
 		494D6CFA18DC8B16004AA8E1 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		496E7A2E23DFE07000D12DFC /* POIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POIViewController.h; path = Examples/POIViewController.h; sourceTree = "<group>"; };
+		496E7A2F23DFE07000D12DFC /* POIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POIViewController.m; path = Examples/POIViewController.m; sourceTree = "<group>"; };
 		49A11F221B2965BB0040D562 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		49A11F241B2965C20040D562 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -171,6 +174,8 @@
 		C30C65531BD8B24400EE8340 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				496E7A2E23DFE07000D12DFC /* POIViewController.h */,
+				496E7A2F23DFE07000D12DFC /* POIViewController.m */,
 				85343E55216DD3DC00B89AFC /* AppleMapsOverlayViewController.h */,
 				85343E54216DD3DC00B89AFC /* AppleMapsOverlayViewController.m */,
 				C39CEB331E855F5500BEEDC3 /* BackgroundViewController.h */,
@@ -331,6 +336,7 @@
 				933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */,
 				85343E56216DD3DC00B89AFC /* AppleMapsOverlayViewController.m in Sources */,
 				C30C65501BD8B23700EE8340 /* main.m in Sources */,
+				496E7A3023DFE07000D12DFC /* POIViewController.m in Sources */,
 				C30C65611BD8B26900EE8340 /* Examples.m in Sources */,
 				654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */,
 				BCEF21B4202B2B0B0083B732 /* MapViewController.m in Sources */,
