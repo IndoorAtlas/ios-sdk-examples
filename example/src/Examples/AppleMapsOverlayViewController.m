@@ -7,7 +7,6 @@
 #import <MapKit/MapKit.h>
 #import "AppleMapsOverlayViewController.h"
 #import "../ApiKeys.h"
-#import "CalibrationIndicator.h"
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
@@ -69,7 +68,6 @@
 @property (strong) MKCircle *circle;
 @property (strong) IAFloorPlan *floorPlan;
 @property CGRect rotated;
-@property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @property (nonatomic, strong) UILabel *label;
 @end
 
@@ -230,11 +228,6 @@
     }
 }
 
-- (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
-{
-    [self.calibrationIndicator setCalibration:quality];
-}
-
 /**
  * Request location updates
  */
@@ -244,10 +237,6 @@
 
     // set delegate to receive location updates
     self.locationManager.delegate = self;
-
-    self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:self.locationManager.calibration];
-
-    [self.calibrationIndicator setCalibration:self.locationManager.calibration];
 
     // Request location updates
     [self.locationManager startUpdatingLocation];

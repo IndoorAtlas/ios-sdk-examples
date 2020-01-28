@@ -5,7 +5,6 @@
 
 #import <IndoorAtlas/IALocationManager.h>
 #import "ImageViewController.h"
-#import "CalibrationIndicator.h"
 #import "../ApiKeys.h"
 
 @interface ImageViewController () <IALocationManagerDelegate> {}
@@ -14,7 +13,6 @@
 @property (nonatomic, strong) UIView *circle;
 @property (nonatomic, strong) UIView *accuracyCircle;
 @property (nonatomic, strong) IALocationManager *manager;
-@property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @property (nonatomic, strong) UILabel *label;
 @end
 
@@ -56,11 +54,6 @@
     if (region.floorplan) {
         [self fetchFloorplanImage:region.floorplan];
     }
-}
-
-- (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
-{
-    [self.calibrationIndicator setCalibration:quality];
 }
 
 #pragma mark IndoorAtlas API Usage
@@ -111,11 +104,6 @@
     // Create IALocationManager and point delegate to receiver
     self.manager = [IALocationManager new];
     self.manager.delegate = self;
-
-    // Add calibration indicator to navigation bar
-    self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:self.manager.calibration];
-
-    [self.calibrationIndicator setCalibration:self.manager.calibration];
 
     // Disable indoor-outdoor detection
     [self.manager lockIndoors:true];
