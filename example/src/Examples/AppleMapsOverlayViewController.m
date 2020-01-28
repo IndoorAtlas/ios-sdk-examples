@@ -193,19 +193,17 @@
     NSDictionary *cache = [NSMutableDictionary dictionaryWithContentsOfFile:[self cacheFile]];
     NSData *data = [cache objectForKey:key];
     IAFloorPlan *object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
     return object;
 }
 
 // Image is fetched again each time. It can be cached on device.
 - (void)fetchImage:(IAFloorPlan *)floorPlan
 {
-
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                     ^{
                         NSError *error = nil;
-                        NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:nil error:&error];
+                        NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:0 error:&error];
                         if (error) {
                             NSLog(@"Error loading floor plan image: %@", [error localizedDescription]);
                             return;

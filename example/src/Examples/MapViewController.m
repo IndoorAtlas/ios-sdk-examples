@@ -62,7 +62,7 @@ typedef enum {
 
     if ([overlay isKindOfClass:[MKPolyline class]])
     {
-        MKPolylineRenderer *polylineRenderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+        MKPolylineRenderer *polylineRenderer = [[MKPolylineRenderer alloc] initWithPolyline:(MKPolyline*)overlay];
 
         polylineRenderer.strokeColor = [UIColor colorWithRed:0.08627 green:0.5059 blue:0.9843 alpha:0.7];
         polylineRenderer.lineWidth = 3;
@@ -181,7 +181,7 @@ typedef enum {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    ^{
                        NSError *error = nil;
-                       NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:nil error:&error];
+                       NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:0 error:&error];
                        if (error) {
                            NSLog(@"Error loading floor plan image: %@", [error localizedDescription]);
                            return;

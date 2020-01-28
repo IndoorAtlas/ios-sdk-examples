@@ -77,7 +77,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    ^{
                        NSError *error = nil;
-                       NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:nil error:&error];
+                       NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:0 error:&error];
                        if (error) {
                            NSLog(@"Error loading floor plan image: %@", [error localizedDescription]);
                            return;
