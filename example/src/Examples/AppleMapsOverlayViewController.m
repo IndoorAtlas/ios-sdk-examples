@@ -7,7 +7,6 @@
 #import <MapKit/MapKit.h>
 #import "AppleMapsOverlayViewController.h"
 #import "../ApiKeys.h"
-#import "CalibrationIndicator.h"
 
 #define degreesToRadians(x) (M_PI * x / 180.0)
 
@@ -69,7 +68,6 @@
 @property (strong) MKCircle *circle;
 @property (strong) IAFloorPlan *floorPlan;
 @property CGRect rotated;
-@property (nonatomic, strong) CalibrationIndicator *calibrationIndicator;
 @property (nonatomic, strong) UILabel *label;
 @end
 
@@ -193,19 +191,17 @@
     NSDictionary *cache = [NSMutableDictionary dictionaryWithContentsOfFile:[self cacheFile]];
     NSData *data = [cache objectForKey:key];
     IAFloorPlan *object = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
     return object;
 }
 
 // Image is fetched again each time. It can be cached on device.
 - (void)fetchImage:(IAFloorPlan *)floorPlan
 {
-
     __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                     ^{
                         NSError *error = nil;
-                        NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:nil error:&error];
+                        NSData *imageData = [NSData dataWithContentsOfURL:[floorPlan imageUrl] options:0 error:&error];
                         if (error) {
                             NSLog(@"Error loading floor plan image: %@", [error localizedDescription]);
                             return;
@@ -232,11 +228,6 @@
     }
 }
 
-- (void)indoorLocationManager:(IALocationManager *)manager calibrationQualityChanged:(enum ia_calibration)quality
-{
-    [self.calibrationIndicator setCalibration:quality];
-}
-
 /**
  * Request location updates
  */
@@ -246,10 +237,6 @@
 
     // set delegate to receive location updates
     self.locationManager.delegate = self;
-
-    self.calibrationIndicator = [[CalibrationIndicator alloc] initWithNavigationItem:self.navigationItem andCalibration:self.locationManager.calibration];
-
-    [self.calibrationIndicator setCalibration:self.locationManager.calibration];
 
     // Request location updates
     [self.locationManager startUpdatingLocation];
