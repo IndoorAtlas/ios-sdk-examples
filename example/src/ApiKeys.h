@@ -14,4 +14,8 @@ static NSString *kAPISecret = @"";
 static NSString *kPubNubPublishKey   = @"";
 static NSString *kPubNubSubscribeKey = @"";
 
+// Reporting endpoint for the Background example
+// e.g. https://example.com/report_api
+static NSString *kBackgroundReportEndPoint = @"";
+
 #endif
