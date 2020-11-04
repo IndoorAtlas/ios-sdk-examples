@@ -20,6 +20,17 @@
 @implementation BackgroundViewController
 
 #pragma mark IALocationManagerDelegate methods
+
+- (void)indoorLocationManager:(IALocationManager *)manager didExitRegion:(IARegion *)region {
+    if (region.type == kIARegionTypeVenue) venueId = @"";
+    else if (region.type == kIARegionTypeFloorPlan) floorPlanId = @"";
+}
+
+- (void)indoorLocationManager:(IALocationManager *)manager didEnterRegion:(IARegion *)region {
+    if (region.type == kIARegionTypeVenue) venueId = region.identifier;
+    else if (region.type == kIARegionTypeFloorPlan) floorPlanId = region.identifier;
+}
+
 /**
  * Position packet handling from IndoorAtlasPositioner
  */
@@ -35,6 +46,38 @@
 
     // Showing notification is only to see that application is still running and not required for background mode
     [self showNotification:[NSString stringWithFormat:@"Coord: %lf, %lf acc: %lf", l.coordinate.latitude, l.coordinate.longitude, l.horizontalAccuracy]];
+
+    if (kBackgroundReportEndPoint.length) {
+        NSDictionary *dict = @{
+            @"location": @{
+                    @"coordinates": @{
+                            @"lat": @(l.coordinate.latitude),
+                            @"lon": @(l.coordinate.longitude),
+                    },
+                    @"accuracy": @(l.horizontalAccuracy),
+                    @"floorNumber": @([(IALocation*)locations.lastObject floor].level),
+            },
+            @"context": @{
+                    @"indooratlas": @{
+                            @"floorPlanId": (floorPlanId ? floorPlanId : @""),
+                            @"venueId": (venueId ? venueId : @""),
+                            @"traceId": [self.manager.extraInfo objectForKey:kIATraceId],
+                    }
+            },
+        };
+
+        NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
+        NSString *escaped = [[[UIDevice currentDevice] name] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        NSString *url = [kBackgroundReportEndPoint stringByAppendingPathComponent:escaped];
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setHTTPMethod:@"PUT"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [request setURL:[NSURL URLWithString:url]];
+        [request setHTTPBody:data];
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request];
+        [task resume];
+    }
 }
 
 #pragma mark IndoorAtlas API Usage
