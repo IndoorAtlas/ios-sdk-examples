@@ -6,7 +6,7 @@ source 'https://github.com/IndoorAtlas/CocoaPods-Specs.git'
 
 target 'sdk-examples' do
    pod "PubNub", "~> 4" # For PubNub example
-   pod 'IndoorAtlas', '3.3.5'
+   pod 'IndoorAtlas', '3.3.6'
 end
 
 post_install do |installer|
