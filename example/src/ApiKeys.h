@@ -10,10 +10,6 @@
 static NSString *kAPIKey = @"";
 static NSString *kAPISecret = @"";
 
-// Edit your own PubNub credentials here, keys can be generated at <https://www.pubnub.com>
-static NSString *kPubNubPublishKey   = @"";
-static NSString *kPubNubSubscribeKey = @"";
-
 // Reporting endpoint for the Background example
 // e.g. https://example.com/report_api
 static NSString *kBackgroundReportEndPoint = @"";

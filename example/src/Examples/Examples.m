@@ -11,7 +11,6 @@
 
 #import "AppleMapsOverlayViewController.h"
 #import "ImageViewController.h"
-#import "ShareLocationViewController.h"
 #import "BackgroundViewController.h"
 #import "GeofenceViewController.h"
 #import "OrientationViewController.h"
@@ -46,12 +45,6 @@
          withTitle:@"Orientation"
      andDescription:nil]
       ] mutableCopy];
-    
-    if ([kPubNubPublishKey length] > 0 && [kPubNubSubscribeKey length] > 0) {
-        [mapDemos addObject:[self newDemo:[ShareLocationViewController class]
-                                withTitle:@"Share Location"
-                           andDescription:nil]];
-    }
     
     return @[mapDemos];
 }

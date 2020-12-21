@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		31F7A84D1BE2420C003C5163 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F7A84C1BE2420C003C5163 /* libz.dylib */; };
-		3808D26B2E926547F59B3CA6 /* Pods_sdk_examples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */; };
 		494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC118DC8A44004AA8E1 /* Foundation.framework */; };
 		494D6CC418DC8A44004AA8E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */; };
 		494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC518DC8A44004AA8E1 /* UIKit.framework */; };
@@ -21,7 +20,6 @@
 		49B1A9F21B9F2E8C003D957D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */; };
 		654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820C1F03B189006F71D4 /* GeofenceViewController.m */; };
 		85343E56216DD3DC00B89AFC /* AppleMapsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85343E54216DD3DC00B89AFC /* AppleMapsOverlayViewController.m */; };
-		933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 933320EA1E30AAE200804C34 /* ShareLocationViewController.m */; };
 		BCEF21B4202B2B0B0083B732 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF21B3202B2B0B0083B732 /* MapViewController.m */; };
 		C30C65501BD8B23700EE8340 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654B1BD8B23700EE8340 /* main.m */; };
 		C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C30C654D1BD8B23700EE8340 /* SDKDemoAppDelegate.m */; };
@@ -58,9 +56,6 @@
 		654A820E1F03B1AA006F71D4 /* GeofenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeofenceViewController.h; path = Examples/GeofenceViewController.h; sourceTree = "<group>"; };
 		85343E54216DD3DC00B89AFC /* AppleMapsOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleMapsOverlayViewController.m; path = Examples/AppleMapsOverlayViewController.m; sourceTree = "<group>"; };
 		85343E55216DD3DC00B89AFC /* AppleMapsOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleMapsOverlayViewController.h; path = Examples/AppleMapsOverlayViewController.h; sourceTree = "<group>"; };
-		933320E91E30AAE200804C34 /* ShareLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareLocationViewController.h; path = Examples/ShareLocationViewController.h; sourceTree = "<group>"; };
-		933320EA1E30AAE200804C34 /* ShareLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareLocationViewController.m; path = Examples/ShareLocationViewController.m; sourceTree = "<group>"; };
-		A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_examples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCEF21B2202B2B0B0083B732 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Examples/MapViewController.h; sourceTree = "<group>"; };
 		BCEF21B3202B2B0B0083B732 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Examples/MapViewController.m; sourceTree = "<group>"; };
 		C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "sdk-examples-Info.plist"; sourceTree = "<group>"; };
@@ -106,7 +101,6 @@
 				494D6CF918DC8ABC004AA8E1 /* IndoorAtlas.framework in Frameworks */,
 				494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */,
 				494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */,
-				3808D26B2E926547F59B3CA6 /* Pods_sdk_examples.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +145,6 @@
 				494D6CC118DC8A44004AA8E1 /* Foundation.framework */,
 				494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */,
 				494D6CC518DC8A44004AA8E1 /* UIKit.framework */,
-				A2F1FEA2F2BCF9F9E989BE44 /* Pods_sdk_examples.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -186,8 +179,6 @@
 				C3552B7C1E7BD8690060FB90 /* PanoramaView.m */,
 				654A820C1F03B189006F71D4 /* GeofenceViewController.m */,
 				654A820E1F03B1AA006F71D4 /* GeofenceViewController.h */,
-				933320E91E30AAE200804C34 /* ShareLocationViewController.h */,
-				933320EA1E30AAE200804C34 /* ShareLocationViewController.m */,
 				BCEF21B2202B2B0B0083B732 /* MapViewController.h */,
 				BCEF21B3202B2B0B0083B732 /* MapViewController.m */,
 				C30C655A1BD8B26900EE8340 /* Examples.h */,
@@ -257,6 +248,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 494D6CB518DC8A43004AA8E1;
@@ -306,18 +298,16 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh",
 				"${PODS_ROOT}/IndoorAtlas/indooratlas-ios-sdk/IndoorAtlas.framework",
-				"${BUILT_PRODUCTS_DIR}/PubNub/PubNub.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IndoorAtlas.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PubNub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -333,7 +323,6 @@
 				C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */,
 				C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */,
 				C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */,
-				933320EB1E30AAE200804C34 /* ShareLocationViewController.m in Sources */,
 				85343E56216DD3DC00B89AFC /* AppleMapsOverlayViewController.m in Sources */,
 				C30C65501BD8B23700EE8340 /* main.m in Sources */,
 				496E7A3023DFE07000D12DFC /* POIViewController.m in Sources */,

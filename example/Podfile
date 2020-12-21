@@ -5,7 +5,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/IndoorAtlas/CocoaPods-Specs.git'
 
 target 'sdk-examples' do
-   pod "PubNub", "~> 4" # For PubNub example
    pod 'IndoorAtlas', '3.3.6'
 end
 
