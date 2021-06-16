@@ -5,7 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/IndoorAtlas/CocoaPods-Specs.git'
 
 target 'sdk-examples' do
-   pod 'IndoorAtlas', '3.4.3'
+   pod 'IndoorAtlas', '3.4.7'
 end
 
 post_install do |installer|
