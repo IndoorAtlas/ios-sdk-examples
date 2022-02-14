@@ -16,6 +16,8 @@
 #import "OrientationViewController.h"
 #import "MapViewController.h"
 #import "POIViewController.h"
+#import "ARViewController.h"
+#import "ThirdPartyARViewController.h"
 #import "../ApiKeys.h"
 
 @implementation Examples
@@ -45,6 +47,11 @@
          withTitle:@"Orientation"
      andDescription:nil]
       ] mutableCopy];
+    
+    if (@available(iOS 11.0, *)) {
+        [mapDemos addObject:[self newDemo:[ARViewController class] withTitle:@"AR view" andDescription:nil]];
+        [mapDemos addObject:[self newDemo:[ThirdPartyARViewController class] withTitle:@"3rd Party AR view" andDescription:nil]];
+    }
     
     return @[mapDemos];
 }
