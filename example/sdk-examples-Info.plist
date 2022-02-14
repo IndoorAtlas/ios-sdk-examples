@@ -32,6 +32,8 @@
 	<string>For better indoor positioning experience.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>For better indoor positioning experience.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Needed for AR positioning</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Platform location requested for better indoor positioning experience.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

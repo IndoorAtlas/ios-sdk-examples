@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		31F7A84D1BE2420C003C5163 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F7A84C1BE2420C003C5163 /* libz.dylib */; };
+		47E274B42727EF420084D797 /* ARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E274B32727EF420084D797 /* ARViewController.m */; };
+		47E274B72727EF510084D797 /* ThirdPartyARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E274B62727EF510084D797 /* ThirdPartyARViewController.m */; };
+		47E274B92727EFDB0084D797 /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 47E274B82727EFDB0084D797 /* Models.scnassets */; };
+		47E274BC2727F6870084D797 /* PaddingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E274BB2727F6870084D797 /* PaddingLabel.m */; };
+		47E274BF2727F9F90084D797 /* ARUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 47E274BE2727F9F90084D797 /* ARUtils.m */; };
+		47E274C12727FBB00084D797 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E274C02727FBB00084D797 /* SceneKit.framework */; };
+		47E274C32727FBB60084D797 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E274C22727FBB60084D797 /* ARKit.framework */; };
 		494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC118DC8A44004AA8E1 /* Foundation.framework */; };
 		494D6CC418DC8A44004AA8E1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */; };
 		494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494D6CC518DC8A44004AA8E1 /* UIKit.framework */; };
@@ -18,6 +25,7 @@
 		49A11F231B2965BB0040D562 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F221B2965BB0040D562 /* Security.framework */; };
 		49A11F251B2965C20040D562 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A11F241B2965C20040D562 /* CFNetwork.framework */; };
 		49B1A9F21B9F2E8C003D957D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B1A9F11B9F2E8C003D957D /* CoreLocation.framework */; };
+		513CCB2903703B630884B245 /* Pods_sdk_examples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1099FC281F464A5E28F4454 /* Pods_sdk_examples.framework */; };
 		654A820D1F03B189006F71D4 /* GeofenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A820C1F03B189006F71D4 /* GeofenceViewController.m */; };
 		85343E56216DD3DC00B89AFC /* AppleMapsOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85343E54216DD3DC00B89AFC /* AppleMapsOverlayViewController.m */; };
 		BCEF21B4202B2B0B0083B732 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEF21B3202B2B0B0083B732 /* MapViewController.m */; };
@@ -38,6 +46,17 @@
 
 /* Begin PBXFileReference section */
 		31F7A84C1BE2420C003C5163 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		47E274B22727EF420084D797 /* ARViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARViewController.h; sourceTree = "<group>"; };
+		47E274B32727EF420084D797 /* ARViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARViewController.m; sourceTree = "<group>"; };
+		47E274B52727EF510084D797 /* ThirdPartyARViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThirdPartyARViewController.h; sourceTree = "<group>"; };
+		47E274B62727EF510084D797 /* ThirdPartyARViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyARViewController.m; sourceTree = "<group>"; };
+		47E274B82727EFDB0084D797 /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
+		47E274BA2727F6870084D797 /* PaddingLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaddingLabel.h; sourceTree = "<group>"; };
+		47E274BB2727F6870084D797 /* PaddingLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaddingLabel.m; sourceTree = "<group>"; };
+		47E274BD2727F9F90084D797 /* ARUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ARUtils.h; sourceTree = "<group>"; };
+		47E274BE2727F9F90084D797 /* ARUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ARUtils.m; sourceTree = "<group>"; };
+		47E274C02727FBB00084D797 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		47E274C22727FBB60084D797 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		494D6CBE18DC8A44004AA8E1 /* sdk-examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sdk-examples.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		494D6CC118DC8A44004AA8E1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -81,6 +100,7 @@
 		C39CEB341E855F5500BEEDC3 /* BackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BackgroundViewController.m; path = Examples/BackgroundViewController.m; sourceTree = "<group>"; };
 		C3AC85111BD8B8C500E17837 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C3DB3CA61BA15A4C0048FD81 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E1099FC281F464A5E28F4454 /* Pods_sdk_examples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sdk_examples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,13 +114,16 @@
 				C3AC85131BD8B8CC00E17837 /* MapKit.framework in Frameworks */,
 				C3AC85121BD8B8C500E17837 /* SystemConfiguration.framework in Frameworks */,
 				49B1A9F21B9F2E8C003D957D /* CoreLocation.framework in Frameworks */,
+				47E274C32727FBB60084D797 /* ARKit.framework in Frameworks */,
 				49A11F251B2965C20040D562 /* CFNetwork.framework in Frameworks */,
+				47E274C12727FBB00084D797 /* SceneKit.framework in Frameworks */,
 				49A11F231B2965BB0040D562 /* Security.framework in Frameworks */,
 				494D6CFB18DC8B16004AA8E1 /* CoreMotion.framework in Frameworks */,
 				494D6CC418DC8A44004AA8E1 /* CoreGraphics.framework in Frameworks */,
 				494D6CF918DC8ABC004AA8E1 /* IndoorAtlas.framework in Frameworks */,
 				494D6CC618DC8A44004AA8E1 /* UIKit.framework in Frameworks */,
 				494D6CC218DC8A44004AA8E1 /* Foundation.framework in Frameworks */,
+				513CCB2903703B630884B245 /* Pods_sdk_examples.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +135,7 @@
 			children = (
 				C30C65491BD8B1CE00EE8340 /* sdk-examples-Info.plist */,
 				494D6CF618DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets */,
+				47E274B82727EFDB0084D797 /* Models.scnassets */,
 				C3552B811E7BD8E60060FB90 /* Images */,
 				494D6CF018DC8AAA004AA8E1 /* Source */,
 				494D6CC018DC8A44004AA8E1 /* Frameworks */,
@@ -131,6 +155,8 @@
 		494D6CC018DC8A44004AA8E1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47E274C22727FBB60084D797 /* ARKit.framework */,
+				47E274C02727FBB00084D797 /* SceneKit.framework */,
 				C3552B861E7BE83C0060FB90 /* OpenGLES.framework */,
 				C3552B841E7BE8330060FB90 /* GLKit.framework */,
 				31F7A84C1BE2420C003C5163 /* libz.dylib */,
@@ -145,6 +171,7 @@
 				494D6CC118DC8A44004AA8E1 /* Foundation.framework */,
 				494D6CC318DC8A44004AA8E1 /* CoreGraphics.framework */,
 				494D6CC518DC8A44004AA8E1 /* UIKit.framework */,
+				E1099FC281F464A5E28F4454 /* Pods_sdk_examples.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -159,6 +186,10 @@
 				C30C654E1BD8B23700EE8340 /* SDKDemoMasterViewController.h */,
 				C30C654F1BD8B23700EE8340 /* SDKDemoMasterViewController.m */,
 				C3442F161BA1746A00BE1CF5 /* ApiKeys.h */,
+				47E274BA2727F6870084D797 /* PaddingLabel.h */,
+				47E274BB2727F6870084D797 /* PaddingLabel.m */,
+				47E274BD2727F9F90084D797 /* ARUtils.h */,
+				47E274BE2727F9F90084D797 /* ARUtils.m */,
 			);
 			name = Source;
 			path = src;
@@ -185,6 +216,10 @@
 				C30C655B1BD8B26900EE8340 /* Examples.m */,
 				C30C655C1BD8B26900EE8340 /* ImageViewController.h */,
 				C30C655D1BD8B26900EE8340 /* ImageViewController.m */,
+				47E274B22727EF420084D797 /* ARViewController.h */,
+				47E274B32727EF420084D797 /* ARViewController.m */,
+				47E274B52727EF510084D797 /* ThirdPartyARViewController.h */,
+				47E274B62727EF510084D797 /* ThirdPartyARViewController.m */,
 			);
 			name = Examples;
 			sourceTree = "<group>";
@@ -266,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E274B92727EFDB0084D797 /* Models.scnassets in Resources */,
 				494D6CF718DC8AB2004AA8E1 /* IndoorAtlasBundle.xcassets in Resources */,
 				C3552B8C1E7BEF080060FB90 /* telescope_compass_2048.jpg in Resources */,
 			);
@@ -300,10 +336,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-sdk-examples/Pods-sdk-examples-frameworks.sh",
 				"${PODS_ROOT}/IndoorAtlas/indooratlas-ios-sdk/IndoorAtlas.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IndoorAtlas.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -319,9 +357,13 @@
 			files = (
 				C30C65521BD8B23700EE8340 /* SDKDemoMasterViewController.m in Sources */,
 				C30C65511BD8B23700EE8340 /* SDKDemoAppDelegate.m in Sources */,
+				47E274B72727EF510084D797 /* ThirdPartyARViewController.m in Sources */,
+				47E274B42727EF420084D797 /* ARViewController.m in Sources */,
+				47E274BC2727F6870084D797 /* PaddingLabel.m in Sources */,
 				C3552B7D1E7BD8690060FB90 /* OrientationViewController.m in Sources */,
 				C3552B7E1E7BD8690060FB90 /* PanoramaView.m in Sources */,
 				C30C65621BD8B26900EE8340 /* ImageViewController.m in Sources */,
+				47E274BF2727F9F90084D797 /* ARUtils.m in Sources */,
 				C39CEB351E855F5500BEEDC3 /* BackgroundViewController.m in Sources */,
 				85343E56216DD3DC00B89AFC /* AppleMapsOverlayViewController.m in Sources */,
 				C30C65501BD8B23700EE8340 /* main.m in Sources */,
